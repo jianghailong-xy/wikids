@@ -48,19 +48,43 @@ types/next-auth.d.ts          Augments Session with user.id
 
 ## Getting started
 
+Prerequisites: Node.js 20+ and Docker (with the Compose plugin).
+
 ```bash
-# 1. Install
+# 1. Install dependencies
 npm install
 
 # 2. Configure environment
 cp .env.example .env.local
-# edit .env.local: DATABASE_URL, AUTH_SECRET (run `openssl rand -base64 32`)
+# .env.local already points at the docker-compose Postgres.
+# Set AUTH_SECRET: openssl rand -base64 32
 
-# 3. Initialize the database (applies the Drizzle schema to Postgres)
-npm run db:push
+# 3. Start Postgres in the background (Docker)
+npm run db:up
+# Equivalent to: docker compose up -d
 
-# 4. Run the dev server
+# 4. Apply the schema to the database
+npm run db:migrate     # uses the versioned SQL in drizzle/
+# or, for fast iteration during early dev:
+# npm run db:push
+
+# 5. Run the dev server
 npm run dev
+```
+
+Open http://localhost:3000.
+
+To stop the database container without losing data:
+
+```bash
+npm run db:down
+```
+
+Data persists in the named Docker volume `wikids_postgres_data`. To wipe it
+completely (e.g. to start over with a fresh DB):
+
+```bash
+docker compose down -v
 ```
 
 ## Adding a new lesson
@@ -98,12 +122,18 @@ button.
 
 ## Database commands
 
-| Command               | What it does                                         |
-| --------------------- | ---------------------------------------------------- |
-| `npm run db:generate` | Generate SQL migration files from `lib/db/schema.ts` |
-| `npm run db:migrate`  | Apply pending migrations                             |
-| `npm run db:push`     | Push schema directly (skip migrations, dev-friendly) |
-| `npm run db:studio`   | Browse the DB in Drizzle Studio                      |
+| Command               | What it does                                                       |
+| --------------------- | ------------------------------------------------------------------ |
+| `npm run db:up`       | Start the Postgres container (`docker compose up -d`)              |
+| `npm run db:down`     | Stop the Postgres container (data persists in the named volume)    |
+| `npm run db:logs`     | Tail Postgres container logs                                       |
+| `npm run db:generate` | Generate a new SQL migration file from `lib/db/schema.ts`          |
+| `npm run db:migrate`  | Apply pending migrations from `drizzle/`                           |
+| `npm run db:push`     | Push schema directly without writing a migration (dev-only)        |
+| `npm run db:studio`   | Open Drizzle Studio at https://local.drizzle.studio                |
+
+After editing `lib/db/schema.ts`, run `npm run db:generate` to create a new
+migration in `drizzle/`, commit it, then `npm run db:migrate` to apply.
 
 ## Architecture notes
 
