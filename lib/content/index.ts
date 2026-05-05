@@ -1,9 +1,10 @@
-import fs from "node:fs/promises";
-import path from "node:path";
 import type { Lesson, Textbook } from "./types";
 import { textbooks as textbookRegistry } from "@/content/textbooks";
 
-const CONTENT_ROOT = path.join(process.cwd(), "content", "textbooks");
+// Lessons live as `app/textbooks/<book>/<lesson>/page.mdx` so MDX is
+// compiled at build time. This registry mirrors that structure with
+// metadata (title, ordering, descriptions) used by overview pages and
+// the lesson chrome (prev/next, breadcrumb).
 
 export function getAllTextbooks(): Textbook[] {
   return textbookRegistry;
@@ -38,16 +39,4 @@ export function getAdjacentLessons(
         ? textbook.lessons[index + 1]
         : undefined,
   };
-}
-
-export async function readLessonSource(
-  textbookSlug: string,
-  lessonSlug: string,
-): Promise<string | undefined> {
-  const filePath = path.join(CONTENT_ROOT, textbookSlug, `${lessonSlug}.mdx`);
-  try {
-    return await fs.readFile(filePath, "utf8");
-  } catch {
-    return undefined;
-  }
 }

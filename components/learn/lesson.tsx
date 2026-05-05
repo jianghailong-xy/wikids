@@ -1,36 +1,25 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { buildMdxComponents } from "@/components/mdx/components";
-import { LessonProgressBeacon } from "@/components/learn/lesson-progress-beacon";
-import {
-  getAdjacentLessons,
-  getAllTextbooks,
-  getLesson,
-  readLessonSource,
-} from "@/lib/content";
+import { LessonProgressBeacon } from "./lesson-progress-beacon";
+import { getAdjacentLessons, getLesson } from "@/lib/content";
 
-export function generateStaticParams() {
-  return getAllTextbooks().flatMap((t) =>
-    t.lessons.map((l) => ({ textbook: t.slug, lesson: l.slug })),
-  );
-}
-
-export default async function LessonPage({
-  params,
+// Wraps a lesson MDX file with the standard chrome (breadcrumb, title,
+// prose container, prev/next nav, progress beacon). Authors put the
+// textbook + lesson slugs at the top of each .mdx so this component can
+// look up neighbors from the registry.
+export function Lesson({
+  textbook: textbookSlug,
+  slug: lessonSlug,
+  children,
 }: {
-  params: Promise<{ textbook: string; lesson: string }>;
+  textbook: string;
+  slug: string;
+  children: React.ReactNode;
 }) {
-  const { textbook: textbookSlug, lesson: lessonSlug } = await params;
   const located = getLesson(textbookSlug, lessonSlug);
   if (!located) notFound();
   const { textbook, lesson } = located;
-
-  const source = await readLessonSource(textbookSlug, lessonSlug);
-  if (!source) notFound();
-
   const { prev, next } = getAdjacentLessons(textbookSlug, lessonSlug);
-  const components = buildMdxComponents({ textbookSlug, lessonSlug });
 
   return (
     <article>
@@ -41,9 +30,7 @@ export default async function LessonPage({
       </p>
       <h1 className="mt-1 text-3xl font-bold text-slate-900">{lesson.title}</h1>
 
-      <div className="prose prose-slate mt-8 max-w-none">
-        <MDXRemote source={source} components={components} />
-      </div>
+      <div className="prose prose-slate mt-8 max-w-none">{children}</div>
 
       <LessonProgressBeacon
         textbookSlug={textbookSlug}
