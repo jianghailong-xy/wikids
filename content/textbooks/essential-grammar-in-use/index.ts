@@ -29,6 +29,13 @@ const textbook: Textbook = {
         "Say what's happening right now with am/is/are + -ing — including the spelling rules and how to say no.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "06-present-simple-negative",
+      title: "I don't ... (present simple negative)",
+      description:
+        "Say what you don't do with don't / doesn't + verb — and dodge the trap of leaving an -s on the verb.",
+      estimatedMinutes: 20,
+    },
   ],
 };
 
