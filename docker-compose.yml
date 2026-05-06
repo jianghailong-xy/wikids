@@ -31,8 +31,8 @@ services:
       # Override whatever might come from .env so the container always talks
       # to the `db` service over the compose network.
       DATABASE_URL: postgres://postgres:postgres@db:5432/wikids
-      AUTH_SECRET: ${AUTH_SECRET:?AUTH_SECRET must be set in .env (run: openssl rand -base64 32)}
-      AUTH_URL: ${AUTH_URL:-http://localhost:3000}
+      AUTH_SECRET: "${AUTH_SECRET:?AUTH_SECRET must be set in .env (run: openssl rand -base64 32)}"
+      AUTH_URL: "${AUTH_URL:-http://localhost:3000}"
       # Required when Auth.js runs behind a reverse proxy or in a container
       # whose internal hostname differs from AUTH_URL.
       AUTH_TRUST_HOST: "true"
