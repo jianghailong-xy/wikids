@@ -29,6 +29,13 @@ const textbook: Textbook = {
         "Say what's happening right now with am/is/are + -ing — including the spelling rules and how to say no.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "07-do-does-questions",
+      title: "Do you ... ? (present simple questions)",
+      description:
+        "Ask about other people's habits with do and does — word order, wh-questions, always/usually, and short answers.",
+      estimatedMinutes: 20,
+    },
   ],
 };
 
