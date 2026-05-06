@@ -126,12 +126,26 @@ docker compose down -v
 
 3. The route `/textbooks/<textbook-slug>/<lesson-slug>` is now live.
 
-`Lesson`, `Callout`, and `Quiz` are globally available in any `.mdx` file
-under `app/` — no imports needed (declared in `mdx-components.tsx`).
+### Built-in MDX components
 
-`Quiz` posts attempts to `/api/quiz` for signed-in users. The lesson page
-also pings `/api/progress` on load and exposes a "Mark as complete" button
-via the embedded `<LessonProgressBeacon>` (rendered inside `<Lesson>`).
+All of these are globally available in any `.mdx` under `app/` — no imports
+needed (declared in `mdx-components.tsx`).
+
+| Component         | Use it for                                                                     |
+| ----------------- | ------------------------------------------------------------------------------ |
+| `<Lesson>`        | Required wrapper. Adds title, breadcrumb, prev/next nav, progress beacon.      |
+| `<Callout>`       | Highlighted tip / info / warning box.                                          |
+| `<Quiz>`          | Multiple-choice quiz. Saves attempts to `/api/quiz`.                           |
+| `<Match>`         | Drag-and-drop matching pairs (mouse + touch). Saves to `/api/quiz`.            |
+| `<Flashcard>`     | Single flip card (front / back).                                               |
+| `<FlashcardDeck>` | Multiple flashcards with prev/next navigation.                                 |
+| `<SayIt>`         | Inline button that pronounces a word using the browser's speech synthesis.     |
+| `<Audio>`         | HTML5 audio with a kid-friendly play/pause button.                             |
+| `<Gallery>`       | Image carousel with prev/next, captions, dot indicators, keyboard arrows.      |
+
+Quizzes and matching games post attempts to `/api/quiz` for signed-in users.
+The lesson page also pings `/api/progress` on load and exposes a
+"Mark as complete" button via the embedded `<LessonProgressBeacon>`.
 
 ## Adding a new textbook
 

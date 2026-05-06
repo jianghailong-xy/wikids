@@ -1,0 +1,90 @@
+<Lesson textbook="english-grade-1" slug="02-animal-words">
+
+Let's meet some animals! Tap **<SayIt text="Cat">Say it</SayIt>** next to a word and your computer will read it out loud.
+
+## Listen and repeat
+
+Try saying each word after you hear it.
+
+- <SayIt text="Cat" /> &nbsp; <SayIt text="Dog" /> &nbsp; <SayIt text="Bird" /> &nbsp; <SayIt text="Fish" />
+
+## Animals around us
+
+<Gallery
+  images={[
+    { src: "/img/animals/cat.svg", alt: "A friendly cat", caption: "Cats say meow." },
+    { src: "/img/animals/dog.svg", alt: "A happy dog", caption: "Dogs say woof." },
+    { src: "/img/animals/bird.svg", alt: "A small bird", caption: "Birds tweet and sing." },
+    { src: "/img/animals/fish.svg", alt: "A colorful fish", caption: "Fish swim in water." },
+  ]}
+/>
+
+## Word cards
+
+Tap a card to flip it over.
+
+<FlashcardDeck
+  title="Animal flashcards"
+  cards={[
+    {
+      front: { emoji: "🐱", text: "Cat" },
+      back: { text: "C-A-T", caption: "A small furry pet that purrs." },
+    },
+    {
+      front: { emoji: "🐶", text: "Dog" },
+      back: { text: "D-O-G", caption: "A friendly pet that wags its tail." },
+    },
+    {
+      front: { emoji: "🐦", text: "Bird" },
+      back: { text: "B-I-R-D", caption: "An animal with wings that can fly." },
+    },
+    {
+      front: { emoji: "🐠", text: "Fish" },
+      back: { text: "F-I-S-H", caption: "An animal that lives in water." },
+    },
+  ]}
+/>
+
+<Callout type="tip" title="Try this">
+  Read each word out loud after flipping the card. Then close your eyes and say it from memory.
+</Callout>
+
+## Match the animals
+
+Drag each picture to the word it belongs to.
+
+<Match
+  textbookSlug="english-grade-1"
+  lessonSlug="02-animal-words"
+  id="animal-match"
+  pairs={[
+    { id: "cat", left: "Cat", right: "🐱" },
+    { id: "dog", left: "Dog", right: "🐶" },
+    { id: "bird", left: "Bird", right: "🐦" },
+    { id: "fish", left: "Fish", right: "🐠" },
+  ]}
+/>
+
+## Quick check
+
+<Quiz
+  textbookSlug="english-grade-1"
+  lessonSlug="02-animal-words"
+  id="animal-quiz"
+  questions={[
+    {
+      id: "q1",
+      prompt: "Which animal can fly?",
+      choices: ["Cat", "Bird", "Fish", "Dog"],
+      answer: "Bird",
+    },
+    {
+      id: "q2",
+      prompt: "Which animal lives in water?",
+      choices: ["Dog", "Cat", "Fish", "Bird"],
+      answer: "Fish",
+    },
+  ]}
+/>
+
+</Lesson>

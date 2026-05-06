@@ -14,6 +14,12 @@ const textbook: Textbook = {
       description: "Meet the 26 letters of English.",
       estimatedMinutes: 10,
     },
+    {
+      slug: "02-animal-words",
+      title: "Animal Words",
+      description: "Learn animal names with flashcards, sound, and matching.",
+      estimatedMinutes: 15,
+    },
   ],
 };
 
