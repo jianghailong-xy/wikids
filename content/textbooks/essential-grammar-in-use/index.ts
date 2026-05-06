@@ -15,6 +15,13 @@ const textbook: Textbook = {
         "Your first English grammar: how to use am, is, and are (and their short forms).",
       estimatedMinutes: 20,
     },
+    {
+      slug: "02-am-is-are-questions",
+      title: "am / is / are (questions)",
+      description:
+        "Ask and answer questions with be: word order, question words, and short answers.",
+      estimatedMinutes: 20,
+    },
   ],
 };
 
