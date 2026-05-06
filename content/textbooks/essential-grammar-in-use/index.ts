@@ -29,6 +29,13 @@ const textbook: Textbook = {
         "Say what's happening right now with am/is/are + -ing — including the spelling rules and how to say no.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "08-now-or-in-general",
+      title: "I am doing and I do (now or in general)",
+      description:
+        "Pick the right tense: present continuous for right now, present simple for in general — plus the verbs that never take -ing.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
