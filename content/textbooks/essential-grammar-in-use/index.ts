@@ -30,6 +30,48 @@ const textbook: Textbook = {
       estimatedMinutes: 20,
     },
     {
+      slug: "04-present-continuous-questions",
+      title: "are you doing? (present continuous questions)",
+      description:
+        "Flip am/is/are to the front and ask what someone is doing right now — plus wh-questions and short answers.",
+      estimatedMinutes: 20,
+    },
+    {
+      slug: "05-present-simple",
+      title: "I do / work / like (present simple)",
+      description:
+        "Talk about habits, routines, and things that are always true — the he/she/it -s rule, spelling tricks, and how often things happen.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "06-present-simple-negative",
+      title: "I don't ... (present simple negative)",
+      description:
+        "Say what you don't do with don't / doesn't + verb — and dodge the trap of leaving an -s on the verb.",
+      estimatedMinutes: 20,
+    },
+    {
+      slug: "07-do-does-questions",
+      title: "Do you ... ? (present simple questions)",
+      description:
+        "Ask about other people's habits with do and does — word order, wh-questions, always/usually, and short answers.",
+      estimatedMinutes: 20,
+    },
+    {
+      slug: "08-now-or-in-general",
+      title: "I am doing and I do (now or in general)",
+      description:
+        "Pick the right tense: present continuous for right now, present simple for in general — plus the verbs that never take -ing.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "09-have-and-have-got",
+      title: "I have ... and I've got ...",
+      description:
+        "Two ways to talk about possession: have / has and have got / has got — with negatives, questions, and short answers.",
+      estimatedMinutes: 25,
+    },
+    {
       slug: "10-was-were",
       title: "was / were",
       description:
