@@ -29,6 +29,13 @@ const textbook: Textbook = {
         "Say what's happening right now with am/is/are + -ing — including the spelling rules and how to say no.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "05-present-simple",
+      title: "I do / work / like (present simple)",
+      description:
+        "Talk about habits, routines, and things that are always true — the he/she/it -s rule, spelling tricks, and how often things happen.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
