@@ -8,6 +8,7 @@ import { Gallery } from "@/components/mdx/gallery";
 import { Match } from "@/components/mdx/match";
 import { PronounVerbMap } from "@/components/mdx/pronoun-verb-map";
 import { Quiz } from "@/components/mdx/quiz";
+import { WordFlip } from "@/components/mdx/word-flip";
 import { Lesson } from "@/components/learn/lesson";
 
 // Components declared here are available in every .mdx file under app/
@@ -26,6 +27,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     PronounVerbMap,
     Quiz,
     SayIt,
+    WordFlip,
     ...components,
   };
 }
