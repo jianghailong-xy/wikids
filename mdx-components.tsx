@@ -1,4 +1,5 @@
 import type { MDXComponents } from "mdx/types";
+import { Animated, Bounce, Stagger, Wiggle } from "@/components/mdx/animated";
 import { Audio, SayIt } from "@/components/mdx/audio";
 import { Callout } from "@/components/mdx/callout";
 import { Flashcard, FlashcardDeck } from "@/components/mdx/flashcard";
@@ -11,7 +12,9 @@ import { Lesson } from "@/components/learn/lesson";
 // without an explicit import. Used by @next/mdx via Next.js convention.
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
+    Animated,
     Audio,
+    Bounce,
     Callout,
     Flashcard,
     FlashcardDeck,
@@ -20,6 +23,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     Match,
     Quiz,
     SayIt,
+    Stagger,
+    Wiggle,
     ...components,
   };
 }
