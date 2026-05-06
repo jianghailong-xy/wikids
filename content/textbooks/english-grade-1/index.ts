@@ -20,12 +20,6 @@ const textbook: Textbook = {
       description: "Learn animal names with flashcards, sound, and matching.",
       estimatedMinutes: 15,
     },
-    {
-      slug: "03-am-is-are",
-      title: "am / is / are",
-      description: "Your first English grammar: how to use am, is, and are (and their short forms).",
-      estimatedMinutes: 20,
-    },
   ],
 };
 
