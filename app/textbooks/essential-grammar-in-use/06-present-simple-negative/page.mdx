@@ -1,0 +1,295 @@
+<Lesson textbook="essential-grammar-in-use" slug="06-present-simple-negative">
+
+In Lesson 5 you learned to talk about everyday habits — **I work**, **she likes**, **they go**. Now we flip the switch: how to say what you **don't** do.
+
+## Coffee with David
+
+Lisa puts the kettle on. David drops by. Listen in on their morning chat — tap the speaker on each bubble.
+
+<ChatDialog
+  title="Lisa & David: who likes what?"
+  participants={[
+    { name: "Lisa", emoji: "👩🏻", side: "left", tone: "rose" },
+    { name: "David", emoji: "👨🏻", side: "right", tone: "sky" },
+  ]}
+  turns={[
+    { speaker: "Lisa", text: "Coffee, David?" },
+    { speaker: "David", text: "No, thanks. I don't drink coffee." },
+    { speaker: "Lisa", text: "Really? I drink coffee every morning." },
+    { speaker: "David", text: "I prefer tea. My sister Emma doesn't drink coffee either." },
+    { speaker: "David", text: "How's your new job, by the way?" },
+    { speaker: "Lisa", text: "I love it — but honestly, I don't like the early mornings." },
+    { speaker: "David", text: "Same. My flatmate Sam doesn't get up before noon." },
+    { speaker: "Lisa", text: "Lucky Sam! And look — the sun is out. It doesn't rain very often here." },
+  ]}
+/>
+
+<Callout type="tip" title="Spot the pattern">
+  Every "no" sentence used **don't** or **doesn't** plus a verb. Count them — and notice **who** uses which one.
+</Callout>
+
+## The pattern: don't / doesn't + verb
+
+In Lesson 1, we said "no" by adding **not** after **am / is / are**. But ordinary verbs (**work**, **like**, **drink**, **go**...) can't carry **not** on their own. They get a tiny helper: **do** or **does**.
+
+> **subject** + **don't / doesn't** + **verb**
+
+The helper depends on the subject — exactly the same split you already know from positives:
+
+| Subject | positive | negative |
+|---|---|---|
+| **I / we / you / they** | work, like, do, have | **don't** work, like, do, have |
+| **He / she / it** | works, likes, does, has | **doesn't** work, like, do, have |
+
+Tap to hear all three:
+
+<SayIt text="I don't drink coffee." /> &nbsp; <SayIt text="She doesn't like her job." /> &nbsp; <SayIt text="They don't watch TV." />
+
+<Callout type="info" title="Why two words for 'no'?">
+  English needs a helper to attach **not** to a normal verb. **Do** is that helper for **I / we / you / they**, and **does** is the version that already carries the **-s** for **he / she / it**.
+</Callout>
+
+## How "do not" becomes "don't"
+
+Same shrinking trick from Lesson 1. Drop a letter, swap an apostrophe in.
+
+<Contraction
+  caption="do not → don't"
+  segments={[
+    { keep: "do" },
+    { drop: " " },
+    { keep: "n" },
+    { swap: "o", to: "'" },
+    { keep: "t" },
+  ]}
+/>
+
+<Contraction
+  caption="does not → doesn't"
+  segments={[
+    { keep: "does" },
+    { drop: " " },
+    { keep: "n" },
+    { swap: "o", to: "'" },
+    { keep: "t" },
+  ]}
+/>
+
+<Callout type="info" title="Two ways are okay">
+  **I do not drink coffee** and **I don't drink coffee** mean exactly the same thing. In speaking and most writing, the short form wins.
+</Callout>
+
+## The big trap: doesn't kills the -s
+
+Here's the mistake every beginner makes — and the one rule that will save you. Once **doesn't** does the job of "no" + "third person", the verb behind it goes back to its **plain form** (no **-s**).
+
+> **doesn't** + **plain verb** &nbsp;(not verb-**s**)
+
+- ✅ Sarah **doesn't speak** Italian. &nbsp; ❌ Sarah doesn't speak**s** Italian.
+- ✅ My car **doesn't use** much petrol. &nbsp; ❌ My car don't use much petrol.
+- ✅ Paula **doesn't have** breakfast. &nbsp; ❌ Paula doesn't **has** breakfast.
+- ✅ David **doesn't do** his job well. &nbsp; ❌ David doesn't **his job** well.
+
+<Callout type="warning" title="Pass the baton">
+  The **-s** has already moved into **does**. The verb behind it is just the bare form. Only **one** word at a time gets to carry the -s — like a relay baton.
+</Callout>
+
+Listen and compare:
+
+<SayIt text="Sarah speaks Spanish, but she doesn't speak Italian." /> &nbsp; <SayIt text="Mark eats fish, but he doesn't eat meat." />
+
+## Match: positive → negative
+
+Drag each negative sentence onto its positive twin. Watch how **drinks** turns into **drink**, **has** turns into **have**.
+
+<Match
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="06-present-simple-negative"
+  id="positive-to-negative"
+  title="Match each positive sentence with its negative twin"
+  pairs={[
+    { id: "drink", left: "I drink coffee.", right: "I don't drink coffee." },
+    { id: "drinks", left: "Sue drinks tea.", right: "Sue doesn't drink tea." },
+    { id: "work", left: "We work very hard.", right: "We don't work very hard." },
+    { id: "has", left: "He has a car.", right: "He doesn't have a car." },
+    { id: "know", left: "They know my number.", right: "They don't know my number." },
+    { id: "rains", left: "It rains a lot.", right: "It doesn't rain a lot." },
+  ]}
+/>
+
+## Spot the broken ones
+
+Some of these are clean negatives; others break a rule we've just learned. Tap **Good** or **Broken** for each.
+
+<SpotTheBroken
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="06-present-simple-negative"
+  id="spot-the-broken"
+  items={[
+    { id: "s1", text: "I don't like football.", isCorrect: true },
+    { id: "s2", text: "Fred don't like me.", isCorrect: false, fix: "Fred doesn't like me." },
+    { id: "s3", text: "Sarah doesn't speaks Italian.", isCorrect: false, fix: "Sarah doesn't speak Italian." },
+    { id: "s4", text: "My car doesn't use much petrol.", isCorrect: true },
+    { id: "s5", text: "Paula doesn't has breakfast.", isCorrect: false, fix: "Paula doesn't have breakfast." },
+    { id: "s6", text: "Sam and Chris don't know many people.", isCorrect: true },
+    { id: "s7", text: "It doesn't rains very often.", isCorrect: false, fix: "It doesn't rain very often." },
+    { id: "s8", text: "We don't watch TV very often.", isCorrect: true },
+  ]}
+/>
+
+## Fill in: don't or doesn't?
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="06-present-simple-negative"
+  id="dont-or-doesnt"
+  questions={[
+    {
+      id: "q1",
+      prompt: "Paul has a car, but he ___ it very often.",
+      choices: ["don't use", "doesn't use", "doesn't uses", "not use"],
+      answer: "doesn't use",
+    },
+    {
+      id: "q2",
+      prompt: "Paul and his friends like films, but they ___ to the cinema very often.",
+      choices: ["doesn't go", "don't goes", "don't go", "not go"],
+      answer: "don't go",
+    },
+    {
+      id: "q3",
+      prompt: "Amanda is married, but she ___ a ring.",
+      choices: ["don't wear", "doesn't wears", "doesn't wear", "isn't wear"],
+      answer: "doesn't wear",
+    },
+    {
+      id: "q4",
+      prompt: "I ___ much about politics. I'm not interested in it.",
+      choices: ["don't know", "doesn't know", "am not know", "not know"],
+      answer: "don't know",
+    },
+    {
+      id: "q5",
+      prompt: "The Regent Hotel isn't expensive. It ___ much to stay there.",
+      choices: ["don't cost", "doesn't costs", "doesn't cost", "isn't cost"],
+      answer: "doesn't cost",
+    },
+    {
+      id: "q6",
+      prompt: "Ed lives near us, but we ___ him very often.",
+      choices: ["doesn't see", "don't see", "don't sees", "aren't see"],
+      answer: "don't see",
+    },
+  ]}
+/>
+
+## Positive or negative?
+
+Read each sentence carefully — the clue is in the rest of the sentence.
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="06-present-simple-negative"
+  id="positive-or-negative"
+  questions={[
+    {
+      id: "q1",
+      prompt: "Margaret ___ four languages — English, French, German and Spanish.",
+      choices: ["speak", "speaks", "doesn't speak", "don't speak"],
+      answer: "speaks",
+    },
+    {
+      id: "q2",
+      prompt: "Sue is a very quiet person. She ___ very much.",
+      choices: ["talks", "doesn't talk", "doesn't talks", "don't talk"],
+      answer: "doesn't talk",
+    },
+    {
+      id: "q3",
+      prompt: "Andy ___ a lot of tea. It's his favourite drink.",
+      choices: ["drink", "drinks", "doesn't drink", "don't drink"],
+      answer: "drinks",
+    },
+    {
+      id: "q4",
+      prompt: "It's not true! I ___ it!",
+      choices: ["believe", "believes", "don't believe", "doesn't believe"],
+      answer: "don't believe",
+    },
+    {
+      id: "q5",
+      prompt: "That's a beautiful picture. I ___ it very much.",
+      choices: ["like", "likes", "don't like", "doesn't like"],
+      answer: "like",
+    },
+    {
+      id: "q6",
+      prompt: "Mark is a vegetarian. He ___ meat.",
+      choices: ["eat", "eats", "doesn't eat", "don't eat"],
+      answer: "doesn't eat",
+    },
+  ]}
+/>
+
+## Build the negative
+
+Tap the words in the right order. Tap a word in the answer box to send it back.
+
+<QuestionBuilder
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="06-present-simple-negative"
+  id="build-the-negative"
+  title="Turn each idea into a negative sentence"
+  prompts={[
+    {
+      id: "n1",
+      prompt: "Anna doesn't play the piano very well.",
+      correctOrder: ["Anna", "doesn't", "play", "the", "piano", "very", "well", "."],
+    },
+    {
+      id: "n2",
+      prompt: "They don't know my phone number.",
+      correctOrder: ["They", "don't", "know", "my", "phone", "number", "."],
+    },
+    {
+      id: "n3",
+      prompt: "He doesn't have a bath every day.",
+      correctOrder: ["He", "doesn't", "have", "a", "bath", "every", "day", "."],
+    },
+    {
+      id: "n4",
+      prompt: "You don't do the same thing every day.",
+      correctOrder: ["You", "don't", "do", "the", "same", "thing", "every", "day", "."],
+    },
+    {
+      id: "n5",
+      prompt: "Sarah doesn't speak Italian.",
+      correctOrder: ["Sarah", "doesn't", "speak", "Italian", "."],
+    },
+    {
+      id: "n6",
+      prompt: "We don't watch TV very often.",
+      correctOrder: ["We", "don't", "watch", "TV", "very", "often", "."],
+    },
+  ]}
+/>
+
+## Now you try: tell us what you don't do
+
+For each prompt, finish the sentence honestly about yourself. Use **I never ...**, **I often ...**, or **I don't ... very often**.
+
+1. (watch TV) → *I don't watch TV very often.* &nbsp;**or**&nbsp; *I often watch TV.* &nbsp;**or**&nbsp; *I never watch TV.*
+2. (go to the theatre) → ?
+3. (ride a bike) → ?
+4. (eat in restaurants) → ?
+5. (travel by train) → ?
+6. (drink coffee) → ?
+7. (read the news) → ?
+
+<Callout type="tip" title="Star challenge">
+  Pick someone in your family. Say **three things they don't do** and **one thing they do**. For example: <br />
+  *"My dad doesn't drink coffee. He doesn't watch sport. He doesn't cook. But he reads the news every morning."* <br />
+  Real conversation is a mix of yes and no — practise switching between **does** and **doesn't** out loud.
+</Callout>
+
+</Lesson>
