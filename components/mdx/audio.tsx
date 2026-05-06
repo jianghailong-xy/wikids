@@ -11,12 +11,14 @@ export function SayIt({
   text,
   lang = "en-US",
   rate = 0.9,
+  iconOnly = false,
   className,
   children,
 }: {
   text: string;
   lang?: string;
   rate?: number;
+  iconOnly?: boolean;
   className?: string;
   children?: React.ReactNode;
 }) {
@@ -46,14 +48,17 @@ export function SayIt({
       disabled={!supported}
       aria-label={`Pronounce ${text}`}
       className={cn(
-        "not-prose inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 align-middle text-sm font-medium text-brand-700 transition hover:border-brand-400 hover:bg-brand-100 disabled:opacity-50",
+        "not-prose inline-flex items-center align-middle font-medium text-brand-700 transition border border-brand-200 bg-brand-50 hover:border-brand-400 hover:bg-brand-100 disabled:opacity-50",
+        iconOnly
+          ? "ml-1.5 h-7 w-7 justify-center rounded-full"
+          : "gap-1.5 rounded-full px-3 py-1 text-sm",
         className,
       )}
     >
       <Volume2
         className={cn("h-4 w-4", speaking && "animate-pulse text-brand-600")}
       />
-      <span>{children ?? text}</span>
+      {!iconOnly && <span>{children ?? text}</span>}
     </button>
   );
 }
