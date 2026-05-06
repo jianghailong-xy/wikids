@@ -29,6 +29,13 @@ const textbook: Textbook = {
         "Say what's happening right now with am/is/are + -ing — including the spelling rules and how to say no.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "04-present-continuous-questions",
+      title: "are you doing? (present continuous questions)",
+      description:
+        "Flip am/is/are to the front and ask what someone is doing right now — plus wh-questions and short answers.",
+      estimatedMinutes: 20,
+    },
   ],
 };
 
