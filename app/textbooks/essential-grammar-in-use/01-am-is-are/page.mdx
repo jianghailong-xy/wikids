@@ -4,19 +4,27 @@ In English we use three little words to say what something **is** or who someone
 
 ## Meet Lisa
 
-Lisa says hello! Read what she tells you about herself:
+Lisa is texting you about herself. Tap the speaker on each bubble to hear it:
 
-- "My name **is** Lisa." <SayIt text="My name is Lisa." iconOnly />
-- "I **am** 22." <SayIt text="I am 22." iconOnly />
-- "I **am** American. I **am** from Chicago." <SayIt text="I am American. I am from Chicago." iconOnly />
-- "I **am** a student." <SayIt text="I am a student." iconOnly />
-- "My favourite colour **is** blue." <SayIt text="My favourite colour is blue." iconOnly />
-- "My favourite sports **are** football and swimming." <SayIt text="My favourite sports are football and swimming." iconOnly />
-- "I **am** interested in art." <SayIt text="I am interested in art." iconOnly />
-- "I **am not** interested in politics." <SayIt text="I am not interested in politics." iconOnly />
+<ChatDialog
+  title="Lisa introduces herself"
+  participants={[
+    { name: "Lisa", emoji: "👩🏻", side: "left", tone: "rose" },
+  ]}
+  turns={[
+    { speaker: "Lisa", text: "My name is Lisa." },
+    { speaker: "Lisa", text: "I am 22.", say: "I am twenty-two." },
+    { speaker: "Lisa", text: "I am American. I am from Chicago." },
+    { speaker: "Lisa", text: "I am a student." },
+    { speaker: "Lisa", text: "My favourite colour is blue." },
+    { speaker: "Lisa", text: "My favourite sports are football and swimming." },
+    { speaker: "Lisa", text: "I am interested in art." },
+    { speaker: "Lisa", text: "I am not interested in politics." },
+  ]}
+/>
 
 <Callout type="tip" title="Did you spot them?">
-  Find every **am**, **is**, and **are** in Lisa's sentences. How many did you count?
+  Find every **am**, **is**, and **are** in Lisa's bubbles. How many did you count?
 </Callout>
 
 ## The big rule
@@ -77,18 +85,88 @@ The same trick works for **is** and **are**:
   Step 1: take away the **space**. &nbsp; Step 2: take away **one letter** of am/is/are. &nbsp; Step 3: put an **apostrophe** where it disappeared.
 </Callout>
 
-Now try the whole set with flashcards — tap each card to flip:
+Now watch all seven happen together — same trick, every time:
 
-<FlashcardDeck
+<ContractionGrid
   title="All seven short forms"
-  cards={[
-    { front: { text: "I am" }, back: { text: "I'm", caption: "I'm hungry." } },
-    { front: { text: "He is" }, back: { text: "He's", caption: "He's at home." } },
-    { front: { text: "She is" }, back: { text: "She's", caption: "She's my sister." } },
-    { front: { text: "It is" }, back: { text: "It's", caption: "It's sunny today." } },
-    { front: { text: "We are" }, back: { text: "We're", caption: "We're best friends." } },
-    { front: { text: "You are" }, back: { text: "You're", caption: "You're very kind." } },
-    { front: { text: "They are" }, back: { text: "They're", caption: "They're playing." } },
+  items={[
+    {
+      long: "I am",
+      short: "I'm",
+      example: "I'm hungry.",
+      segments: [
+        { keep: "I" },
+        { drop: " " },
+        { swap: "a", to: "'" },
+        { keep: "m" },
+      ],
+    },
+    {
+      long: "he is",
+      short: "he's",
+      example: "He's at home.",
+      segments: [
+        { keep: "he" },
+        { drop: " " },
+        { swap: "i", to: "'" },
+        { keep: "s" },
+      ],
+    },
+    {
+      long: "she is",
+      short: "she's",
+      example: "She's my sister.",
+      segments: [
+        { keep: "she" },
+        { drop: " " },
+        { swap: "i", to: "'" },
+        { keep: "s" },
+      ],
+    },
+    {
+      long: "it is",
+      short: "it's",
+      example: "It's sunny today.",
+      segments: [
+        { keep: "it" },
+        { drop: " " },
+        { swap: "i", to: "'" },
+        { keep: "s" },
+      ],
+    },
+    {
+      long: "we are",
+      short: "we're",
+      example: "We're best friends.",
+      segments: [
+        { keep: "we" },
+        { drop: " " },
+        { swap: "a", to: "'" },
+        { keep: "re" },
+      ],
+    },
+    {
+      long: "you are",
+      short: "you're",
+      example: "You're very kind.",
+      segments: [
+        { keep: "you" },
+        { drop: " " },
+        { swap: "a", to: "'" },
+        { keep: "re" },
+      ],
+    },
+    {
+      long: "they are",
+      short: "they're",
+      example: "They're playing.",
+      segments: [
+        { keep: "they" },
+        { drop: " " },
+        { swap: "a", to: "'" },
+        { keep: "re" },
+      ],
+    },
   ]}
 />
 
@@ -130,39 +208,48 @@ The same shrinking trick works on **is not** and **are not** — watch:
 
 ## Three special little words
 
-These three short forms turn up everywhere:
+These three short forms turn up everywhere — and they all shrink the exact same way:
 
-<Contraction
-  caption="that is → that's"
-  segments={[
-    { keep: "that" },
-    { drop: " " },
-    { swap: "i", to: "'" },
-    { keep: "s" },
+<ContractionGrid
+  title="that's · there's · here's"
+  items={[
+    {
+      long: "that is",
+      short: "that's",
+      example: "That's very kind of you.",
+      segments: [
+        { keep: "that" },
+        { drop: " " },
+        { swap: "i", to: "'" },
+        { keep: "s" },
+      ],
+    },
+    {
+      long: "there is",
+      short: "there's",
+      example: "There's Chris.",
+      segments: [
+        { keep: "there" },
+        { drop: " " },
+        { swap: "i", to: "'" },
+        { keep: "s" },
+      ],
+    },
+    {
+      long: "here is",
+      short: "here's",
+      example: "Here's your key.",
+      segments: [
+        { keep: "here" },
+        { drop: " " },
+        { swap: "i", to: "'" },
+        { keep: "s" },
+      ],
+    },
   ]}
 />
 
-<Contraction
-  caption="there is → there's"
-  segments={[
-    { keep: "there" },
-    { drop: " " },
-    { swap: "i", to: "'" },
-    { keep: "s" },
-  ]}
-/>
-
-<Contraction
-  caption="here is → here's"
-  segments={[
-    { keep: "here" },
-    { drop: " " },
-    { swap: "i", to: "'" },
-    { keep: "s" },
-  ]}
-/>
-
-Tap to hear them in real sentences:
+Tap to hear them out loud:
 
 <SayIt text="That's very kind of you." /> &nbsp; <SayIt text="There's Chris." /> &nbsp; <SayIt text="Here's your key." />
 
@@ -292,18 +379,14 @@ Drag each word on the right to the pronoun it goes with.
   ]}
 />
 
-## Now you try!
+## Now you try: be like Lisa
 
-Open your notebook and write **5 true sentences** about yourself, like Lisa did:
+Lisa told us about herself. Your turn — fill in the six fields, watch the card on the right write itself with **am** and **is**, then tap **Read aloud** to hear your own self-introduction.
 
-1. My name **is** ___ .
-2. I **am** ___ years old.
-3. I **am** from ___ .
-4. My favourite colour **is** ___ .
-5. I **am** interested in ___ .
+<CharacterCard />
 
 <Callout type="tip" title="Star challenge">
-  Write **one negative** sentence too — something you are **not**. For example: "I'm not scared of dogs."
+  Say **one negative** sentence about yourself out loud — something you are **not**. For example: "I'm not scared of dogs." or "I'm not interested in politics."
 </Callout>
 
 </Lesson>
