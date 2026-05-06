@@ -29,6 +29,13 @@ const textbook: Textbook = {
         "Say what's happening right now with am/is/are + -ing — including the spelling rules and how to say no.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "10-was-were",
+      title: "was / were",
+      description:
+        "Travel back in time: how am/is/are turn into was and were so you can talk about yesterday, last night, and last week.",
+      estimatedMinutes: 20,
+    },
   ],
 };
 
