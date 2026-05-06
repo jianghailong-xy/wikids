@@ -1,4 +1,5 @@
 import createMDX from "@next/mdx";
+import remarkGfm from "remark-gfm";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -13,9 +14,11 @@ const nextConfig = {
 const withMDX = createMDX({
   // Compile .mdx at build time using the same React as the rest of the app.
   // Authors can use any component declared in mdx-components.tsx without
-  // importing it inside each lesson file.
+  // importing it inside each lesson file. remark-gfm enables GitHub-flavored
+  // markdown features that authors expect — tables, strikethrough, autolinks,
+  // and task lists.
   options: {
-    remarkPlugins: [],
+    remarkPlugins: [remarkGfm],
     rehypePlugins: [],
   },
 });
