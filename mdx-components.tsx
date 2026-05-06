@@ -5,6 +5,7 @@ import { CharacterCard } from "@/components/mdx/character-card";
 import { ChatDialog } from "@/components/mdx/chat-dialog";
 import { Conjugation } from "@/components/mdx/conjugation";
 import { Contraction } from "@/components/mdx/contraction";
+import { ContractionGrid } from "@/components/mdx/contraction-grid";
 import { Flashcard, FlashcardDeck } from "@/components/mdx/flashcard";
 import { Gallery } from "@/components/mdx/gallery";
 import { Match } from "@/components/mdx/match";
@@ -26,6 +27,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ChatDialog,
     Conjugation,
     Contraction,
+    ContractionGrid,
     Flashcard,
     FlashcardDeck,
     Gallery,

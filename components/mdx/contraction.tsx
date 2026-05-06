@@ -15,6 +15,7 @@ export type Segment =
 
 // Stages: 0 idle full form, 1 highlight changes, 2 transform, 3 hold short form.
 const STAGE_MS = [1700, 1100, 900, 2200];
+export const CONTRACTION_STAGES = STAGE_MS.length;
 
 // Animated visualization of an English contraction. Walks the learner from
 // the long form ("I am") to the short form ("I'm") character by character:
@@ -75,7 +76,7 @@ export function Contraction({
   );
 }
 
-function SegmentChar({ segment, stage }: { segment: Segment; stage: number }) {
+export function SegmentChar({ segment, stage }: { segment: Segment; stage: number }) {
   if ("keep" in segment) {
     return (
       <motion.span layout style={{ whiteSpace: "pre", display: "inline-block" }}>

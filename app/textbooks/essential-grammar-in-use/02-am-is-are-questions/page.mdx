@@ -130,15 +130,55 @@ Just like **I am** becomes **I'm**, the wh-words love to squeeze together with *
   ]}
 />
 
-The same shrink works for **who is → who's** and **how is → how's**. Try them all on flashcards:
+The same shrink works for **who is → who's** and **how is → how's**. Watch all four happen at once:
 
-<FlashcardDeck
-  title="Wh-word short forms"
-  cards={[
-    { front: { text: "what is" }, back: { text: "what's", caption: "What's the time?" } },
-    { front: { text: "where is" }, back: { text: "where's", caption: "Where's Lucy?" } },
-    { front: { text: "who is" }, back: { text: "who's", caption: "Who's that man?" } },
-    { front: { text: "how is" }, back: { text: "how's", caption: "How's your father?" } },
+<ContractionGrid
+  title="Wh-word + is — all four shrinks"
+  items={[
+    {
+      long: "what is",
+      short: "what's",
+      example: "What's the time?",
+      segments: [
+        { keep: "what" },
+        { drop: " " },
+        { swap: "i", to: "'" },
+        { keep: "s" },
+      ],
+    },
+    {
+      long: "where is",
+      short: "where's",
+      example: "Where's Lucy?",
+      segments: [
+        { keep: "where" },
+        { drop: " " },
+        { swap: "i", to: "'" },
+        { keep: "s" },
+      ],
+    },
+    {
+      long: "who is",
+      short: "who's",
+      example: "Who's that man?",
+      segments: [
+        { keep: "who" },
+        { drop: " " },
+        { swap: "i", to: "'" },
+        { keep: "s" },
+      ],
+    },
+    {
+      long: "how is",
+      short: "how's",
+      example: "How's your father?",
+      segments: [
+        { keep: "how" },
+        { drop: " " },
+        { swap: "i", to: "'" },
+        { keep: "s" },
+      ],
+    },
   ]}
 />
 
