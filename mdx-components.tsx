@@ -1,6 +1,7 @@
 import type { MDXComponents } from "mdx/types";
 import { Audio, SayIt } from "@/components/mdx/audio";
 import { Callout } from "@/components/mdx/callout";
+import { CharacterCard } from "@/components/mdx/character-card";
 import { ChatDialog } from "@/components/mdx/chat-dialog";
 import { Conjugation } from "@/components/mdx/conjugation";
 import { Contraction } from "@/components/mdx/contraction";
@@ -21,6 +22,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     Audio,
     Callout,
+    CharacterCard,
     ChatDialog,
     Conjugation,
     Contraction,
