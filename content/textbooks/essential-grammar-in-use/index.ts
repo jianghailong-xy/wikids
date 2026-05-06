@@ -22,6 +22,13 @@ const textbook: Textbook = {
         "Ask and answer questions with be: word order, question words, and short answers.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "03-present-continuous",
+      title: "I am doing (present continuous)",
+      description:
+        "Say what's happening right now with am/is/are + -ing — including the spelling rules and how to say no.",
+      estimatedMinutes: 20,
+    },
   ],
 };
 
