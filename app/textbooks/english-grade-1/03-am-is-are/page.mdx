@@ -1,281 +1,309 @@
 <Lesson textbook="english-grade-1" slug="03-am-is-are">
 
-<Animated variant="pop">
-
-In English we use three little words to say what something **is** or who someone **is**: <Bounce>**am**</Bounce>, <Bounce duration={1.6}>**is**</Bounce>, and <Bounce duration={1.8}>**are**</Bounce>. Let's learn them with our friend Lisa <Wiggle>👋</Wiggle>.
-
-</Animated>
+In English we use three little words to say what something **is** or who someone **is**: **am**, **is**, and **are**. Let's learn them with our friend Lisa.
 
 ## Meet Lisa
 
-<Animated variant="fadeUp">
-
 Lisa says hello! Read what she tells you about herself:
 
-</Animated>
+- "My name **is** Lisa."
+- "I **am** 22."
+- "I **am** American. I **am** from Chicago."
+- "I **am** a student."
+- "My favourite colour **is** blue."
+- "My favourite sports **are** football and swimming."
+- "I **am** interested in art."
+- "I **am not** interested in politics."
 
-<Stagger as="ul" delay={0.1} className="my-4 list-disc space-y-1 pl-6 text-slate-800">
-  <span>"My name <strong>is</strong> Lisa."</span>
-  <span>"I <strong>am</strong> 22."</span>
-  <span>"I <strong>am</strong> American. I <strong>am</strong> from Chicago."</span>
-  <span>"I <strong>am</strong> a student."</span>
-  <span>"My favourite colour <strong>is</strong> blue."</span>
-  <span>"My favourite sports <strong>are</strong> football and swimming."</span>
-  <span>"I <strong>am</strong> interested in art."</span>
-  <span>"I <strong>am not</strong> interested in politics."</span>
-</Stagger>
-
-<Animated variant="slideLeft">
-  <Callout type="tip" title="Did you spot them?">
-    Find every **am**, **is**, and **are** in Lisa's sentences. How many did you count? <Wiggle>🔍</Wiggle>
-  </Callout>
-</Animated>
+<Callout type="tip" title="Did you spot them?">
+  Find every **am**, **is**, and **are** in Lisa's sentences. How many did you count?
+</Callout>
 
 ## The big rule
 
-<Animated variant="fadeUp">
+Every subject has its own form of **to be**. Watch the arrows: each pronoun on the left points to **the only verb it can use**.
 
-Pick the right word for the person you are talking about:
+<PronounVerbMap />
 
-</Animated>
+So how does this look in a real sentence? Watch the subject change — the verb has to follow:
 
-<Stagger delay={0.15} className="my-4 space-y-2 text-slate-800">
-  <span>👤 <strong>I → am</strong> &nbsp; (I <strong>am</strong> happy.)</span>
-  <span>👧 <strong>he / she / it → is</strong> &nbsp; (She <strong>is</strong> my friend.)</span>
-  <span>👨‍👩‍👧 <strong>we / you / they → are</strong> &nbsp; (They <strong>are</strong> at school.)</span>
-</Stagger>
+<Conjugation ending=" happy." />
 
-<Animated variant="fadeIn" delay={0.2}>
+<Callout type="info" title="Why three forms?">
+  English picks the verb based on **who** is doing it. **I** uses **am**, one person/thing uses **is**, and a group (or **you**) uses **are**.
+</Callout>
 
-Tap to listen:
+Tap to listen to all three:
 
 <SayIt text="I am happy." /> &nbsp; <SayIt text="She is my friend." /> &nbsp; <SayIt text="They are at school." />
 
-</Animated>
+## Short forms — how "I am" becomes "I'm"
 
-## Short forms
+When we speak, we squeeze two words into one. We **drop a letter** and put an **apostrophe (')** in its place. Watch how it happens:
 
-<Animated variant="fadeUp">
+<Contraction
+  caption="I am → I'm"
+  segments={[
+    { keep: "I" },
+    { drop: " " },
+    { swap: "a", to: "'" },
+    { keep: "m" },
+  ]}
+/>
 
-When we speak, we make these words shorter. We push two words together with an apostrophe (**'**).
+The same trick works for **is** and **are**:
 
-</Animated>
+<Contraction
+  caption="he is → he's"
+  segments={[
+    { keep: "he" },
+    { drop: " " },
+    { swap: "i", to: "'" },
+    { keep: "s" },
+  ]}
+/>
 
-<Animated variant="pop" delay={0.1}>
-  <FlashcardDeck
-    title="Tap a card to see the short form"
-    cards={[
-      { front: { text: "I am" }, back: { text: "I'm", caption: "I'm hungry." } },
-      { front: { text: "He is" }, back: { text: "He's", caption: "He's at home." } },
-      { front: { text: "She is" }, back: { text: "She's", caption: "She's my sister." } },
-      { front: { text: "It is" }, back: { text: "It's", caption: "It's sunny today." } },
-      { front: { text: "We are" }, back: { text: "We're", caption: "We're best friends." } },
-      { front: { text: "You are" }, back: { text: "You're", caption: "You're very kind." } },
-      { front: { text: "They are" }, back: { text: "They're", caption: "They're playing." } },
-    ]}
-  />
-</Animated>
+<Contraction
+  caption="they are → they're"
+  segments={[
+    { keep: "they" },
+    { drop: " " },
+    { swap: "a", to: "'" },
+    { keep: "re" },
+  ]}
+/>
+
+<Callout type="tip" title="The pattern">
+  Step 1: take away the **space**. &nbsp; Step 2: take away **one letter** of am/is/are. &nbsp; Step 3: put an **apostrophe** where it disappeared.
+</Callout>
+
+Now try the whole set with flashcards — tap each card to flip:
+
+<FlashcardDeck
+  title="All seven short forms"
+  cards={[
+    { front: { text: "I am" }, back: { text: "I'm", caption: "I'm hungry." } },
+    { front: { text: "He is" }, back: { text: "He's", caption: "He's at home." } },
+    { front: { text: "She is" }, back: { text: "She's", caption: "She's my sister." } },
+    { front: { text: "It is" }, back: { text: "It's", caption: "It's sunny today." } },
+    { front: { text: "We are" }, back: { text: "We're", caption: "We're best friends." } },
+    { front: { text: "You are" }, back: { text: "You're", caption: "You're very kind." } },
+    { front: { text: "They are" }, back: { text: "They're", caption: "They're playing." } },
+  ]}
+/>
 
 ## Saying "no" — the negative
 
-<Animated variant="slideRight">
-
 To say **no**, we add **not** after am / is / are.
 
-</Animated>
+- I **am not** late.
+- He **is not** here.
+- They **are not** tired.
 
-<Stagger delay={0.12} className="my-4 space-y-2 text-slate-800">
-  <span>I <strong>am not</strong> late. → <strong>I'm not</strong> late.</span>
-  <span>He <strong>is not</strong> here. → <strong>He isn't</strong> here. (or <strong>He's not</strong> here.)</span>
-  <span>They <strong>are not</strong> tired. → <strong>They aren't</strong> tired. (or <strong>They're not</strong> tired.)</span>
-</Stagger>
+The same shrinking trick works on **is not** and **are not** — watch:
 
-<Animated variant="slideLeft">
-  <Callout type="info" title="Two ways are okay">
-    Both **isn't** and **'s not** mean the same thing. **Aren't** and **'re not** are the same too. Pick the one that feels easy to say!
-  </Callout>
-</Animated>
+<Contraction
+  caption="is not → isn't"
+  segments={[
+    { keep: "is" },
+    { drop: " " },
+    { keep: "n" },
+    { swap: "o", to: "'" },
+    { keep: "t" },
+  ]}
+/>
+
+<Contraction
+  caption="are not → aren't"
+  segments={[
+    { keep: "are" },
+    { drop: " " },
+    { keep: "n" },
+    { swap: "o", to: "'" },
+    { keep: "t" },
+  ]}
+/>
+
+<Callout type="info" title="Two ways are okay">
+  **He is not** can shrink **two** ways: **he isn't** *or* **he's not**. Both are correct — pick the one that feels easy to say.
+</Callout>
 
 ## Three special little words
 
-<Animated variant="fadeUp">
+These three short forms turn up everywhere:
 
-Look at these short forms — they are very common:
+<Contraction
+  caption="that is → that's"
+  segments={[
+    { keep: "that" },
+    { drop: " " },
+    { swap: "i", to: "'" },
+    { keep: "s" },
+  ]}
+/>
 
-</Animated>
+<Contraction
+  caption="there is → there's"
+  segments={[
+    { keep: "there" },
+    { drop: " " },
+    { swap: "i", to: "'" },
+    { keep: "s" },
+  ]}
+/>
 
-<Stagger delay={0.15} className="my-4 space-y-2 text-slate-800">
-  <span>🎁 <strong>that's</strong> = that is &nbsp;→&nbsp; "Thank you. <strong>That's</strong> very kind of you."</span>
-  <span>👀 <strong>there's</strong> = there is &nbsp;→&nbsp; "Look! <strong>There's</strong> Chris."</span>
-  <span>🔑 <strong>here's</strong> = here is &nbsp;→&nbsp; "<strong>Here's</strong> your key."</span>
-</Stagger>
+<Contraction
+  caption="here is → here's"
+  segments={[
+    { keep: "here" },
+    { drop: " " },
+    { swap: "i", to: "'" },
+    { keep: "s" },
+  ]}
+/>
 
-<Animated variant="fadeIn">
-
-Tap to hear them:
+Tap to hear them in real sentences:
 
 <SayIt text="That's very kind of you." /> &nbsp; <SayIt text="There's Chris." /> &nbsp; <SayIt text="Here's your key." />
 
-</Animated>
-
 ## Match: who uses which word?
-
-<Animated variant="fadeUp">
 
 Drag each word on the right to the pronoun it goes with.
 
-</Animated>
-
-<Animated variant="pop" delay={0.1}>
-  <Match
-    textbookSlug="english-grade-1"
-    lessonSlug="03-am-is-are"
-    id="pronoun-be-match"
-    title="Match the pronoun with am / is / are"
-    pairs={[
-      { id: "i", left: "I", right: "am" },
-      { id: "he", left: "He", right: "is" },
-      { id: "they", left: "They", right: "are" },
-      { id: "it", left: "It", right: "is (it's)" },
-      { id: "we", left: "We", right: "are (we're)" },
-    ]}
-  />
-</Animated>
+<Match
+  textbookSlug="english-grade-1"
+  lessonSlug="03-am-is-are"
+  id="pronoun-be-match"
+  title="Match the pronoun with am / is / are"
+  pairs={[
+    { id: "i", left: "I", right: "am" },
+    { id: "he", left: "He", right: "is" },
+    { id: "they", left: "They", right: "are" },
+    { id: "it", left: "It", right: "is (it's)" },
+    { id: "we", left: "We", right: "are (we're)" },
+  ]}
+/>
 
 ## Match: long form to short form
 
-<Animated variant="pop">
-  <Match
-    textbookSlug="english-grade-1"
-    lessonSlug="03-am-is-are"
-    id="short-form-match"
-    title="Match each pair to its short form"
-    pairs={[
-      { id: "sheis", left: "she is", right: "she's" },
-      { id: "theyare", left: "they are", right: "they're" },
-      { id: "itisnot", left: "it is not", right: "it isn't" },
-      { id: "thatis", left: "that is", right: "that's" },
-      { id: "iamnot", left: "I am not", right: "I'm not" },
-      { id: "youarenot", left: "you are not", right: "you aren't" },
-    ]}
-  />
-</Animated>
+<Match
+  textbookSlug="english-grade-1"
+  lessonSlug="03-am-is-are"
+  id="short-form-match"
+  title="Match each pair to its short form"
+  pairs={[
+    { id: "sheis", left: "she is", right: "she's" },
+    { id: "theyare", left: "they are", right: "they're" },
+    { id: "itisnot", left: "it is not", right: "it isn't" },
+    { id: "thatis", left: "that is", right: "that's" },
+    { id: "iamnot", left: "I am not", right: "I'm not" },
+    { id: "youarenot", left: "you are not", right: "you aren't" },
+  ]}
+/>
 
 ## Fill-in quiz: am, is, or are?
 
-<Animated variant="fadeUp">
-  <Quiz
-    textbookSlug="english-grade-1"
-    lessonSlug="03-am-is-are"
-    id="am-is-are-fill"
-    questions={[
-      {
-        id: "q1",
-        prompt: "The weather ___ nice today.",
-        choices: ["am", "is", "are"],
-        answer: "is",
-      },
-      {
-        id: "q2",
-        prompt: "I ___ not rich.",
-        choices: ["am", "is", "are"],
-        answer: "am",
-      },
-      {
-        id: "q3",
-        prompt: "These bags ___ heavy.",
-        choices: ["am", "is", "are"],
-        answer: "are",
-      },
-      {
-        id: "q4",
-        prompt: "Look! There ___ Helen.",
-        choices: ["am", "is", "are"],
-        answer: "is",
-      },
-      {
-        id: "q5",
-        prompt: "My brother and I ___ good tennis players.",
-        choices: ["am", "is", "are"],
-        answer: "are",
-      },
-      {
-        id: "q6",
-        prompt: "Emily ___ at home. Her children ___ at school.",
-        choices: ["am ... is", "is ... are", "are ... is"],
-        answer: "is ... are",
-      },
-    ]}
-  />
-</Animated>
+<Quiz
+  textbookSlug="english-grade-1"
+  lessonSlug="03-am-is-are"
+  id="am-is-are-fill"
+  questions={[
+    {
+      id: "q1",
+      prompt: "The weather ___ nice today.",
+      choices: ["am", "is", "are"],
+      answer: "is",
+    },
+    {
+      id: "q2",
+      prompt: "I ___ not rich.",
+      choices: ["am", "is", "are"],
+      answer: "am",
+    },
+    {
+      id: "q3",
+      prompt: "These bags ___ heavy.",
+      choices: ["am", "is", "are"],
+      answer: "are",
+    },
+    {
+      id: "q4",
+      prompt: "Look! There ___ Helen.",
+      choices: ["am", "is", "are"],
+      answer: "is",
+    },
+    {
+      id: "q5",
+      prompt: "My brother and I ___ good tennis players.",
+      choices: ["am", "is", "are"],
+      answer: "are",
+    },
+    {
+      id: "q6",
+      prompt: "Emily ___ at home. Her children ___ at school.",
+      choices: ["am ... is", "is ... are", "are ... is"],
+      answer: "is ... are",
+    },
+  ]}
+/>
 
 ## Quick check: short forms
 
-<Animated variant="fadeUp">
-  <Quiz
-    textbookSlug="english-grade-1"
-    lessonSlug="03-am-is-are"
-    id="short-form-quiz"
-    questions={[
-      {
-        id: "q1",
-        prompt: "What is the short form of 'she is'?",
-        choices: ["she's", "shes'", "she're", "she'is"],
-        answer: "she's",
-      },
-      {
-        id: "q2",
-        prompt: "What is the short form of 'they are'?",
-        choices: ["they's", "they're", "thery", "they'are"],
-        answer: "they're",
-      },
-      {
-        id: "q3",
-        prompt: "Which sentence is correct?",
-        choices: [
-          "I'm not hungry.",
-          "I amn't hungry.",
-          "I not am hungry.",
-          "I are not hungry.",
-        ],
-        answer: "I'm not hungry.",
-      },
-      {
-        id: "q4",
-        prompt: "Steve is ill. ___ in bed.",
-        choices: ["He's", "His", "He'is", "He're"],
-        answer: "He's",
-      },
-      {
-        id: "q5",
-        prompt: "Those people ___ English. They're Australian.",
-        choices: ["isn't", "amn't", "aren't", "not are"],
-        answer: "aren't",
-      },
-    ]}
-  />
-</Animated>
+<Quiz
+  textbookSlug="english-grade-1"
+  lessonSlug="03-am-is-are"
+  id="short-form-quiz"
+  questions={[
+    {
+      id: "q1",
+      prompt: "What is the short form of 'she is'?",
+      choices: ["she's", "shes'", "she're", "she'is"],
+      answer: "she's",
+    },
+    {
+      id: "q2",
+      prompt: "What is the short form of 'they are'?",
+      choices: ["they's", "they're", "thery", "they'are"],
+      answer: "they're",
+    },
+    {
+      id: "q3",
+      prompt: "Which sentence is correct?",
+      choices: [
+        "I'm not hungry.",
+        "I amn't hungry.",
+        "I not am hungry.",
+        "I are not hungry.",
+      ],
+      answer: "I'm not hungry.",
+    },
+    {
+      id: "q4",
+      prompt: "Steve is ill. ___ in bed.",
+      choices: ["He's", "His", "He'is", "He're"],
+      answer: "He's",
+    },
+    {
+      id: "q5",
+      prompt: "Those people ___ English. They're Australian.",
+      choices: ["isn't", "amn't", "aren't", "not are"],
+      answer: "aren't",
+    },
+  ]}
+/>
 
 ## Now you try!
 
-<Animated variant="fadeUp">
-
 Open your notebook and write **5 true sentences** about yourself, like Lisa did:
 
-</Animated>
+1. My name **is** ___ .
+2. I **am** ___ years old.
+3. I **am** from ___ .
+4. My favourite colour **is** ___ .
+5. I **am** interested in ___ .
 
-<Stagger as="ol" delay={0.12} className="my-4 list-decimal space-y-1 pl-6 text-slate-800">
-  <span>My name <strong>is</strong> ___ .</span>
-  <span>I <strong>am</strong> ___ years old.</span>
-  <span>I <strong>am</strong> from ___ .</span>
-  <span>My favourite colour <strong>is</strong> ___ .</span>
-  <span>I <strong>am</strong> interested in ___ .</span>
-</Stagger>
-
-<Animated variant="pop" delay={0.1}>
-  <Callout type="tip" title="Star challenge">
-    <Bounce amount={4}>⭐</Bounce> Write **one negative** sentence too — something you are **not**. For example: "I'm not scared of dogs."
-  </Callout>
-</Animated>
+<Callout type="tip" title="Star challenge">
+  Write **one negative** sentence too — something you are **not**. For example: "I'm not scared of dogs."
+</Callout>
 
 </Lesson>
