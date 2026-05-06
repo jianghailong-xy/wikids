@@ -7,6 +7,7 @@ import { Contraction } from "@/components/mdx/contraction";
 import { Flashcard, FlashcardDeck } from "@/components/mdx/flashcard";
 import { Gallery } from "@/components/mdx/gallery";
 import { Match } from "@/components/mdx/match";
+import { MysteryPerson } from "@/components/mdx/mystery-person";
 import { PronounVerbMap } from "@/components/mdx/pronoun-verb-map";
 import { QuestionBuilder } from "@/components/mdx/question-builder";
 import { Quiz } from "@/components/mdx/quiz";
@@ -27,6 +28,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     Gallery,
     Lesson,
     Match,
+    MysteryPerson,
     PronounVerbMap,
     QuestionBuilder,
     Quiz,
