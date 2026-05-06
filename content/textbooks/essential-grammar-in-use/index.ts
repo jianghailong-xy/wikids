@@ -29,6 +29,13 @@ const textbook: Textbook = {
         "Say what's happening right now with am/is/are + -ing — including the spelling rules and how to say no.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "09-have-and-have-got",
+      title: "I have ... and I've got ...",
+      description:
+        "Two ways to talk about possession: have / has and have got / has got — with negatives, questions, and short answers.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
