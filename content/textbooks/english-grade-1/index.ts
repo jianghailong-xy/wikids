@@ -20,6 +20,12 @@ const textbook: Textbook = {
       description: "Learn animal names with flashcards, sound, and matching.",
       estimatedMinutes: 15,
     },
+    {
+      slug: "03-meet-lisa",
+      title: "Meet Lisa",
+      description: "Read along as Lisa introduces herself, sentence by sentence.",
+      estimatedMinutes: 10,
+    },
   ],
 };
 
