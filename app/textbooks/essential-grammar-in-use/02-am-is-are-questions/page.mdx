@@ -177,67 +177,44 @@ Drag each answer onto the question it belongs to.
   ]}
 />
 
-## Quiz: build the question
+## Build the question
 
-<Quiz
+Tap the words in the right order. Tap a word in the answer box to send it back.
+
+<QuestionBuilder
   textbookSlug="essential-grammar-in-use"
   lessonSlug="02-am-is-are-questions"
   id="build-the-question"
-  questions={[
+  prompts={[
     {
       id: "q1",
-      prompt: "Choose the correct question: 'your mother / at home / is'",
-      choices: [
-        "Is your mother at home?",
-        "Is at home your mother?",
-        "Your mother is at home?",
-        "At home is your mother?",
-      ],
-      answer: "Is your mother at home?",
+      prompt: "Ask if your mother is at home.",
+      correctOrder: ["Is", "your", "mother", "at", "home", "?"],
     },
     {
       id: "q2",
-      prompt: "Choose the correct question: 'are / well / your parents'",
-      choices: [
-        "Your parents are well?",
-        "Are your parents well?",
-        "Are well your parents?",
-        "Well are your parents?",
-      ],
-      answer: "Are your parents well?",
+      prompt: "Ask if your parents are well.",
+      correctOrder: ["Are", "your", "parents", "well", "?"],
     },
     {
       id: "q3",
-      prompt: "Choose the correct question: 'is / interesting / your job'",
-      choices: [
-        "Your job is interesting?",
-        "Is interesting your job?",
-        "Is your job interesting?",
-        "Interesting is your job?",
-      ],
-      answer: "Is your job interesting?",
+      prompt: "Ask if their job is interesting.",
+      correctOrder: ["Is", "your", "job", "interesting", "?"],
     },
     {
       id: "q4",
-      prompt: "Choose the correct question: 'where / are / you / from'",
-      choices: [
-        "Where you are from?",
-        "Where are you from?",
-        "Are where you from?",
-        "From where you are?",
-      ],
-      answer: "Where are you from?",
+      prompt: "Ask where they are from.",
+      correctOrder: ["Where", "are", "you", "from", "?"],
     },
     {
       id: "q5",
-      prompt: "Choose the correct question: 'late / why / you / are'",
-      choices: [
-        "Why you are late?",
-        "Why late are you?",
-        "Why are you late?",
-        "Are you why late?",
-      ],
-      answer: "Why are you late?",
+      prompt: "Ask why they are late.",
+      correctOrder: ["Why", "are", "you", "late", "?"],
+    },
+    {
+      id: "q6",
+      prompt: "Ask how old Joe is.",
+      correctOrder: ["How", "old", "is", "Joe", "?"],
     },
   ]}
 />

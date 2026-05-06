@@ -7,6 +7,7 @@ import { Flashcard, FlashcardDeck } from "@/components/mdx/flashcard";
 import { Gallery } from "@/components/mdx/gallery";
 import { Match } from "@/components/mdx/match";
 import { PronounVerbMap } from "@/components/mdx/pronoun-verb-map";
+import { QuestionBuilder } from "@/components/mdx/question-builder";
 import { Quiz } from "@/components/mdx/quiz";
 import { WordFlip } from "@/components/mdx/word-flip";
 import { Lesson } from "@/components/learn/lesson";
@@ -25,6 +26,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     Lesson,
     Match,
     PronounVerbMap,
+    QuestionBuilder,
     Quiz,
     SayIt,
     WordFlip,
