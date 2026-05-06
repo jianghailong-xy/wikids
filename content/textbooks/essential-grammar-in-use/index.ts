@@ -30,6 +30,13 @@ const textbook: Textbook = {
       estimatedMinutes: 20,
     },
     {
+      slug: "04-present-continuous-questions",
+      title: "are you doing? (present continuous questions)",
+      description:
+        "Flip am/is/are to the front and ask what someone is doing right now — plus wh-questions and short answers.",
+      estimatedMinutes: 20,
+    },
+    {
       slug: "05-present-simple",
       title: "I do / work / like (present simple)",
       description:
