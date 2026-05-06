@@ -4,12 +4,25 @@ In the last lesson, Lisa **told us** about herself. Now it's our turn to **ask q
 
 ## Meet David
 
-Lisa has a new friend. His name is David. Listen as Lisa asks him a few simple questions:
+Lisa has a new friend. His name is David. Listen in on their first chat — tap the speaker on each bubble to hear it:
 
-- Lisa: "What's your name?" <SayIt text="What's your name?" iconOnly /> &nbsp; David: "David." <SayIt text="David." iconOnly />
-- Lisa: "Are you married?" <SayIt text="Are you married?" iconOnly /> &nbsp; David: "No, I'm not." <SayIt text="No, I'm not." iconOnly />
-- Lisa: "How old are you?" <SayIt text="How old are you?" iconOnly /> &nbsp; David: "25." <SayIt text="Twenty-five." iconOnly />
-- Lisa: "Are you a student?" <SayIt text="Are you a student?" iconOnly /> &nbsp; David: "Yes, I am." <SayIt text="Yes, I am." iconOnly />
+<ChatDialog
+  title="Lisa meets David"
+  participants={[
+    { name: "Lisa", emoji: "👩🏻", side: "left", tone: "slate" },
+    { name: "David", emoji: "👨🏻", side: "right", tone: "sky" },
+  ]}
+  turns={[
+    { speaker: "Lisa", text: "What's your name?" },
+    { speaker: "David", text: "David." },
+    { speaker: "Lisa", text: "Are you married?" },
+    { speaker: "David", text: "No, I'm not." },
+    { speaker: "Lisa", text: "How old are you?" },
+    { speaker: "David", text: "25.", say: "Twenty-five." },
+    { speaker: "Lisa", text: "Are you a student?" },
+    { speaker: "David", text: "Yes, I am." },
+  ]}
+/>
 
 <Callout type="tip" title="Listen for the lift">
   Read the questions out loud. Notice how your voice goes **up** at the end? That little lift is how English asks a question.
