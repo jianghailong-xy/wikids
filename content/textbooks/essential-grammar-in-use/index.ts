@@ -211,6 +211,13 @@ const textbook: Textbook = {
         "Say 'maybe will' with one tiny word: might + plain verb (it never changes shape) — plus might not for 'maybe won't', may as its twin, and the polite May I ...? for asking permission.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "30-can-and-could",
+      title: "can and could",
+      description:
+        "Meet the modal helper can — for what you're able to do, what was possible back then (could), and the polite Can you / Could you / Can I / Could I asks for help, things, and permission.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
