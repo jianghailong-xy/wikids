@@ -225,6 +225,13 @@ const textbook: Textbook = {
         "Three rule-words for everyday life: must (you really need to), mustn't (it would be wrong to), and don't need to (it's not necessary) — plus had to for yesterday, because must has no past.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "32-should",
+      title: "I think you should ... (should / shouldn't)",
+      description:
+        "Give friendly advice with should + infinitive — its negative shouldn't, the polite opener I think ... should ..., its bossier cousin must, and its bookish twin ought to.",
+      estimatedMinutes: 20,
+    },
   ],
 };
 
