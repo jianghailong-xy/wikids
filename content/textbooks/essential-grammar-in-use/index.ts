@@ -253,6 +253,13 @@ const textbook: Textbook = {
         "Three subject-less sentence shapes: the plain verb to tell someone to do something, don't + verb to tell them not to, and Let's (not) + verb to invite them to do it with you.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "36-i-used-to",
+      title: "I used to ...",
+      description:
+        "Talk about past habits and states that aren't true anymore: subject + used to + verb, with the -d that drops out in didn't use to and did you use to questions.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
