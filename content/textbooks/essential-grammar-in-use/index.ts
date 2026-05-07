@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "28-will-shall-2",
+      title: "I'll ... and Shall I ...? (will / shall 2)",
+      description:
+        "Two friendly futures for everyday talk: I'll for offers and on-the-spot decisions, and Shall I/we ...? for floating an idea — plus the trap to dodge: don't use I'll for plans you already made.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
