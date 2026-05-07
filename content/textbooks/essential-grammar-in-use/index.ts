@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "38-there-was-have-been-will-be",
+      title: "there was/were, there has/have been, there will be",
+      description:
+        "Send there is / there are travelling through time: there was/were for yesterday, there has been / there have been for what's piled up by now, and there will be for what's coming tomorrow.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
