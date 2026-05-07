@@ -149,6 +149,7 @@ const textbook: Textbook = {
       estimatedMinutes: 25,
     },
     {
+    {
       slug: "21-is-done-was-done",
       title: "is done / was done (passive 1)",
       description:
@@ -237,6 +238,13 @@ const textbook: Textbook = {
       title: "I have to ...",
       description:
         "Talk about what's necessary with have to / has to / had to — plus questions, don't have to (it's optional), and when to pick must vs have to.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "34-would-you-like",
+      title: "Would you like ...?  I'd like ...",
+      description:
+        "The polite shape of want: offer with Would you like ...?, invite with Would you like to ...?, and ask for things with I'd like ... — and never confuse it with Do you like ...?",
       estimatedMinutes: 25,
     },
   ],
