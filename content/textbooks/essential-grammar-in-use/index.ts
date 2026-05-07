@@ -267,6 +267,13 @@ const textbook: Textbook = {
         "Announce what exists with there is (one) and there are (more than one) — plus the question, negative, and the classic there's vs it's trap.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "38-there-was-have-been-will-be",
+      title: "there was/were, there has/have been, there will be",
+      description:
+        "Send there is / there are travelling through time: there was/were for yesterday, there has been / there have been for what's piled up by now, and there will be for what's coming tomorrow.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
