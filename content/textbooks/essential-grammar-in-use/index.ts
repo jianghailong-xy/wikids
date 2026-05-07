@@ -127,6 +127,13 @@ const textbook: Textbook = {
         "Ask about a person's whole life so far with have/has + been, done, seen — plus ever, never, and the tricky pair gone vs been.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "18-how-long-have-you",
+      title: "How long have you ...? (present perfect)",
+      description:
+        "Use how long ...? with the present perfect for things that started in the past and are still true now — and pick the right partner: for + a length, or since + a starting point.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
