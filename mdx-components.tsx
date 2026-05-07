@@ -9,6 +9,7 @@ import { Contraction } from "@/components/mdx/contraction";
 import { ContractionGrid } from "@/components/mdx/contraction-grid";
 import { Flashcard, FlashcardDeck } from "@/components/mdx/flashcard";
 import { Gallery } from "@/components/mdx/gallery";
+import { IrregularVerbDeck } from "@/components/mdx/irregular-verb-deck";
 import { Match } from "@/components/mdx/match";
 import { MysteryPerson } from "@/components/mdx/mystery-person";
 import { PronounVerbMap } from "@/components/mdx/pronoun-verb-map";
@@ -33,6 +34,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     Flashcard,
     FlashcardDeck,
     Gallery,
+    IrregularVerbDeck,
     Lesson,
     Match,
     MysteryPerson,
