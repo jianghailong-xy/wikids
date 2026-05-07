@@ -204,6 +204,13 @@ const textbook: Textbook = {
         "Two friendly futures for everyday talk: I'll for offers and on-the-spot decisions, and Shall I/we ...? for floating an idea — plus the trap to dodge: don't use I'll for plans you already made.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "29-might",
+      title: "might",
+      description:
+        "Say 'maybe will' with one tiny word: might + plain verb (it never changes shape) — plus might not for 'maybe won't', may as its twin, and the polite May I ...? for asking permission.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
