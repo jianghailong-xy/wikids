@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "39-it",
+      title: "It's raining (it for time, weather, distance)",
+      description:
+        "English never leaves a sentence without a subject — so we use it for time, day, distance, and weather. Plus it's nice to ... and the trap of dropping it at the start of a sentence.",
+      estimatedMinutes: 20,
+    },
   ],
 };
 
