@@ -176,6 +176,13 @@ const textbook: Textbook = {
         "Two families of verbs: regulars stamp -ed onto both past simple and past participle, while irregulars change shape — sometimes once (cut → cut → cut, made → made), sometimes twice (broke → broken, went → gone).",
       estimatedMinutes: 30,
     },
+    {
+      slug: "25-present-continuous-future",
+      title: "What are you doing tomorrow? (present continuous for the future)",
+      description:
+        "Reuse am/is/are + -ing for plans already in the diary — appointments, parties, meetings — and learn the one exception: timetables (trains, films, concerts) take the present simple.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
