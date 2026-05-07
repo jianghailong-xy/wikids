@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "25-present-continuous-future",
+      title: "What are you doing tomorrow? (present continuous for the future)",
+      description:
+        "Reuse am/is/are + -ing for plans already in the diary — appointments, parties, meetings — and learn the one exception: timetables (trains, films, concerts) take the present simple.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
