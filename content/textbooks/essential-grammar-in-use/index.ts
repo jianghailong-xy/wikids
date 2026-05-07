@@ -260,6 +260,13 @@ const textbook: Textbook = {
         "Talk about past habits and states that aren't true anymore: subject + used to + verb, with the -d that drops out in didn't use to and did you use to questions.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "37-there-is-there-are",
+      title: "there is / there are",
+      description:
+        "Announce what exists with there is (one) and there are (more than one) — plus the question, negative, and the classic there's vs it's trap.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
