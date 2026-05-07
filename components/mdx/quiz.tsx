@@ -8,6 +8,10 @@ export interface QuizQuestion {
   prompt: string;
   choices: string[];
   answer: string;
+  // Friendly hint shown after submission when this question is answered
+  // wrongly. Keep it short and warm — a sentence or two that explains the
+  // rule, not a scolding. Plain text; emojis allowed.
+  explainWrong?: string;
 }
 
 export interface QuizProps {
@@ -62,45 +66,56 @@ export function Quiz({ id, questions, textbookSlug, lessonSlug }: QuizProps) {
         Practice quiz
       </p>
       <ol className="space-y-5">
-        {questions.map((q, qi) => (
-          <li key={q.id}>
-            <p className="mb-2 font-medium text-slate-900">
-              {qi + 1}. {q.prompt}
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {q.choices.map((c) => {
-                const selected = answers[q.id] === c;
-                const correct = submitted && c === q.answer;
-                const wrong = submitted && selected && c !== q.answer;
-                return (
-                  <label
-                    key={c}
-                    className={cn(
-                      "cursor-pointer rounded-md border px-3 py-1.5 text-sm",
-                      "border-slate-300 hover:border-brand-500",
-                      selected && !submitted && "border-brand-500 bg-brand-50",
-                      correct && "border-emerald-500 bg-emerald-50",
-                      wrong && "border-rose-500 bg-rose-50",
-                    )}
-                  >
-                    <input
-                      type="radio"
-                      name={q.id}
-                      value={c}
-                      className="sr-only"
-                      checked={selected}
-                      disabled={submitted}
-                      onChange={() =>
-                        setAnswers((prev) => ({ ...prev, [q.id]: c }))
-                      }
-                    />
-                    {c}
-                  </label>
-                );
-              })}
-            </div>
-          </li>
-        ))}
+        {questions.map((q, qi) => {
+          const userAnswer = answers[q.id];
+          const wasWrong =
+            submitted && userAnswer != null && userAnswer !== q.answer;
+          return (
+            <li key={q.id}>
+              <p className="mb-2 font-medium text-slate-900">
+                {qi + 1}. {q.prompt}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {q.choices.map((c) => {
+                  const selected = answers[q.id] === c;
+                  const correct = submitted && c === q.answer;
+                  const wrong = submitted && selected && c !== q.answer;
+                  return (
+                    <label
+                      key={c}
+                      className={cn(
+                        "cursor-pointer rounded-md border px-3 py-1.5 text-sm",
+                        "border-slate-300 hover:border-brand-500",
+                        selected && !submitted && "border-brand-500 bg-brand-50",
+                        correct && "border-emerald-500 bg-emerald-50",
+                        wrong && "border-rose-500 bg-rose-50",
+                      )}
+                    >
+                      <input
+                        type="radio"
+                        name={q.id}
+                        value={c}
+                        className="sr-only"
+                        checked={selected}
+                        disabled={submitted}
+                        onChange={() =>
+                          setAnswers((prev) => ({ ...prev, [q.id]: c }))
+                        }
+                      />
+                      {c}
+                    </label>
+                  );
+                })}
+              </div>
+              {wasWrong && q.explainWrong ? (
+                <p className="mt-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+                  <span className="font-semibold">Hint: </span>
+                  {q.explainWrong}
+                </p>
+              ) : null}
+            </li>
+          );
+        })}
       </ol>
       <div className="mt-5 flex items-center justify-between">
         <button
