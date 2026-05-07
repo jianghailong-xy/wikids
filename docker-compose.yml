@@ -7,8 +7,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: wikids
-    ports:
-      - "5432:5432"
     volumes:
       - wikids_postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -38,7 +36,7 @@ services:
       AUTH_TRUST_HOST: "true"
       NODE_ENV: production
     ports:
-      - "3000:3000"
+      - "8080:3000"
 
 volumes:
   wikids_postgres_data:
