@@ -149,6 +149,13 @@ const textbook: Textbook = {
       estimatedMinutes: 25,
     },
     {
+      slug: "21-is-done-was-done",
+      title: "is done / was done (passive 1)",
+      description:
+        "Flip the camera onto the thing instead of the doer with be + past participle: the office is cleaned, the house was built, I was born — plus how to add the doer back with by.",
+      estimatedMinutes: 25,
+    },
+    {
       slug: "22-is-being-done-has-been-done",
       title: "is being done / has been done (passive 2)",
       description:
