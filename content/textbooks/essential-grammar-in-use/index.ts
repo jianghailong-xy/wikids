@@ -78,6 +78,13 @@ const textbook: Textbook = {
         "Travel back in time: how am/is/are turn into was and were so you can talk about yesterday, last night, and last week.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "11-past-simple",
+      title: "worked / got / went (past simple)",
+      description:
+        "Tell what you did yesterday: the -ed ending for regular verbs, the spelling tweaks, and the irregular shape-shifters you just have to learn.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
