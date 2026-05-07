@@ -78,6 +78,13 @@ const textbook: Textbook = {
         "Travel back in time: how am/is/are turn into was and were so you can talk about yesterday, last night, and last week.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "16-just-already-yet",
+      title: "I've just ... I've already ... I haven't ... yet",
+      description:
+        "Three tiny time-words that ride along with the present perfect: just (a moment ago), already (sooner than expected), and yet (still waiting).",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
