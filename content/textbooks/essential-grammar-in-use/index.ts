@@ -149,7 +149,6 @@ const textbook: Textbook = {
       estimatedMinutes: 25,
     },
     {
-    {
       slug: "21-is-done-was-done",
       title: "is done / was done (passive 1)",
       description:
@@ -245,6 +244,13 @@ const textbook: Textbook = {
       title: "Would you like ...?  I'd like ...",
       description:
         "The polite shape of want: offer with Would you like ...?, invite with Would you like to ...?, and ask for things with I'd like ... — and never confuse it with Do you like ...?",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "35-imperatives-and-lets",
+      title: "Do this! Don't do that! Let's do this!",
+      description:
+        "Three subject-less sentence shapes: the plain verb to tell someone to do something, don't + verb to tell them not to, and Let's (not) + verb to invite them to do it with you.",
       estimatedMinutes: 25,
     },
   ],
