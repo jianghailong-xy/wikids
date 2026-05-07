@@ -120,6 +120,13 @@ const textbook: Textbook = {
         "Three tiny time-words that ride along with the present perfect: just (a moment ago), already (sooner than expected), and yet (still waiting).",
       estimatedMinutes: 25,
     },
+    {
+      slug: "17-have-you-ever",
+      title: "Have you ever ... ? (present perfect 3)",
+      description:
+        "Ask about a person's whole life so far with have/has + been, done, seen — plus ever, never, and the tricky pair gone vs been.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
