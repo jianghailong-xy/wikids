@@ -78,6 +78,13 @@ const textbook: Textbook = {
         "Travel back in time: how am/is/are turn into was and were so you can talk about yesterday, last night, and last week.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "12-past-simple-negative-questions",
+      title: "I didn't ... / Did you ... ? (past simple negative and questions)",
+      description:
+        "Say what you didn't do and ask what someone else did with did and didn't + infinitive — plus word order, wh-questions, and short answers.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
