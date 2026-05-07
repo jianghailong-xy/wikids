@@ -149,6 +149,90 @@ const textbook: Textbook = {
       estimatedMinutes: 25,
     },
     {
+      slug: "21-is-done-was-done",
+      title: "is done / was done (passive 1)",
+      description:
+        "Flip the camera onto the thing instead of the doer with be + past participle: the office is cleaned, the house was built, I was born — plus how to add the doer back with by.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "22-is-being-done-has-been-done",
+      title: "is being done / has been done (passive 2)",
+      description:
+        "Two more passive shapes for things that happen to you: is/are being + done for what's in progress right now, and has/have been + done for a finished action whose result is still here.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "23-be-have-do",
+      title: "be / have / do in present and past tenses",
+      description:
+        "Three little engine words drive every tense you've met so far — be pulls -ing, have pulls a past participle, do pulls the plain verb. Spot the shape after the gap and the right helper falls into place.",
+      estimatedMinutes: 30,
+    },
+    {
+      slug: "24-regular-and-irregular-verbs",
+      title: "Regular and irregular verbs",
+      description:
+        "Two families of verbs: regulars stamp -ed onto both past simple and past participle, while irregulars change shape — sometimes once (cut → cut → cut, made → made), sometimes twice (broke → broken, went → gone).",
+      estimatedMinutes: 30,
+    },
+    {
+      slug: "25-present-continuous-future",
+      title: "What are you doing tomorrow? (present continuous for the future)",
+      description:
+        "Reuse am/is/are + -ing for plans already in the diary — appointments, parties, meetings — and learn the one exception: timetables (trains, films, concerts) take the present simple.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "26-going-to",
+      title: "I'm going to ...",
+      description:
+        "Your first window into the future: am/is/are + going to + verb — for things you've decided to do (I'm going to buy a car) and things you can already see coming (Look at the sky! It's going to rain).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "27-will-shall-1",
+      title: "I will / I'll / I won't (will / shall 1)",
+      description:
+        "Step into tomorrow with will + infinitive: predictions you expect, opinions with I think ... will, the contractions 'll and won't — plus when not to use will, and the I/we-only word shall.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "28-will-shall-2",
+      title: "I'll ... and Shall I ...? (will / shall 2)",
+      description:
+        "Two friendly futures for everyday talk: I'll for offers and on-the-spot decisions, and Shall I/we ...? for floating an idea — plus the trap to dodge: don't use I'll for plans you already made.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "29-might",
+      title: "might",
+      description:
+        "Say 'maybe will' with one tiny word: might + plain verb (it never changes shape) — plus might not for 'maybe won't', may as its twin, and the polite May I ...? for asking permission.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "30-can-and-could",
+      title: "can and could",
+      description:
+        "Meet the modal helper can — for what you're able to do, what was possible back then (could), and the polite Can you / Could you / Can I / Could I asks for help, things, and permission.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "31-must-mustnt-dont-need-to",
+      title: "must / mustn't / don't need to",
+      description:
+        "Three rule-words for everyday life: must (you really need to), mustn't (it would be wrong to), and don't need to (it's not necessary) — plus had to for yesterday, because must has no past.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "32-should",
+      title: "I think you should ... (should / shouldn't)",
+      description:
+        "Give friendly advice with should + infinitive — its negative shouldn't, the polite opener I think ... should ..., its bossier cousin must, and its bookish twin ought to.",
+      estimatedMinutes: 20,
+    },
+    {
       slug: "33-have-to",
       title: "I have to ...",
       description:
