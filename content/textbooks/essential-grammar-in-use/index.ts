@@ -218,6 +218,13 @@ const textbook: Textbook = {
         "Meet the modal helper can — for what you're able to do, what was possible back then (could), and the polite Can you / Could you / Can I / Could I asks for help, things, and permission.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "31-must-mustnt-dont-need-to",
+      title: "must / mustn't / don't need to",
+      description:
+        "Three rule-words for everyday life: must (you really need to), mustn't (it would be wrong to), and don't need to (it's not necessary) — plus had to for yesterday, because must has no past.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
