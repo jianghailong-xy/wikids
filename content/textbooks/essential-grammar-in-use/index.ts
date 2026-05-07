@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "36-i-used-to",
+      title: "I used to ...",
+      description:
+        "Talk about past habits and states that aren't true anymore: subject + used to + verb, with the -d that drops out in didn't use to and did you use to questions.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
