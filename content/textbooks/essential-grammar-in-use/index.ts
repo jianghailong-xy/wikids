@@ -78,6 +78,13 @@ const textbook: Textbook = {
         "Travel back in time: how am/is/are turn into was and were so you can talk about yesterday, last night, and last week.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "13-past-continuous",
+      title: "I was doing (past continuous)",
+      description:
+        "Say what was in the middle of happening at a moment in the past with was/were + -ing — plus negatives, questions, and how it differs from the present continuous.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
