@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { writeLocalScore } from "@/lib/lesson-stars";
 
 export interface QuizQuestion {
   id: string;
@@ -35,6 +36,9 @@ export function Quiz({ id, questions, textbookSlug, lessonSlug }: QuizProps) {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitted(true);
+    if (textbookSlug && lessonSlug) {
+      writeLocalScore(textbookSlug, lessonSlug, id, score, total);
+    }
     if (!textbookSlug || !lessonSlug) return;
     setSaving(true);
     try {

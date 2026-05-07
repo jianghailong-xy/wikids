@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LessonProgressBeacon } from "./lesson-progress-beacon";
+import { LessonStars } from "./lesson-stars";
 import { getAdjacentLessons, getLesson } from "@/lib/content";
 
 // Wraps a lesson MDX file with the standard chrome (breadcrumb, title,
@@ -29,6 +30,7 @@ export function Lesson({
         </Link>
       </p>
       <h1 className="mt-1 text-3xl font-bold text-slate-900">{lesson.title}</h1>
+      <LessonStars textbookSlug={textbookSlug} lessonSlug={lessonSlug} />
 
       <div className="prose prose-slate mt-8 max-w-none">{children}</div>
 
