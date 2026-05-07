@@ -183,6 +183,13 @@ const textbook: Textbook = {
         "Reuse am/is/are + -ing for plans already in the diary — appointments, parties, meetings — and learn the one exception: timetables (trains, films, concerts) take the present simple.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "26-going-to",
+      title: "I'm going to ...",
+      description:
+        "Your first window into the future: am/is/are + going to + verb — for things you've decided to do (I'm going to buy a car) and things you can already see coming (Look at the sky! It's going to rain).",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
