@@ -16,6 +16,7 @@ export const IRREGULAR_VERB_LESSON_ORDER = [
   "11-past-simple",
   "15-present-perfect",
   "17-have-you-ever",
+  "24-regular-and-irregular-verbs",
 ];
 
 // 40+ irregular verbs, each tagged by the lesson that first introduces
@@ -65,6 +66,9 @@ export const IRREGULAR_VERBS: IrregularVerb[] = [
   { base: "write", past: "wrote", participle: "written", unlockedIn: "11-past-simple" },
   { base: "be", past: "was / were", participle: "been", unlockedIn: "17-have-you-ever" },
   { base: "drive", past: "drove", participle: "driven", unlockedIn: "17-have-you-ever" },
+  { base: "cut", past: "cut", participle: "cut", unlockedIn: "24-regular-and-irregular-verbs" },
+  { base: "throw", past: "threw", participle: "thrown", unlockedIn: "24-regular-and-irregular-verbs" },
+  { base: "understand", past: "understood", participle: "understood", unlockedIn: "24-regular-and-irregular-verbs" },
 ];
 
 export function verbsUnlockedBy(lessonSlug: string): IrregularVerb[] {
