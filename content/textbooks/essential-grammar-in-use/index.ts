@@ -106,6 +106,13 @@ const textbook: Textbook = {
         "Tell past stories with both tenses at once: past simple for what happened, past continuous for what was already going on — and how when/while glue them together.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "15-present-perfect",
+      title: "I have done (present perfect 1)",
+      description:
+        "Tie a past action to a result you can see right now: have/has + past participle, regular -ed and the irregular ones to know.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
