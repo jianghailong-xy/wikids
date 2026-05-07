@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "30-can-and-could",
+      title: "can and could",
+      description:
+        "Meet the modal helper can — for what you're able to do, what was possible back then (could), and the polite Can you / Could you / Can I / Could I asks for help, things, and permission.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
