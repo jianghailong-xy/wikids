@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { getAllTextbooks } from "@/lib/content";
 
+const HIDDEN_ON_HOME = new Set(["math-grade-1", "english-grade-1"]);
+
 export default function HomePage() {
-  const textbooks = getAllTextbooks();
+  const textbooks = getAllTextbooks().filter(
+    (t) => !HIDDEN_ON_HOME.has(t.slug),
+  );
 
   return (
     <div className="space-y-12">
