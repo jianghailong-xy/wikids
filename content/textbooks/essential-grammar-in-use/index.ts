@@ -197,6 +197,13 @@ const textbook: Textbook = {
         "Step into tomorrow with will + infinitive: predictions you expect, opinions with I think ... will, the contractions 'll and won't — plus when not to use will, and the I/we-only word shall.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "28-will-shall-2",
+      title: "I'll ... and Shall I ...? (will / shall 2)",
+      description:
+        "Two friendly futures for everyday talk: I'll for offers and on-the-spot decisions, and Shall I/we ...? for floating an idea — plus the trap to dodge: don't use I'll for plans you already made.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
