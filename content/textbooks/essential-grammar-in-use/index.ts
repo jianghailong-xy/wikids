@@ -78,6 +78,13 @@ const textbook: Textbook = {
         "Travel back in time: how am/is/are turn into was and were so you can talk about yesterday, last night, and last week.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "14-past-continuous-and-past-simple",
+      title: "I was doing (past continuous) and I did (past simple)",
+      description:
+        "Tell past stories with both tenses at once: past simple for what happened, past continuous for what was already going on — and how when/while glue them together.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
