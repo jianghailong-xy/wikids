@@ -78,6 +78,13 @@ const textbook: Textbook = {
         "Travel back in time: how am/is/are turn into was and were so you can talk about yesterday, last night, and last week.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "18-how-long-have-you",
+      title: "How long have you ...? (present perfect)",
+      description:
+        "Use how long ...? with the present perfect for things that started in the past and are still true now — and pick the right partner: for + a length, or since + a starting point.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
