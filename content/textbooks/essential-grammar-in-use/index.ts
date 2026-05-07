@@ -78,6 +78,13 @@ const textbook: Textbook = {
         "Travel back in time: how am/is/are turn into was and were so you can talk about yesterday, last night, and last week.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "19-for-since-ago",
+      title: "for / since / ago",
+      description:
+        "Three tiny time words that all answer 'how long?' — for + a length, since + a starting point, and ago for a moment in the past.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
