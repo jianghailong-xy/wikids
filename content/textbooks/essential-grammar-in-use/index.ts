@@ -113,6 +113,13 @@ const textbook: Textbook = {
         "Tie a past action to a result you can see right now: have/has + past participle, regular -ed and the irregular ones to know.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "16-just-already-yet",
+      title: "I've just ... I've already ... I haven't ... yet",
+      description:
+        "Three tiny time-words that ride along with the present perfect: just (a moment ago), already (sooner than expected), and yet (still waiting).",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
