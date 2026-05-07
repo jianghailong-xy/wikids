@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "35-imperatives-and-lets",
+      title: "Do this! Don't do that! Let's do this!",
+      description:
+        "Three subject-less sentence shapes: the plain verb to tell someone to do something, don't + verb to tell them not to, and Let's (not) + verb to invite them to do it with you.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
