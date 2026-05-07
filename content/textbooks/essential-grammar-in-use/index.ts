@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "32-should",
+      title: "I think you should ... (should / shouldn't)",
+      description:
+        "Give friendly advice with should + infinitive — its negative shouldn't, the polite opener I think ... should ..., its bossier cousin must, and its bookish twin ought to.",
+      estimatedMinutes: 20,
+    },
   ],
 };
 
