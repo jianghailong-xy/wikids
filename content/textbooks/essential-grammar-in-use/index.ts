@@ -78,6 +78,13 @@ const textbook: Textbook = {
         "Travel back in time: how am/is/are turn into was and were so you can talk about yesterday, last night, and last week.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "17-have-you-ever",
+      title: "Have you ever ... ? (present perfect 3)",
+      description:
+        "Ask about a person's whole life so far with have/has + been, done, seen — plus ever, never, and the tricky pair gone vs been.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
