@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "29-might",
+      title: "might",
+      description:
+        "Say 'maybe will' with one tiny word: might + plain verb (it never changes shape) — plus might not for 'maybe won't', may as its twin, and the polite May I ...? for asking permission.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
