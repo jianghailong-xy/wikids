@@ -36,7 +36,7 @@ services:
       AUTH_TRUST_HOST: "true"
       NODE_ENV: production
     ports:
-      - "8080:3000"
+      - "8880:3000"
 
 volumes:
   wikids_postgres_data:
