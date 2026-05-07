@@ -149,6 +149,20 @@ const textbook: Textbook = {
       estimatedMinutes: 25,
     },
     {
+      slug: "21-is-done-was-done",
+      title: "is done / was done (passive 1)",
+      description:
+        "Flip the camera onto the thing instead of the doer with be + past participle: the office is cleaned, the house was built, I was born — plus how to add the doer back with by.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "22-is-being-done-has-been-done",
+      title: "is being done / has been done (passive 2)",
+      description:
+        "Two more passive shapes for things that happen to you: is/are being + done for what's in progress right now, and has/have been + done for a finished action whose result is still here.",
+      estimatedMinutes: 25,
+    },
+    {
       slug: "23-be-have-do",
       title: "be / have / do in present and past tenses",
       description:
