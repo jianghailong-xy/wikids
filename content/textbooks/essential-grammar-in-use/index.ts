@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "34-would-you-like",
+      title: "Would you like ...?  I'd like ...",
+      description:
+        "The polite shape of want: offer with Would you like ...?, invite with Would you like to ...?, and ask for things with I'd like ... — and never confuse it with Do you like ...?",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
