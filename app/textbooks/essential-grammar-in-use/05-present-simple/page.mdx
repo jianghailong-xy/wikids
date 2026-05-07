@@ -2,30 +2,30 @@
 
 In **Lesson 3** you learned how to say what someone is doing **right this second** — *I'm cooking*, *she's reading*. But what about things that are true **every day**? Your job. Your habits. Where the sun rises. How a cat behaves at 3pm. For all of that, English uses a different tool: the **present simple**.
 
-## A day in David's life
+## A day in Mia's life
 
-Lisa is curious about David's daily routine. Tap the speakers to listen.
+Leo is asking Mia about her school days. Tap the speakers to listen.
 
 <ChatDialog
-  title="What David and his sister do every day"
+  title="What Mia and her cat do every day"
   participants={[
-    { name: "Lisa", emoji: "👩🏻", side: "left", tone: "rose" },
-    { name: "David", emoji: "👨🏻", side: "right", tone: "sky" },
+    { name: "Leo", emoji: "👦🏻", side: "left", tone: "sky" },
+    { name: "Mia", emoji: "👧🏻", side: "right", tone: "rose" },
   ]}
   turns={[
-    { speaker: "Lisa", text: "So, what do you do every morning?" },
-    { speaker: "David", text: "I get up at 7. I have a shower and I eat breakfast." },
-    { speaker: "Lisa", text: "And your sister Emma?" },
-    { speaker: "David", text: "Emma gets up at 8. She drinks coffee, but she doesn't eat breakfast." },
-    { speaker: "Lisa", text: "Where do you work?" },
-    { speaker: "David", text: "I work in a bookshop. We open at 9 and close at 6." },
-    { speaker: "David", text: "Emma works in a hospital. She finishes at 8 in the evening." },
-    { speaker: "Lisa", text: "Wow. My brother lives in Scotland — it rains a lot there!" },
+    { speaker: "Leo", text: "So, what do you do every morning?" },
+    { speaker: "Mia", text: "I get up at 7. I eat breakfast and I walk to school." },
+    { speaker: "Leo", text: "And what about Pixel?" },
+    { speaker: "Mia", text: "Pixel gets up at 11! He sleeps all morning, but he doesn't eat cat food — he only eats fish." },
+    { speaker: "Leo", text: "Where do you have lunch?" },
+    { speaker: "Mia", text: "I eat in the school canteen. We start lunch at 12 and finish at 1." },
+    { speaker: "Mia", text: "My big sister Zoe goes to a different school. She finishes at 4." },
+    { speaker: "Leo", text: "Cool. My cousin lives in Manchester — it rains a lot there!" },
   ]}
 />
 
 <Callout type="tip" title="Spot the difference">
-  Listen to the verbs again. David says "**I get** up", but "**Emma gets** up". Same verb — but with **Emma**, an extra **s** sneaks onto the end. That's the secret of this whole lesson.
+  Listen to the verbs again. Mia says "**I get** up", but "**Pixel gets** up". Same verb — but with **Pixel**, an extra **s** sneaks onto the end. That's the secret of this whole lesson.
 </Callout>
 
 ## The big rule: he / she / it adds -s
@@ -109,7 +109,7 @@ A handful of common verbs don't behave. The good news: there are only three you 
     {
       long: "have",
       short: "has",
-      example: "Joe has a shower every day.",
+      example: "Pixel has fish for dinner every day.",
       segments: [
         { keep: "ha" },
         { swap: "ve", to: "s" },
@@ -161,7 +161,7 @@ The present simple is your "anytime, all the time, that's just how it is" tense.
 
 A few classic present-simple sentences. Tap to hear:
 
-<SayIt text="I like big cities." /> &nbsp; <SayIt text="The earth goes round the sun." /> &nbsp; <SayIt text="Tom works very hard. He starts at 7.30 and finishes at 8 in the evening." /> &nbsp; <SayIt text="It costs a lot of money to build a hospital." />
+<SayIt text="I like ice cream." /> &nbsp; <SayIt text="The earth goes round the sun." /> &nbsp; <SayIt text="Mia studies hard. She starts her homework at 4 and finishes at 6." /> &nbsp; <SayIt text="A new bike costs a lot of money." />
 
 ## "Always", "never", and friends
 
@@ -207,8 +207,8 @@ Some of these are fine; others have something missing or out of place. Tap **Goo
   items={[
     { id: "s1", text: "My brother work in a bank.", isCorrect: false, fix: "My brother works in a bank." },
     { id: "s2", text: "It rains a lot in winter.", isCorrect: true },
-    { id: "s3", text: "She studys English at university.", isCorrect: false, fix: "She studies English at university." },
-    { id: "s4", text: "Joe has a shower every day.", isCorrect: true },
+    { id: "s3", text: "She studys English at school.", isCorrect: false, fix: "She studies English at school." },
+    { id: "s4", text: "Pixel has fish for dinner every day.", isCorrect: true },
     { id: "s5", text: "I eat never breakfast.", isCorrect: false, fix: "I never eat breakfast." },
     { id: "s6", text: "Sue always arrives early.", isCorrect: true },
     { id: "s7", text: "The earth go round the sun.", isCorrect: false, fix: "The earth goes round the sun." },
@@ -353,25 +353,25 @@ Tap the words in the right order. Each one needs an adverb of frequency *between
   questions={[
     {
       id: "q1",
-      prompt: "She ___ to work by bus. (go)",
+      prompt: "She ___ to school by bus. (go)",
       choices: ["gos", "goes", "goses", "goies"],
       answer: "goes",
     },
     {
       id: "q2",
-      prompt: "He ___ work at 6 o'clock every day. (finish)",
+      prompt: "He ___ school at 3 o'clock every day. (finish)",
       choices: ["finishs", "finishies", "finishes", "finishies"],
       answer: "finishes",
     },
     {
       id: "q3",
-      prompt: "Mary ___ engineering at university. (study)",
+      prompt: "Mary ___ English and music at school. (study)",
       choices: ["studys", "studies", "studyes", "studyies"],
       answer: "studies",
     },
     {
       id: "q4",
-      prompt: "Joe ___ a shower every morning. (have)",
+      prompt: "Mia ___ cereal every morning. (have)",
       choices: ["haves", "has", "haveies", "havs"],
       answer: "has",
     },
