@@ -79,6 +79,34 @@ const textbook: Textbook = {
       estimatedMinutes: 20,
     },
     {
+      slug: "11-past-simple",
+      title: "worked / got / went (past simple)",
+      description:
+        "Tell what you did yesterday: the -ed ending for regular verbs, the spelling tweaks, and the irregular shape-shifters you just have to learn.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "12-past-simple-negative-questions",
+      title: "I didn't ... / Did you ... ? (past simple negative and questions)",
+      description:
+        "Say what you didn't do and ask what someone else did with did and didn't + infinitive — plus word order, wh-questions, and short answers.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "13-past-continuous",
+      title: "I was doing (past continuous)",
+      description:
+        "Say what was in the middle of happening at a moment in the past with was/were + -ing — plus negatives, questions, and how it differs from the present continuous.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "14-past-continuous-and-past-simple",
+      title: "I was doing (past continuous) and I did (past simple)",
+      description:
+        "Tell past stories with both tenses at once: past simple for what happened, past continuous for what was already going on — and how when/while glue them together.",
+      estimatedMinutes: 25,
+    },
+    {
       slug: "15-present-perfect",
       title: "I have done (present perfect 1)",
       description:
