@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "24-regular-and-irregular-verbs",
+      title: "Regular and irregular verbs",
+      description:
+        "Two families of verbs: regulars stamp -ed onto both past simple and past participle, while irregulars change shape — sometimes once (cut → cut → cut, made → made), sometimes twice (broke → broken, went → gone).",
+      estimatedMinutes: 30,
+    },
   ],
 };
 
