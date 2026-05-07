@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "40-i-am-i-dont",
+      title: "I am, I don't etc.",
+      description:
+        "The echo trick: skip the rest of the sentence and reply with just the helping verb (am, is, do, can, will, has...) — plus the rule about full vs short forms in short answers.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
