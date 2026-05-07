@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "21-is-done-was-done",
+      title: "is done / was done (passive 1)",
+      description:
+        "Flip the camera onto the thing instead of the doer with be + past participle: the office is cleaned, the house was built, I was born — plus how to add the doer back with by.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
