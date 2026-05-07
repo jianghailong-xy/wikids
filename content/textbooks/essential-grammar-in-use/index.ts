@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "23-be-have-do",
+      title: "be / have / do in present and past tenses",
+      description:
+        "Three little engine words drive every tense you've met so far — be pulls -ing, have pulls a past participle, do pulls the plain verb. Spot the shape after the gap and the right helper falls into place.",
+      estimatedMinutes: 30,
+    },
   ],
 };
 
