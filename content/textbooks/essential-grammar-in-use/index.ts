@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "31-must-mustnt-dont-need-to",
+      title: "must / mustn't / don't need to",
+      description:
+        "Three rule-words for everyday life: must (you really need to), mustn't (it would be wrong to), and don't need to (it's not necessary) — plus had to for yesterday, because must has no past.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
