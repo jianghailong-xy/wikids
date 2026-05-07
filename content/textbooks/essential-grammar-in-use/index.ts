@@ -134,6 +134,13 @@ const textbook: Textbook = {
         "Use how long ...? with the present perfect for things that started in the past and are still true now — and pick the right partner: for + a length, or since + a starting point.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "19-for-since-ago",
+      title: "for / since / ago",
+      description:
+        "Three tiny time words that all answer 'how long?' — for + a length, since + a starting point, and ago for a moment in the past.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
