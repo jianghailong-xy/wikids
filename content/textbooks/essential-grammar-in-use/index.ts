@@ -78,6 +78,13 @@ const textbook: Textbook = {
         "Travel back in time: how am/is/are turn into was and were so you can talk about yesterday, last night, and last week.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "15-present-perfect",
+      title: "I have done (present perfect 1)",
+      description:
+        "Tie a past action to a result you can see right now: have/has + past participle, regular -ed and the irregular ones to know.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
