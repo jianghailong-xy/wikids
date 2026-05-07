@@ -190,6 +190,13 @@ const textbook: Textbook = {
         "Your first window into the future: am/is/are + going to + verb — for things you've decided to do (I'm going to buy a car) and things you can already see coming (Look at the sky! It's going to rain).",
       estimatedMinutes: 25,
     },
+    {
+      slug: "27-will-shall-1",
+      title: "I will / I'll / I won't (will / shall 1)",
+      description:
+        "Step into tomorrow with will + infinitive: predictions you expect, opinions with I think ... will, the contractions 'll and won't — plus when not to use will, and the I/we-only word shall.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
