@@ -407,18 +407,77 @@ Tap the words in the right order. Each one needs an adverb of frequency *between
   ]}
 />
 
-## Now you try: 5 true sentences about you
+## Now you try: 7 true sentences about you
 
-Look at each prompt, decide *how often* the action is true for you, and say a complete sentence out loud — present simple + an adverb of frequency. The first one is done as an example.
+Tap **Tap to speak**, decide *how often* the action is true for you, and say a complete sentence out loud — present simple + an adverb of frequency. We'll listen and tick off the words you got. (If your browser can't listen, just say it out loud anyway.)
 
-1. (watch TV in the evening) → *I usually watch TV in the evening.*
-2. (read in bed) → ?
-3. (get up before 7 o'clock) → ?
-4. (go to school by bus) → ?
-5. (drink coffee in the morning) → ?
-6. (eat fruit) → ?
-7. (play football) → ?
-8. (forget people's names) → ?
+<SpeakingTry
+  prompts={[
+    {
+      id: "tv",
+      prompt: "Say how often you watch TV in the evening.",
+      example: "I usually watch TV in the evening.",
+      slots: [
+        { label: "a frequency word", anyOf: ["always", "usually", "often", "sometimes", "never"] },
+        { label: "the verb watch", anyOf: ["watch", "watches", "watching"] },
+      ],
+    },
+    {
+      id: "read",
+      prompt: "Say how often you read in bed.",
+      example: "I sometimes read in bed.",
+      slots: [
+        { label: "a frequency word", anyOf: ["always", "usually", "often", "sometimes", "never"] },
+        { label: "the verb read", anyOf: ["read", "reads", "reading"] },
+      ],
+    },
+    {
+      id: "getup",
+      prompt: "Say how often you get up before 7 o'clock.",
+      example: "I never get up before 7.",
+      slots: [
+        { label: "a frequency word", anyOf: ["always", "usually", "often", "sometimes", "never"] },
+        { label: "the phrase get up", anyOf: ["get up", "gets up", "getting up"] },
+      ],
+    },
+    {
+      id: "bus",
+      prompt: "Say how often you go to school by bus.",
+      example: "I always go to school by bus.",
+      slots: [
+        { label: "a frequency word", anyOf: ["always", "usually", "often", "sometimes", "never"] },
+        { label: "the verb go", anyOf: ["go", "goes", "going"] },
+      ],
+    },
+    {
+      id: "milk",
+      prompt: "Say how often you drink milk in the morning.",
+      example: "I usually drink milk in the morning.",
+      slots: [
+        { label: "a frequency word", anyOf: ["always", "usually", "often", "sometimes", "never"] },
+        { label: "the verb drink", anyOf: ["drink", "drinks", "drinking"] },
+      ],
+    },
+    {
+      id: "fruit",
+      prompt: "Say how often you eat fruit.",
+      example: "I often eat fruit.",
+      slots: [
+        { label: "a frequency word", anyOf: ["always", "usually", "often", "sometimes", "never"] },
+        { label: "the verb eat", anyOf: ["eat", "eats", "eating"] },
+      ],
+    },
+    {
+      id: "football",
+      prompt: "Say how often you play football.",
+      example: "I sometimes play football.",
+      slots: [
+        { label: "a frequency word", anyOf: ["always", "usually", "often", "sometimes", "never"] },
+        { label: "the verb play", anyOf: ["play", "plays", "playing"] },
+      ],
+    },
+  ]}
+/>
 
 <Callout type="tip" title="Star challenge">
   Now describe **someone in your family** (your mum, your brother, even your dog) in three sentences. Remember — they're not *I* or *you*, so every verb gets that little **-s** at the end. <br />

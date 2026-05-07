@@ -15,6 +15,7 @@ import { MysteryPerson } from "@/components/mdx/mystery-person";
 import { PronounVerbMap } from "@/components/mdx/pronoun-verb-map";
 import { QuestionBuilder } from "@/components/mdx/question-builder";
 import { Quiz } from "@/components/mdx/quiz";
+import { SpeakingTry } from "@/components/mdx/speaking-try";
 import { SpotTheBroken } from "@/components/mdx/spot-the-broken";
 import { WordFlip } from "@/components/mdx/word-flip";
 import { Lesson } from "@/components/learn/lesson";
@@ -42,6 +43,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     QuestionBuilder,
     Quiz,
     SayIt,
+    SpeakingTry,
     SpotTheBroken,
     WordFlip,
     ...components,
