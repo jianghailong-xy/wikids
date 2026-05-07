@@ -149,7 +149,7 @@ function PromptCard({
       <div className="mt-3 flex flex-wrap items-center gap-2">
         {supported === false ? (
           <p className="text-sm text-amber-700">
-            Your browser can't listen here, but go ahead and say it out loud!
+            Your browser can&apos;t listen here, but go ahead and say it out loud!
           </p>
         ) : !result ? (
           <button

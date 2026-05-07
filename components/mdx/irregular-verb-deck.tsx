@@ -269,7 +269,7 @@ function FinishedCard({
         {allMastered ? "All verbs mastered! 🎉" : "Nice round!"}
       </p>
       <p className="mt-2 text-sm text-slate-600">
-        You've mastered <strong>{masteredCount}</strong> out of{" "}
+        You&apos;ve mastered <strong>{masteredCount}</strong> out of{" "}
         <strong>{total}</strong> verbs so far. Come back tomorrow to keep the
         streaks alive.
       </p>
