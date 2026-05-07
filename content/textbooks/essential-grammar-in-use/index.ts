@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "37-there-is-there-are",
+      title: "there is / there are",
+      description:
+        "Announce what exists with there is (one) and there are (more than one) — plus the question, negative, and the classic there's vs it's trap.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
