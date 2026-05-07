@@ -141,6 +141,13 @@ const textbook: Textbook = {
         "Three tiny time words that all answer 'how long?' — for + a length, since + a starting point, and ago for a moment in the past.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "20-present-perfect-and-past",
+      title: "I have done (present perfect) and I did (past)",
+      description:
+        "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
