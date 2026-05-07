@@ -232,6 +232,13 @@ const textbook: Textbook = {
         "Give friendly advice with should + infinitive — its negative shouldn't, the polite opener I think ... should ..., its bossier cousin must, and its bookish twin ought to.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "33-have-to",
+      title: "I have to ...",
+      description:
+        "Talk about what's necessary with have to / has to / had to — plus questions, don't have to (it's optional), and when to pick must vs have to.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
