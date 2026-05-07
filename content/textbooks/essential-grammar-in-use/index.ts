@@ -162,6 +162,13 @@ const textbook: Textbook = {
         "Two more passive shapes for things that happen to you: is/are being + done for what's in progress right now, and has/have been + done for a finished action whose result is still here.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "23-be-have-do",
+      title: "be / have / do in present and past tenses",
+      description:
+        "Three little engine words drive every tense you've met so far — be pulls -ing, have pulls a past participle, do pulls the plain verb. Spot the shape after the gap and the right helper falls into place.",
+      estimatedMinutes: 30,
+    },
   ],
 };
 
