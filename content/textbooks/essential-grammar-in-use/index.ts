@@ -274,6 +274,13 @@ const textbook: Textbook = {
         "Send there is / there are travelling through time: there was/were for yesterday, there has been / there have been for what's piled up by now, and there will be for what's coming tomorrow.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "39-it",
+      title: "It's raining (it for time, weather, distance)",
+      description:
+        "English never leaves a sentence without a subject — so we use it for time, day, distance, and weather. Plus it's nice to ... and the trap of dropping it at the start of a sentence.",
+      estimatedMinutes: 20,
+    },
   ],
 };
 
