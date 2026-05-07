@@ -148,6 +148,13 @@ const textbook: Textbook = {
         "Pick the right tense by listening for time clues: finished moments (yesterday, last week) take the past, while life-until-now (ever, yet, for six years) takes the present perfect.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "27-will-shall-1",
+      title: "I will / I'll / I won't (will / shall 1)",
+      description:
+        "Step into tomorrow with will + infinitive: predictions you expect, opinions with I think ... will, the contractions 'll and won't — plus when not to use will, and the I/we-only word shall.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
