@@ -281,6 +281,13 @@ const textbook: Textbook = {
         "English never leaves a sentence without a subject — so we use it for time, day, distance, and weather. Plus it's nice to ... and the trap of dropping it at the start of a sentence.",
       estimatedMinutes: 20,
     },
+    {
+      slug: "40-i-am-i-dont",
+      title: "I am, I don't etc.",
+      description:
+        "The echo trick: skip the rest of the sentence and reply with just the helping verb (am, is, do, can, will, has...) — plus the rule about full vs short forms in short answers.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
