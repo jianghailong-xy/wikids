@@ -149,6 +149,41 @@ const textbook: Textbook = {
       estimatedMinutes: 25,
     },
     {
+      slug: "21-is-done-was-done",
+      title: "is done / was done (passive 1)",
+      description:
+        "Flip the camera onto the thing instead of the doer with be + past participle: the office is cleaned, the house was built, I was born — plus how to add the doer back with by.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "22-is-being-done-has-been-done",
+      title: "is being done / has been done (passive 2)",
+      description:
+        "Two more passive shapes for things that happen to you: is/are being + done for what's in progress right now, and has/have been + done for a finished action whose result is still here.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "23-be-have-do",
+      title: "be / have / do in present and past tenses",
+      description:
+        "Three little engine words drive every tense you've met so far — be pulls -ing, have pulls a past participle, do pulls the plain verb. Spot the shape after the gap and the right helper falls into place.",
+      estimatedMinutes: 30,
+    },
+    {
+      slug: "24-regular-and-irregular-verbs",
+      title: "Regular and irregular verbs",
+      description:
+        "Two families of verbs: regulars stamp -ed onto both past simple and past participle, while irregulars change shape — sometimes once (cut → cut → cut, made → made), sometimes twice (broke → broken, went → gone).",
+      estimatedMinutes: 30,
+    },
+    {
+      slug: "25-present-continuous-future",
+      title: "What are you doing tomorrow? (present continuous for the future)",
+      description:
+        "Reuse am/is/are + -ing for plans already in the diary — appointments, parties, meetings — and learn the one exception: timetables (trains, films, concerts) take the present simple.",
+      estimatedMinutes: 25,
+    },
+    {
       slug: "26-going-to",
       title: "I'm going to ...",
       description:
