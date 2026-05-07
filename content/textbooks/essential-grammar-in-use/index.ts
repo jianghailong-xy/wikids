@@ -169,6 +169,13 @@ const textbook: Textbook = {
         "Three little engine words drive every tense you've met so far — be pulls -ing, have pulls a past participle, do pulls the plain verb. Spot the shape after the gap and the right helper falls into place.",
       estimatedMinutes: 30,
     },
+    {
+      slug: "24-regular-and-irregular-verbs",
+      title: "Regular and irregular verbs",
+      description:
+        "Two families of verbs: regulars stamp -ed onto both past simple and past participle, while irregulars change shape — sometimes once (cut → cut → cut, made → made), sometimes twice (broke → broken, went → gone).",
+      estimatedMinutes: 30,
+    },
   ],
 };
 
