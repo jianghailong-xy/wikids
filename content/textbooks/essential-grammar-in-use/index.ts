@@ -345,6 +345,13 @@ const textbook: Textbook = {
       estimatedMinutes: 25,
     },
     {
+      slug: "49-do-you-know-where",
+      title: "Do you know where ...? I don't know what ...",
+      description:
+        "Embedded (indirect) questions: when a direct question slides inside Do you know …? / I don't know …? / Can you tell me …?, the helper-flip disappears, do/does/did vanishes (and the tense moves back onto the verb), and yes/no questions need if or whether glued in front.",
+      estimatedMinutes: 25,
+    },
+    {
       slug: "54-i-went-to-the-shop-to",
       title: "I went to the shop to ...",
       description:
