@@ -330,6 +330,13 @@ const textbook: Textbook = {
         "Two finishing touches for wh-questions: prepositions float to the end (Where are you from? not From where are you?), and What's it like? — where like is a preposition, not the verb — is the go-to question for asking someone to describe something.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "47-what-which-how",
+      title: "What ...? Which ...? How ...? (questions 4)",
+      description:
+        "Three wh-words for three jobs: What + noun zooms in on a feature (What colour? What kind?); Which + noun picks from a small set (this train or that train?); How + adjective measures (how tall, how far, how often). Plus the trap: for people without a noun, swap Which for Who.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
