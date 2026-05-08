@@ -1,0 +1,224 @@
+<Lesson textbook="essential-grammar-in-use" slug="81-all-most-some-any-no-none">
+
+Five quantity words on one sliding scale: **all** (100%), **most** (a big majority), **some** (less than half), **any** (an unknown amount, often in questions and negatives), and **no / none** (0%). The trick is the little word **of**: drop it before a plain noun (*most children*), but keep it before *the / this / my* (*most of the children*).
+
+## Counting the picture
+
+<ChatDialog
+  title="How much of it?"
+  participants={[
+    { name: "Mei", emoji: "👩🏼", side: "left", tone: "rose" },
+    { name: "Sam", emoji: "🧑🏽", side: "right", tone: "sky" },
+  ]}
+  turns={[
+    { speaker: "Mei", text: "Most children like playing.", say: "Most children like playing." },
+    { speaker: "Sam", text: "True — but most of the children at this school are under 11." },
+    { speaker: "Mei", text: "Some books are better than others." },
+    { speaker: "Sam", text: "Yeah, and some of these books are very old." },
+    { speaker: "Mei", text: "He has no friends." },
+    { speaker: "Sam", text: "And none of my friends live near me." },
+    { speaker: "Mei", text: "How many of these books have you read?" },
+    { speaker: "Sam", text: "None of them." },
+  ]}
+/>
+
+<Callout type="tip" title="The of switch">
+  Plain noun (*children, money, books*) → **no of**: *most children, some money, any books*. Specific noun with *the / this / my* → **add of**: *most **of** the children, some **of** this money, any **of** my books*.
+</Callout>
+
+## Part A — *children* vs *the children*
+
+<div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-5 shadow-sm">
+    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-emerald-700">in general (no the)</p>
+    <p className="text-base text-emerald-900"><strong>Children</strong> like playing. <span className="text-xs italic text-slate-500">(= children in general)</span></p>
+    <p className="mt-2 text-base text-emerald-900"><strong>Money</strong> isn't everything.</p>
+    <p className="mt-2 text-base text-emerald-900">Everybody needs <strong>friends</strong>.</p>
+  </div>
+  <div className="rounded-2xl border-2 border-violet-200 bg-violet-50 p-5 shadow-sm">
+    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-violet-700">a specific group (the / these / my)</p>
+    <p className="text-base text-violet-900">Where are <strong>the children</strong>? <span className="text-xs italic text-slate-500">(= our children)</span></p>
+    <p className="mt-2 text-base text-violet-900">I want to buy a car, but I don't have <strong>the money</strong>.</p>
+    <p className="mt-2 text-base text-violet-900">I often go out with <strong>my friends</strong>.</p>
+  </div>
+</div>
+
+## Part B — *most / some* etc. + noun (no *of*)
+
+In front of a **plain noun** (in general), use *all / most / some / any / no* with **no of**:
+
+- **Most children** like playing. *(not Most of children)*
+- I don't want **any money**.
+- **Some books** are better than others.
+- He has **no friends**.
+- **All cities** have the same problems.
+
+<Callout type="warning" title="Watch the of trap">
+  ❌ *Most of people drive too fast.* &nbsp; ✅ **Most people** drive too fast. <br /> ❌ *Some of birds can't fly.* &nbsp; ✅ **Some birds** can't fly.
+</Callout>
+
+## Part C — *most of / some of* etc. + the/this/my
+
+When the noun has **the / this / that / these / those / my / your / Paul's** in front of it, slide an **of** in:
+
+- **Most of the children** at this school are under 11.
+- I don't want **any of this money**.
+- **Some of these books** are very old.
+- **None of my friends** live near me.
+
+### *all the* or *all of the*?
+
+After **all** the *of* is **optional** (with or without):
+
+- **All the students** in our class passed the exam. *(or All of the students)*
+- Amy has lived in London **all her life**. *(or all of her life)*
+
+## Part D — *all of it / most of them / none of us*
+
+With pronouns (*it, them, us, you*) you **must** use *of*:
+
+<div className="not-prose my-6 overflow-hidden rounded-2xl border-2 border-sky-200 bg-sky-50">
+  <div className="grid gap-px bg-sky-200 sm:grid-cols-2">
+    <div className="bg-white p-3"><p className="text-xs font-bold uppercase tracking-wider text-sky-700">word</p><p className="mt-1 text-sm text-sky-900">all / most / some / any / none</p></div>
+    <div className="bg-white p-3"><p className="text-xs font-bold uppercase tracking-wider text-sky-700">+ of + pronoun</p><p className="mt-1 text-sm text-sky-900">it / them / us / you</p></div>
+  </div>
+</div>
+
+- You can have **some of this cake**, but not **all of it**.
+- A: Do you know those people? B: **Most of them**, but not **all of them**.
+- **Some of us** are going out tonight. Why don't you come with us?
+- I have a lot of books, but I haven't read **any of them**.
+- 'How many of these books have you read?' '**None of them**.'
+
+## Quick check: spot the broken
+
+<SpotTheBroken
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="81-all-most-some-any-no-none"
+  id="spot-the-broken"
+  items={[
+    { id: "s1", text: "Most children like playing.", isCorrect: true },
+    { id: "s2", text: "Most of children like playing.", isCorrect: false, fix: "Most children like playing." },
+    { id: "s3", text: "Some birds can't fly.", isCorrect: true },
+    { id: "s4", text: "Some of birds can't fly.", isCorrect: false, fix: "Some birds can't fly." },
+    { id: "s5", text: "Most of the children at this school are under 11.", isCorrect: true },
+    { id: "s6", text: "Most of students in our class are very nice.", isCorrect: false, fix: "Most of the students in our class are very nice. (or Most students…)" },
+    { id: "s7", text: "All the students in our class passed the exam.", isCorrect: true },
+    { id: "s8", text: "All of her life she has lived in London.", isCorrect: true },
+    { id: "s9", text: "All of insects have six legs.", isCorrect: false, fix: "All insects have six legs." },
+    { id: "s10", text: "None of my friends live near me.", isCorrect: true },
+    { id: "s11", text: "I haven't read any of them.", isCorrect: true },
+    { id: "s12", text: "I haven't read any them.", isCorrect: false, fix: "I haven't read any of them." },
+  ]}
+/>
+
+## *most / some* + noun (with or without *of*)
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="81-all-most-some-any-no-none"
+  id="of-or-not"
+  questions={[
+    { id: "q1", prompt: "___ children like playing.", choices: ["Most", "Most of", "All of", "Any of"], answer: "Most" },
+    { id: "q2", prompt: "___ this money is yours.", choices: ["Some", "Some of", "Any", "No"], answer: "Some of" },
+    { id: "q3", prompt: "___ people never stop talking.", choices: ["Some", "Some of", "Any of", "None of"], answer: "Some" },
+    { id: "q4", prompt: "___ the shops in the city centre close at 6.30.", choices: ["Most", "Most of", "All", "Some"], answer: "Most of" },
+    { id: "q5", prompt: "___ people have mobile phones these days.", choices: ["Most", "Most of", "All of", "Any of"], answer: "Most" },
+    { id: "q6", prompt: "I don't like ___ the pictures in the living room.", choices: ["any", "any of", "no", "none"], answer: "any of" },
+    { id: "q7", prompt: "He's lost ___ his money.", choices: ["all", "all of", "any", "none"], answer: "all" , explainWrong: "Before my/his/her/their, all of is also OK — but in this gap all (of his money) and all his money are both possible; the simplest is all."},
+    { id: "q8", prompt: "___ my friends are married.", choices: ["None", "None of", "No", "Any of"], answer: "None of" },
+    { id: "q9", prompt: "Do you know ___ the people in this picture?", choices: ["any", "any of", "no", "none"], answer: "any of" },
+    { id: "q10", prompt: "___ birds can fly.", choices: ["Most", "Most of", "Any", "None of"], answer: "Most" },
+    { id: "q11", prompt: "I enjoyed ___ the film, but I didn't like the ending.", choices: ["most", "most of", "all", "some"], answer: "most of" },
+    { id: "q12", prompt: "___ sports are very dangerous.", choices: ["Some", "Some of", "Any", "None"], answer: "Some" },
+    { id: "q13", prompt: "We can't find anywhere to stay. ___ the hotels are full.", choices: ["All", "All of", "Any of", "None of"], answer: "All" , explainWrong: "Before the … both all and all of work — All the hotels and All of the hotels are both correct."},
+    { id: "q14", prompt: "You must have ___ this cheese. It's delicious.", choices: ["some", "some of", "any of", "any"], answer: "some of" },
+    { id: "q15", prompt: "The weather was bad when we were on holiday. It rained ___ the time.", choices: ["most", "most of", "all of", "some"], answer: "most of" },
+  ]}
+/>
+
+## Look at the picture: *all / most / some / none + of them*
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="81-all-most-some-any-no-none"
+  id="of-them"
+  questions={[
+    { id: "q1", prompt: "How many of the people are women? (more than half)", choices: ["All of them.", "Most of them.", "Some of them.", "None of them."], answer: "Most of them." },
+    { id: "q2", prompt: "How many of the boxes are on the table? (every single one)", choices: ["All of them.", "Most of them.", "Some of them.", "None of them."], answer: "All of them." },
+    { id: "q3", prompt: "How many of the men are wearing hats? (a few — not many)", choices: ["All of them.", "Most of them.", "Some of them.", "None of them."], answer: "Some of them." },
+    { id: "q4", prompt: "How many of the windows are open? (zero)", choices: ["All of them.", "Most of them.", "Some of them.", "None of them."], answer: "None of them." },
+    { id: "q5", prompt: "How many of the people are standing? (a few — not many)", choices: ["All of them.", "Most of them.", "Some of them.", "None of them."], answer: "Some of them." },
+    { id: "q6", prompt: "How much of the money is Ben's? (he says: 'It's all mine!')", choices: ["All of it.", "Most of it.", "Some of it.", "None of it."], answer: "All of it." },
+  ]}
+/>
+
+## Right or wrong?
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="81-all-most-some-any-no-none"
+  id="right-or-wrong"
+  questions={[
+    { id: "q1", prompt: "Most of children like playing.", choices: ["OK", "Most children like playing.", "Most of the children…"], answer: "Most children like playing." },
+    { id: "q2", prompt: "All the students failed the exam.", choices: ["OK", "All of students…", "All students of…"], answer: "OK" },
+    { id: "q3", prompt: "Some of people work too hard.", choices: ["OK", "Some people work too hard.", "Some of the people…"], answer: "Some people work too hard." },
+    { id: "q4", prompt: "Some of questions in the exam were very easy.", choices: ["OK", "Some questions in the exam…", "Some of the questions in the exam…"], answer: "Some of the questions in the exam…" },
+    { id: "q5", prompt: "I haven't seen any of those people before.", choices: ["OK", "I haven't seen any those people…", "I haven't seen no of those people…"], answer: "OK" },
+    { id: "q6", prompt: "All of insects have six legs.", choices: ["OK", "All insects have six legs.", "All of the insects…"], answer: "All insects have six legs." },
+    { id: "q7", prompt: "Have you read all these books?", choices: ["OK", "Have you read all of books?", "Have you read all books these?"], answer: "OK" },
+    { id: "q8", prompt: "Most of students in our class are very nice.", choices: ["OK", "Most students…", "Most of the students in our class are very nice."], answer: "Most of the students in our class are very nice." },
+    { id: "q9", prompt: "Most of my friends are going to the party.", choices: ["OK", "Most my friends…", "Most of friends…"], answer: "OK" },
+    { id: "q10", prompt: "I'm very tired this morning – I was awake most of night.", choices: ["OK", "…most of the night.", "…most night."], answer: "…most of the night." },
+  ]}
+/>
+
+## Build the sentence
+
+<QuestionBuilder
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="81-all-most-some-any-no-none"
+  id="build-most-some"
+  prompts={[
+    { id: "q1", prompt: "Build: Most of the children at this school are under 11 years old.", correctOrder: ["Most", "of", "the", "children", "at", "this", "school", "are", "under", "11", "years", "old", "."] },
+    { id: "q2", prompt: "Build: None of my friends live near me.", correctOrder: ["None", "of", "my", "friends", "live", "near", "me", "."] },
+    { id: "q3", prompt: "Build: Some of these books are very old.", correctOrder: ["Some", "of", "these", "books", "are", "very", "old", "."] },
+    { id: "q4", prompt: "Build: I haven't read any of them.", correctOrder: ["I", "haven't", "read", "any", "of", "them", "."] },
+    { id: "q5", prompt: "Build: All cities have the same problems.", correctOrder: ["All", "cities", "have", "the", "same", "problems", "."] },
+  ]}
+/>
+
+## Match: which shape?
+
+<Match
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="81-all-most-some-any-no-none"
+  id="match-shape"
+  title="Drag each phrase to its shape"
+  pairs={[
+    { id: "p1", left: "most children", right: "word + plain noun (no of)" },
+    { id: "p2", left: "some books", right: "word + plain noun (no of)" },
+    { id: "p3", left: "most of the children", right: "word + of + the/this/my + noun" },
+    { id: "p4", left: "none of my friends", right: "word + of + the/this/my + noun" },
+    { id: "p5", left: "all of them", right: "word + of + pronoun" },
+    { id: "p6", left: "most of us", right: "word + of + pronoun" },
+    { id: "p7", left: "all the students (or all of the students)", right: "after all, of is optional" },
+  ]}
+/>
+
+## Now you try
+
+Write **six** sentences about your life. Use each shape at least once.
+
+1. *Most of my friends ___ .*
+2. *Some ___ in my country are very ___ .*
+3. *None of my ___ live near me.*
+4. *All cities ___ .*
+5. *I have a lot of ___ , but I haven't read any of them.*
+6. *Most ___ have ___ these days.*
+
+<Callout type="tip" title="Star challenge — the of switch">
+  Write the same sentence twice — once general, once specific. Example: *Most children like playing.* (in general) → *Most of the children at this school like playing.* (a specific group). Try it with: *teachers, books, money, restaurants, films*. The word **the** (or *this / my*) is what flips the switch.
+</Callout>
+
+</Lesson>

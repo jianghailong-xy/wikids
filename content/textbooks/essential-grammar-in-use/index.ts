@@ -568,6 +568,48 @@ const textbook: Textbook = {
         "Two ways to say 100%. every + singular noun + singular verb (every house is the same, every country has a flag). all + plural / uncountable (all the houses, all the students). Plus every day (= on each day, how often) vs all day (= the whole day, how long). And the every- family: everybody/everyone, everything, everywhere — all take a singular verb (Everybody has problems).",
       estimatedMinutes: 25,
     },
+    {
+      slug: "81-all-most-some-any-no-none",
+      title: "all / most / some / any / no / none",
+      description:
+        "Five quantity words on one sliding scale. The trick is the little word of: drop it before a plain noun (most children, some books) but slip it in before the / this / my (most of the children, some of these books) — and always with pronouns (all of them, none of us).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "82-both-either-neither",
+      title: "both / either / neither",
+      description:
+        "Three little words for two things. both = the two (plural noun + plural verb). either = one or the other (singular). neither = not one and not the other (singular). After both the of is optional; after either / neither it's needed before the / these / my — and always with pronouns (both of them, neither of us). Plus the two-negative trap: I don't want either, never neither.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "83-a-lot-much-many",
+      title: "a lot / much / many",
+      description:
+        "Three quantity words for a big amount. much + uncountable (much money), many + plural (many books), and a lot of with both. The trap: much sounds wrong in positive sentences — swap it for a lot of (I drink a lot of coffee, not I drink much coffee). Plus a lot and much without a noun (We go to the cinema a lot, I don't like him much).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "84-a-little-a-few",
+      title: "(a) little / (a) few",
+      description:
+        "Two pairs of small-amount words. (a) little + uncountable (a little water), (a) few + plural (a few books). With a, the feeling is positive — some, but not much. Drop the a (or add very) and the meaning flips to negative — nearly nothing, nearly no one. Same words, opposite mood, controlled by one little article.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "85-adjectives",
+      title: "old / nice / interesting (adjectives)",
+      description:
+        "Adjectives sit in two slots only: before a noun (a nice day, brown eyes) or after be / look / feel / smell / taste / sound (You look tired. It smells good.). The ending never changes — different place, different places, never differents.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "86-adverbs",
+      title: "quickly / badly / suddenly (adverbs)",
+      description:
+        "Adverbs answer how? Take an adjective and stamp -ly on it (quick → quickly, careful → carefully, heavy → heavily). Adverbs go with action verbs (speaks quietly, listen carefully); adjectives stay with be / look / feel / smell / taste / sound (Sue is quiet, You look tired). Plus the four exception words — hard, fast, late, early — that wear the same shape in both jobs, and the special pair good → well.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
