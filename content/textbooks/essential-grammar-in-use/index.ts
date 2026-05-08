@@ -366,6 +366,13 @@ const textbook: Textbook = {
       estimatedMinutes: 25,
     },
     {
+      slug: "52-to-do-and-doing",
+      title: "to ... (I want to do) and -ing (I enjoy doing)",
+      description:
+        "When one verb leads into another: which trigger pulls to + verb (want, plan, decide, hope, learn, expect, would like…) and which pulls -ing (enjoy, stop, finish, mind, suggest). Plus the either-form club (like, love, hate, prefer, start, begin) — but the moment would joins, only to + verb works.",
+      estimatedMinutes: 25,
+    },
+    {
       slug: "54-i-went-to-the-shop-to",
       title: "I went to the shop to ...",
       description:
