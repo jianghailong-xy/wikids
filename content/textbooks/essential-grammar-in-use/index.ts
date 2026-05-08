@@ -428,6 +428,62 @@ const textbook: Textbook = {
         "The possessive adjectives that travel with a noun: I → my, we → our, you → your, he → his, she → her, they → their, it → its. They always sit in front of the noun (my hands, his car, their parents). Plus the classic trap: its (= belongs to it) vs it's (= it is).",
       estimatedMinutes: 25,
     },
+    {
+      slug: "61-mine-yours-whose",
+      title: "Whose is this? It's mine/yours/hers etc.",
+      description:
+        "The third pronoun column: mine, ours, yours, his, hers, theirs — possessives that stand alone (no noun afterwards). Plus the special phrase a friend of mine / of his / of yours, and the question word that pulls them out: Whose ...?",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "62-i-me-my-mine",
+      title: "I/me/my/mine",
+      description:
+        "Lessons 59, 60 and 61 in one big map: subject (I), object (me), possessive adjective (my), possessive pronoun (mine). Read what comes next — a verb, a preposition, a noun, or nothing — and the right column lights up.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "63-myself-yourself",
+      title: "myself/yourself/themselves etc.",
+      description:
+        "Reflexive pronouns for when the subject and the object are the same person (I cut myself, she enjoyed herself). Plus by myself = alone, and the easy mix-up with each other (James and Sue looked at each other vs at themselves).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "64-s-possessive",
+      title: "-'s (Kate's camera / my brother's car)",
+      description:
+        "How English shows ownership for people: stick 's onto the owner (Kate's camera, my sister's house). For plurals that already end in -s, add just an apostrophe (my parents' car). For things and places, switch to of (the roof of the building, not the building's roof).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "65-a-an",
+      title: "a/an ...",
+      description:
+        "Your first English article: a in front of consonant sounds, an in front of vowel sounds (a hat, an umbrella, an hour, a university). Use a/an to say what something or someone is — including jobs (I'm a dentist, not I'm dentist).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "66-singular-plural",
+      title: "train(s) / bus(es) (singular and plural)",
+      description:
+        "Make plurals: usually +s, but +es after -s/-sh/-ch/-x (buses, dishes), -y → -ies (babies), -f → -ves (knives, wives). Plus the irregulars (man → men, child → children, foot → feet, mouse → mice, sheep → sheep) and the always-plurals (jeans, scissors, glasses, people, police).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "67-countable-uncountable-1",
+      title: "a bottle / some water (countable/uncountable 1)",
+      description:
+        "Two families of nouns: countable ones (bottle, key, idea) take a/an and a plural (two bottles); uncountable ones (water, money, music, salt) take no a/an and no plural. To count uncountables, package them: a bottle of water, a piece of cheese, a cup of coffee.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "68-countable-uncountable-2",
+      title: "a cake / some cake / some cakes (countable/uncountable 2)",
+      description:
+        "Pair a/an + singular countable (a car, an apple) with some + plural countable (some apples) and some + uncountable (some water). Plus the double-life nouns (a cake / some cake, a chicken / some chicken, a paper / some paper) and the always-uncountable trap (advice, bread, furniture, hair, information, news, weather, work).",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
