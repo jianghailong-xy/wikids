@@ -386,6 +386,13 @@ const textbook: Textbook = {
         "Three shapes for saying why: to + verb tells us the purpose (I went to the shop to get a newspaper), for + noun does the same job with a thing (I went to the shop for a newspaper — never mix them!), and the wait family (wait for me / wait to go / wait for the lights to change) bundles all three patterns into one verb.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "55-go-to-on-for-ing",
+      title: "go to ... go on ... go for ... go -ing",
+      description:
+        "Five shapes of going: go to + place (work, China, bed) — except home, which drops the to. Go on + a planned event (holiday, a trip, a tour, strike). Go for + a quick activity noun (a walk, a run, a swim, coffee). And go + -ing for sports and shopping (swimming, skiing, fishing, shopping).",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
