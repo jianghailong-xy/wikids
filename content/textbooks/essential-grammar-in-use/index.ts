@@ -302,6 +302,13 @@ const textbook: Textbook = {
         "Two flavours of 'me too / me neither': the easy tail (…too after a positive, …either after a negative) and the snappy flip (So am I, Neither do I) that puts the helper in front of the subject — plus the word-order trap (never So I am).",
       estimatedMinutes: 25,
     },
+    {
+      slug: "43-isnt-havent-dont",
+      title: "isn't, haven't, don't etc. (negatives)",
+      description:
+        "The all-purpose recipe for saying no in English: find the helper (am, is, was, have, will, can, must, should, would…) and snap n't onto its tail. If there's no visible helper, summon do/does/did to be one — and remember the verb goes plain after them (didn't have, not didn't had).",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
