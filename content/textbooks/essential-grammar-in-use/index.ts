@@ -373,6 +373,13 @@ const textbook: Textbook = {
       estimatedMinutes: 25,
     },
     {
+      slug: "53-i-want-you-to",
+      title: "I want you to ... I told you to ...",
+      description:
+        "Telling somebody else what to do. The locked shape: verb + person + to + verb (I want you to be happy; she asked me to wait; we persuaded Gary to come). Negative tucks not in front of to (Paul told Sue not to wait). Two oddballs — make and let — break the rule and skip the to. Plus Let's ... for inviting someone to do it with you.",
+      estimatedMinutes: 25,
+    },
+    {
       slug: "54-i-went-to-the-shop-to",
       title: "I went to the shop to ...",
       description:
