@@ -323,6 +323,13 @@ const textbook: Textbook = {
         "The subject-vs-object question split: when who/what is the doer (Who broke the window?), no flip needed — the verb keeps its shape. When who/what is the receiver (What did you buy?), flip with do/does/did as usual. Plus the somebody/something test for picking the right shape.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "46-who-is-she-talking-to",
+      title: "Who is she talking to? What is it like? (questions 3)",
+      description:
+        "Two finishing touches for wh-questions: prepositions float to the end (Where are you from? not From where are you?), and What's it like? — where like is a preposition, not the verb — is the go-to question for asking someone to describe something.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
