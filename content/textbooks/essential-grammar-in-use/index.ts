@@ -309,6 +309,13 @@ const textbook: Textbook = {
         "The all-purpose recipe for saying no in English: find the helper (am, is, was, have, will, can, must, should, would…) and snap n't onto its tail. If there's no visible helper, summon do/does/did to be one — and remember the verb goes plain after them (didn't have, not didn't had).",
       estimatedMinutes: 25,
     },
+    {
+      slug: "44-is-it-have-you-do-they",
+      title: "is it ...? have you ...? do they ...? (questions 1)",
+      description:
+        "The twin recipe for asking: find the helper and flip it in front of the subject. The subject sits right behind the helper (not at the end). When the helper is invisible, summon do/does/did — and the main verb goes plain. Plus Why isn't…? / Why didn't…? for asking why something isn't happening.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
