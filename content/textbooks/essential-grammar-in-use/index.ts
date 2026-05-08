@@ -344,6 +344,13 @@ const textbook: Textbook = {
         "A fixed little machine for asking and answering about time spent: How long does/did/will it take (someone) to do something? Three flavours — journeys (from X to Y), actions (to + verb), and personal versions (it took me three days to read the book) — all running on the same locked slot order.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "54-i-went-to-the-shop-to",
+      title: "I went to the shop to ...",
+      description:
+        "Three shapes for saying why: to + verb tells us the purpose (I went to the shop to get a newspaper), for + noun does the same job with a thing (I went to the shop for a newspaper — never mix them!), and the wait family (wait for me / wait to go / wait for the lights to change) bundles all three patterns into one verb.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
