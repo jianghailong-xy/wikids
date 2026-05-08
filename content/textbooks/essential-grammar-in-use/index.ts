@@ -316,6 +316,13 @@ const textbook: Textbook = {
         "The twin recipe for asking: find the helper and flip it in front of the subject. The subject sits right behind the helper (not at the end). When the helper is invisible, summon do/does/did — and the main verb goes plain. Plus Why isn't…? / Why didn't…? for asking why something isn't happening.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "45-who-saw-you",
+      title: "Who saw you? Who did you see? (questions 2)",
+      description:
+        "The subject-vs-object question split: when who/what is the doer (Who broke the window?), no flip needed — the verb keeps its shape. When who/what is the receiver (What did you buy?), flip with do/does/did as usual. Plus the somebody/something test for picking the right shape.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
