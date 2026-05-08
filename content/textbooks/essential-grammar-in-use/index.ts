@@ -393,6 +393,41 @@ const textbook: Textbook = {
         "Five shapes of going: go to + place (work, China, bed) — except home, which drops the to. Go on + a planned event (holiday, a trip, a tour, strike). Go for + a quick activity noun (a walk, a run, a swim, coffee). And go + -ing for sports and shopping (swimming, skiing, fishing, shopping).",
       estimatedMinutes: 25,
     },
+    {
+      slug: "56-get",
+      title: "get",
+      description:
+        "One tiny verb, four big jobs: get + noun (= receive/buy/find), get + adjective (= become — hungry, cold, married, lost), get to + place (= arrive — but get home/here/there drop the to), and get in/out/on/off for cars, buses, trains and planes.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "57-do-and-make",
+      title: "do and make",
+      description:
+        "Two verbs that mean almost the same thing — but never swap. Do for general actions (What are you doing? do the washing, do homework, do exercises). Make for producing or creating something new (make coffee, make a cake, make a mistake, make a phone call). Plus the fixed pairs you just learn: make a film but take a photo.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "58-have",
+      title: "have",
+      description:
+        "Have wears two hats. As have / have got it means it's mine (a car, long hair, a headache). But have breakfast / a shower / a good time / a baby / a look means do or take it — never have got — and turns into 'm having for things in progress right now.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "59-i-me-he-him",
+      title: "I/me   he/him   they/them etc.",
+      description:
+        "Two columns of pronouns: subjects (I, we, you, he, she, they, it) for the doer in front of the verb, and objects (me, us, you, him, her, them, it) for the receiver after the verb — and after every preposition (for me, with us, to him). Plus give it to me — the give X to Y shape.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "60-my-his-their",
+      title: "my/his/their etc.",
+      description:
+        "The possessive adjectives that travel with a noun: I → my, we → our, you → your, he → his, she → her, they → their, it → its. They always sit in front of the noun (my hands, his car, their parents). Plus the classic trap: its (= belongs to it) vs it's (= it is).",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
