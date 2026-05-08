@@ -337,6 +337,13 @@ const textbook: Textbook = {
         "Three wh-words for three jobs: What + noun zooms in on a feature (What colour? What kind?); Which + noun picks from a small set (this train or that train?); How + adjective measures (how tall, how far, how often). Plus the trap: for people without a noun, swap Which for Who.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "48-how-long-does-it-take",
+      title: "How long does it take ...?",
+      description:
+        "A fixed little machine for asking and answering about time spent: How long does/did/will it take (someone) to do something? Three flavours — journeys (from X to Y), actions (to + verb), and personal versions (it took me three days to read the book) — all running on the same locked slot order.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
