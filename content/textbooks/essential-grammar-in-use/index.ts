@@ -295,6 +295,13 @@ const textbook: Textbook = {
         "Two new jobs for the little helpers from lesson 40: bounce them back as reply questions (Have you? Are you? Didn't she?) to show interest, and tape them onto the end of a sentence (…isn't it? …have you?) as question tags.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "42-too-either-so-neither",
+      title: "too / either, so am I / neither do I",
+      description:
+        "Two flavours of 'me too / me neither': the easy tail (…too after a positive, …either after a negative) and the snappy flip (So am I, Neither do I) that puts the helper in front of the subject — plus the word-order trap (never So I am).",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
