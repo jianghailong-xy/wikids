@@ -359,6 +359,13 @@ const textbook: Textbook = {
       estimatedMinutes: 25,
     },
     {
+      slug: "51-work-working-go-going",
+      title: "work / working, go / going, do / doing",
+      description:
+        "The verb-form map: three shapes (plain work, to work, working) and the trigger word that picks each one. Modals + do/does/did want plain. Going to / have to / want to / would like to / used to want to + verb. Am/is/are + was/were want -ing. Read the word in front of the gap; the form falls into place.",
+      estimatedMinutes: 25,
+    },
+    {
       slug: "54-i-went-to-the-shop-to",
       title: "I went to the shop to ...",
       description:
