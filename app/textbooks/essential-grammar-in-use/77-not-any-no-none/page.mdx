@@ -1,0 +1,411 @@
+<Lesson textbook="essential-grammar-in-use" slug="77-not-any-no-none">
+
+There are three ways to say *zero* in English. **not + any** with a negative verb (*There **aren't any** cars*). **no + noun** with a positive verb (*There are **no** cars*). And **none** on its own (the noun-less twin) — for answering *How much?* or *How many?* (*— **None**.*). Same idea, three shapes — and the trap is **never two negatives at once**.
+
+## Empty everywhere
+
+<ChatDialog
+  title="The empty car park"
+  participants={[
+    { name: "Mei", emoji: "👩🏼", side: "left", tone: "rose" },
+    { name: "Sam", emoji: "🧑🏽", side: "right", tone: "sky" },
+  ]}
+  turns={[
+    { speaker: "Mei", text: "Look — the car park is empty.", say: "Look — the car park is empty." },
+    { speaker: "Sam", text: "There aren't any cars in it. Or — there are no cars in it." },
+    { speaker: "Mei", text: "How many cars are there?" },
+    { speaker: "Sam", text: "None." },
+    { speaker: "Mei", text: "And in this house?" },
+    { speaker: "Sam", text: "It's empty too — no garden, no light, nothing." },
+  ]}
+/>
+
+<Callout type="tip" title="Three shapes, one zero">
+  *not + any* (negative verb) = *no + noun* (positive verb). When the noun is dropped from the answer, use *none*.
+</Callout>
+
+## Part A — *not + any* and *no + noun*
+
+<div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div className="rounded-2xl border-2 border-rose-200 bg-rose-50 p-5 shadow-sm">
+    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-rose-700">not (-n't) + any — negative verb</p>
+    <p className="text-base text-rose-900">There <strong>aren't any cars</strong> in the car park.</p>
+    <p className="mt-2 text-base text-rose-900">Tracey and Jack <strong>don't have any children</strong>.</p>
+    <p className="mt-2 text-base text-rose-900">You can have some coffee, but I <strong>don't want any</strong>.</p>
+  </div>
+  <div className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-5 shadow-sm">
+    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-emerald-700">no + noun — positive verb</p>
+    <p className="text-base text-emerald-900">There <strong>are no cars</strong> in the car park.</p>
+    <p className="mt-2 text-base text-emerald-900">We <strong>have no coffee</strong>.</p>
+    <p className="mt-2 text-base text-emerald-900">It's a nice house, but there's <strong>no garden</strong>.</p>
+  </div>
+</div>
+
+<Callout type="warning" title="Never both at once">
+  ❌ *They don't have no children.* <br /> ✅ They <strong>don't have any</strong> children. *or* They <strong>have no</strong> children. <br /> One negative is enough — pick a side.
+</Callout>
+
+## Part B — *no* and *none*
+
+- Use **no + noun**: *We have **no money**. There were **no problems**.*
+- Use **none alone** (no noun): *'How much money do you have?' '**None**.' (= no money). 'Were there any problems?' 'No, **none**.'*
+
+## Part C — *none* and *no-one*
+
+<div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div className="rounded-2xl border-2 border-amber-200 bg-amber-50 p-5 shadow-sm">
+    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-amber-700">none = 0 (things or people, after how much/many)</p>
+    <p className="text-base text-amber-900">A: How much money do you have? B: <strong>None</strong>. <span className="text-xs italic text-slate-500">(= no money)</span></p>
+    <p className="mt-2 text-base text-amber-900">A: How many people did you meet? B: <strong>None</strong>. <span className="text-xs italic text-slate-500">(= no people)</span></p>
+  </div>
+  <div className="rounded-2xl border-2 border-violet-200 bg-violet-50 p-5 shadow-sm">
+    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-violet-700">no-one = nobody (= no person, after Who?)</p>
+    <p className="text-base text-violet-900">A: Who did you meet? B: <strong>No-one</strong>. <span className="text-xs italic text-slate-500">(or Nobody.)</span></p>
+  </div>
+</div>
+
+## Quick check: spot the broken
+
+<SpotTheBroken
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="77-not-any-no-none"
+  id="spot-the-broken"
+  items={[
+    { id: "s1", text: "There aren't any cars in the car park.", isCorrect: true },
+    { id: "s2", text: "There are no cars in the car park.", isCorrect: true },
+    { id: "s3", text: "There aren't no cars in the car park.", isCorrect: false, fix: "There aren't any cars… or There are no cars… (not both)" },
+    { id: "s4", text: "We have no coffee.", isCorrect: true },
+    { id: "s5", text: "We don't have no coffee.", isCorrect: false, fix: "We don't have any coffee. (or We have no coffee.)" },
+    { id: "s6", text: "How much money do you have? — None.", isCorrect: true },
+    { id: "s7", text: "How much money do you have? — No.", isCorrect: false, fix: "How much money do you have? — None." },
+    { id: "s8", text: "Who did you meet? — No-one.", isCorrect: true },
+    { id: "s9", text: "Who did you meet? — None.", isCorrect: false, fix: "Who did you meet? — No-one. (or Nobody.)" },
+    { id: "s10", text: "There were no problems.", isCorrect: true },
+    { id: "s11", text: "There weren't any problems.", isCorrect: true },
+    { id: "s12", text: "There weren't no problems.", isCorrect: false, fix: "There weren't any problems. (or There were no problems.)" },
+  ]}
+/>
+
+## Rewrite: *no* version
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="77-not-any-no-none"
+  id="rewrite-no"
+  questions={[
+    {
+      id: "q1",
+      prompt: "We don't have any money. → ___",
+      choices: ["We have any money.", "We have no money.", "We don't have no money.", "We have not money."],
+      answer: "We have no money.",
+    },
+    {
+      id: "q2",
+      prompt: "There aren't any shops near here. → ___",
+      choices: ["There are no shops near here.", "There are not shops near here.", "There aren't no shops near here.", "There have no shops near here."],
+      answer: "There are no shops near here.",
+    },
+    {
+      id: "q3",
+      prompt: "Carla doesn't have any free time. → ___",
+      choices: ["Carla has free no time.", "Carla has no free time.", "Carla don't have no free time.", "Carla doesn't have no free time."],
+      answer: "Carla has no free time.",
+    },
+    {
+      id: "q4",
+      prompt: "There isn't a light in this room. → ___",
+      choices: ["There's no light in this room.", "There aren't a light in this room.", "There's no any light in this room.", "There has no light in this room."],
+      answer: "There's no light in this room.",
+    },
+  ]}
+/>
+
+## Rewrite: *any* version
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="77-not-any-no-none"
+  id="rewrite-any"
+  questions={[
+    {
+      id: "q1",
+      prompt: "We have no money. → ___",
+      choices: ["We don't have any money.", "We don't have no money.", "We have any money.", "We have not money."],
+      answer: "We don't have any money.",
+    },
+    {
+      id: "q2",
+      prompt: "There's no milk in the fridge. → ___",
+      choices: ["There isn't any milk in the fridge.", "There isn't no milk in the fridge.", "There has any milk in the fridge.", "There don't have milk in the fridge."],
+      answer: "There isn't any milk in the fridge.",
+    },
+    {
+      id: "q3",
+      prompt: "There are no buses today. → ___",
+      choices: ["There aren't any buses today.", "There aren't no buses today.", "There don't have buses today.", "There aren't some buses today."],
+      answer: "There aren't any buses today.",
+    },
+    {
+      id: "q4",
+      prompt: "Tom has no brothers or sisters. → ___",
+      choices: ["Tom doesn't have any brothers or sisters.", "Tom has any brothers or sisters.", "Tom doesn't have no brothers or sisters.", "Tom hasn't no brothers or sisters."],
+      answer: "Tom doesn't have any brothers or sisters.",
+    },
+  ]}
+/>
+
+## *no, any* or *none*?
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="77-not-any-no-none"
+  id="no-any-none"
+  questions={[
+    {
+      id: "q1",
+      prompt: "There's ___ sugar in your coffee.",
+      choices: ["any", "no", "none"],
+      answer: "no",
+      explainWrong: "Positive verb (There's …) + noun → no.",
+    },
+    {
+      id: "q2",
+      prompt: "My brother is married, but he doesn't have ___ children.",
+      choices: ["any", "no", "none"],
+      answer: "any",
+    },
+    {
+      id: "q3",
+      prompt: "Sue doesn't speak ___ foreign languages.",
+      choices: ["any", "no", "none"],
+      answer: "any",
+    },
+    {
+      id: "q4",
+      prompt: "I'm afraid there's ___ coffee. Would you like some tea?",
+      choices: ["any", "no", "none"],
+      answer: "no",
+    },
+    {
+      id: "q5",
+      prompt: "'Look at those birds!' 'Birds? Where? I can't see ___ birds.'",
+      choices: ["any", "no", "none"],
+      answer: "any",
+    },
+    {
+      id: "q6",
+      prompt: "'Do you know where Jessica is?' 'No, I have ___ idea.'",
+      choices: ["any", "no", "none"],
+      answer: "no",
+    },
+    {
+      id: "q7",
+      prompt: "There aren't ___ pictures on the wall.",
+      choices: ["any", "no", "none"],
+      answer: "any",
+    },
+    {
+      id: "q8",
+      prompt: "The weather was cold, but there was ___ wind.",
+      choices: ["any", "no", "none"],
+      answer: "no",
+    },
+    {
+      id: "q9",
+      prompt: "I wanted to buy some oranges, but they didn't have ___ in the shop.",
+      choices: ["any", "no", "none"],
+      answer: "any",
+    },
+    {
+      id: "q10",
+      prompt: "Everything was correct. There were ___ mistakes.",
+      choices: ["any", "no", "none"],
+      answer: "no",
+    },
+    {
+      id: "q11",
+      prompt: "'How much luggage do you have?' '___ .'",
+      choices: ["Any", "No", "None"],
+      answer: "None",
+    },
+    {
+      id: "q12",
+      prompt: "'How much luggage do you have?' 'I don't have ___ .'",
+      choices: ["any", "no", "none"],
+      answer: "any",
+    },
+  ]}
+/>
+
+## *any* or *no* + the right noun
+
+Pick the right pair (e.g., *no problems, any difference*).
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="77-not-any-no-none"
+  id="any-no-noun"
+  questions={[
+    {
+      id: "q1",
+      prompt: "Everything was OK. There were ___ .",
+      choices: ["any problems", "no problems", "no problem", "any problem"],
+      answer: "no problems",
+    },
+    {
+      id: "q2",
+      prompt: "Jack and Emily would like to go on holiday, but they have ___ .",
+      choices: ["any money", "no money", "none money", "any monies"],
+      answer: "no money",
+    },
+    {
+      id: "q3",
+      prompt: "I'm not going to answer ___ .",
+      choices: ["no questions", "any questions", "none questions", "no question"],
+      answer: "any questions",
+    },
+    {
+      id: "q4",
+      prompt: "He's always alone. He has ___ .",
+      choices: ["any friends", "no friends", "none friends", "no friend"],
+      answer: "no friends",
+    },
+    {
+      id: "q5",
+      prompt: "There is ___ between these two machines. They're exactly the same.",
+      choices: ["any difference", "no difference", "none difference", "any differences"],
+      answer: "no difference",
+    },
+    {
+      id: "q6",
+      prompt: "There wasn't ___ in the room. It was completely empty.",
+      choices: ["any furniture", "no furniture", "none furniture", "any furnitures"],
+      answer: "any furniture",
+    },
+    {
+      id: "q7",
+      prompt: "'Do you know how the accident happened?' 'No, I have ___ .'",
+      choices: ["any idea", "no idea", "none idea", "no ideas"],
+      answer: "no idea",
+    },
+    {
+      id: "q8",
+      prompt: "The house is cold because there isn't ___ .",
+      choices: ["any heating", "no heating", "none heating", "any heatings"],
+      answer: "any heating",
+    },
+    {
+      id: "q9",
+      prompt: "We didn't have to wait to get our train tickets. There was ___ .",
+      choices: ["any queue", "no queue", "none queue", "any queues"],
+      answer: "no queue",
+    },
+  ]}
+/>
+
+## Short answers
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="77-not-any-no-none"
+  id="short-answers"
+  questions={[
+    {
+      id: "q1",
+      prompt: "How many letters did you write yesterday? (no letters)",
+      choices: ["No.", "None.", "Any.", "No-one."],
+      answer: "None.",
+    },
+    {
+      id: "q2",
+      prompt: "How many sisters do you have? (zero)",
+      choices: ["No.", "None.", "Any.", "No-one."],
+      answer: "None.",
+    },
+    {
+      id: "q3",
+      prompt: "How much coffee did you drink yesterday? (zero)",
+      choices: ["No.", "None.", "Any.", "No-one."],
+      answer: "None.",
+    },
+    {
+      id: "q4",
+      prompt: "Who did you meet at the party? (no-one)",
+      choices: ["None.", "No-one.", "No.", "Any."],
+      answer: "No-one.",
+    },
+    {
+      id: "q5",
+      prompt: "How many legs does a snake have? (zero)",
+      choices: ["No.", "None.", "Any.", "No-one."],
+      answer: "None.",
+    },
+  ]}
+/>
+
+## Build the sentence
+
+<QuestionBuilder
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="77-not-any-no-none"
+  id="build-no-none"
+  prompts={[
+    {
+      id: "q1",
+      prompt: "Build: There aren't any cars in the car park.",
+      correctOrder: ["There", "aren't", "any", "cars", "in", "the", "car", "park", "."],
+    },
+    {
+      id: "q2",
+      prompt: "Build: There are no cars in the car park.",
+      correctOrder: ["There", "are", "no", "cars", "in", "the", "car", "park", "."],
+    },
+    {
+      id: "q3",
+      prompt: "Build: We have no money.",
+      correctOrder: ["We", "have", "no", "money", "."],
+    },
+    {
+      id: "q4",
+      prompt: "Build: How much money do you have? — None.",
+      correctOrder: ["How", "much", "money", "do", "you", "have", "?", "—", "None", "."],
+    },
+    {
+      id: "q5",
+      prompt: "Build: They don't have any children.",
+      correctOrder: ["They", "don't", "have", "any", "children", "."],
+    },
+  ]}
+/>
+
+## Match: shape → which word
+
+<Match
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="77-not-any-no-none"
+  id="match-shape-zero"
+  title="Drag each shape to its zero-word"
+  pairs={[
+    { id: "p1", left: "negative verb + ___ + noun", right: "any" },
+    { id: "p2", left: "positive verb + ___ + noun", right: "no" },
+    { id: "p3", left: "answer to How much/many?", right: "none" },
+    { id: "p4", left: "answer to Who?", right: "no-one (or nobody)" },
+  ]}
+/>
+
+## Now you try
+
+Write **six** zero-sentences. Use each shape at least once.
+
+1. *Today there is/are no ___ .*
+2. *I don't have any ___ .*
+3. *How many ___ do you have? — None.*
+4. *Who came to the party? — No-one.*
+5. *There weren't any ___ in the shop.*
+6. *We have no ___ at the moment.*
+
+<Callout type="tip" title="Star challenge — one negative only">
+  Take five English sentences you've written this week. Underline every negative word: *not, no, none, never, nobody, nothing*. Make sure each sentence has **only one** of these. *I don't know nothing* sounds wrong; *I don't know anything* / *I know nothing* are both right.
+</Callout>
+
+</Lesson>

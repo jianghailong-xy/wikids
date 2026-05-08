@@ -1,0 +1,348 @@
+<Lesson textbook="essential-grammar-in-use" slug="69-a-an-and-the">
+
+In lesson 65 you met **a/an** — the article that says *one of many*. Today the second article walks in: **the**. The split is simple but huge. **a/an** = *one of many — you don't know which*. **the** = *the one we both know — there's only one in the picture, or we mentioned it already*. Once you can read which kind of "one" you mean, the right article falls out.
+
+## Three windows or one?
+
+A room with three windows — *a window* (which one?). A room with **one** window — *the window* (the only one). Same request, two articles.
+
+<ChatDialog
+  title="Open a window or the window?"
+  participants={[
+    { name: "Lia", emoji: "👩🏼", side: "left", tone: "rose" },
+    { name: "Eze", emoji: "🧑🏽", side: "right", tone: "sky" },
+  ]}
+  turns={[
+    { speaker: "Lia", text: "Three windows in here — can you open a window?", say: "Three windows here — can you open a window?" },
+    { speaker: "Eze", text: "Sure. Which one?" },
+    { speaker: "Lia", text: "Any of them. I just need air." },
+    { speaker: "Eze", text: "OK. (In the next room with one window) — and now: can you open the window?" },
+    { speaker: "Lia", text: "Right, the only one. On it!" },
+  ]}
+/>
+
+<Callout type="tip" title="One small test">
+  Ask yourself: *do **you** know which one I mean?* Yes → **the**. No → **a/an**.
+</Callout>
+
+## Part A — *a/an* (one of many) vs *the* (the one we both know)
+
+<div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-5 shadow-sm">
+    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-emerald-700">a/an — one of many</p>
+    <p className="text-base text-emerald-900">I've got <strong>a car</strong>. <span className="text-xs italic text-slate-500">(many cars; I have one)</span></p>
+    <p className="mt-2 text-base text-emerald-900">Can I ask <strong>a question</strong>?</p>
+    <p className="mt-2 text-base text-emerald-900">Is there <strong>a hotel</strong> near here?</p>
+    <p className="mt-2 text-base text-emerald-900">Paris is <strong>an interesting city</strong>.</p>
+    <p className="mt-2 text-base text-emerald-900">Lisa is <strong>a student</strong>.</p>
+  </div>
+  <div className="rounded-2xl border-2 border-violet-200 bg-violet-50 p-5 shadow-sm">
+    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-violet-700">the — the one we both know / only one</p>
+    <p className="text-base text-violet-900">I'm going to clean <strong>the car</strong> tomorrow. <span className="text-xs italic text-slate-500">(= my car)</span></p>
+    <p className="mt-2 text-base text-violet-900">Can you repeat <strong>the question</strong>, please?</p>
+    <p className="mt-2 text-base text-violet-900">We enjoyed our holiday. <strong>The hotel</strong> was very nice. <span className="text-xs italic text-slate-500">(= our hotel)</span></p>
+    <p className="mt-2 text-base text-violet-900">Paris is <strong>the capital of France</strong>. <span className="text-xs italic text-slate-500">(only one capital)</span></p>
+    <p className="mt-2 text-base text-violet-900">Lisa is <strong>the youngest student</strong> in her class.</p>
+  </div>
+</div>
+
+### Compare side by side
+
+- I bought **a jacket** and **a shirt**. **The jacket** was cheap, but **the shirt** was expensive.
+
+The first time you mention something, it's *one of many* (**a**). The second time, you both know which one (**the**).
+
+## Part B — *the* for things we share (rooms, houses, towns)
+
+We say **the** when there's **only one** of these in the picture you're sharing.
+
+<div className="not-prose my-6 overflow-hidden rounded-2xl border-2 border-amber-200 bg-amber-50">
+  <div className="grid gap-px bg-amber-200 sm:grid-cols-3">
+    <div className="bg-white p-3">
+      <p className="text-xs font-bold uppercase tracking-wider text-amber-700">of a room</p>
+      <p className="mt-2 text-sm font-semibold text-amber-900">the door, the ceiling, the floor, the carpet, the light</p>
+    </div>
+    <div className="bg-white p-3">
+      <p className="text-xs font-bold uppercase tracking-wider text-amber-700">of a house</p>
+      <p className="mt-2 text-sm font-semibold text-amber-900">the roof, the garden, the kitchen, the bathroom</p>
+    </div>
+    <div className="bg-white p-3">
+      <p className="text-xs font-bold uppercase tracking-wider text-amber-700">of a town</p>
+      <p className="mt-2 text-sm font-semibold text-amber-900">the centre, the station, the airport, the town hall</p>
+    </div>
+  </div>
+</div>
+
+- 'Where's Tom?' 'In **the kitchen**.' *(= the kitchen of this house)*
+- Turn off **the light** and close **the door**.
+- Do you live far from **the centre**?
+- I'd like to speak to **the manager**, please.
+
+## Quick check: spot the broken
+
+A few of these used *a* where *the* belongs (or vice versa), or dropped the article altogether. Tap **Good** or **Broken**.
+
+<SpotTheBroken
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="69-a-an-and-the"
+  id="spot-the-broken"
+  items={[
+    { id: "s1", text: "I've got a car.", isCorrect: true },
+    { id: "s2", text: "I'm going to clean a car tomorrow. (my car)", isCorrect: false, fix: "I'm going to clean the car tomorrow." },
+    { id: "s3", text: "Paris is the capital of France.", isCorrect: true },
+    { id: "s4", text: "Paris is a capital of France.", isCorrect: false, fix: "Paris is the capital of France." },
+    { id: "s5", text: "Where's Tom? — In kitchen.", isCorrect: false, fix: "Where's Tom? — In the kitchen." },
+    { id: "s6", text: "I bought a jacket and a shirt. The jacket was cheap.", isCorrect: true },
+    { id: "s7", text: "Lisa is the student.", isCorrect: false, fix: "Lisa is a student." },
+    { id: "s8", text: "Turn off the light and close the door.", isCorrect: true },
+    { id: "s9", text: "Do you live far from city centre?", isCorrect: false, fix: "Do you live far from the city centre?" },
+    { id: "s10", text: "Can I ask a question?", isCorrect: true },
+    { id: "s11", text: "We enjoyed our holiday. A hotel was very nice.", isCorrect: false, fix: "We enjoyed our holiday. The hotel was very nice." },
+    { id: "s12", text: "I'd like to speak to the manager.", isCorrect: true },
+  ]}
+/>
+
+## *a/an* or *the*?
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="69-a-an-and-the"
+  id="a-an-the"
+  questions={[
+    {
+      id: "q1",
+      prompt: "We enjoyed our trip. ___ hotel was very nice.",
+      choices: ["A", "An", "The", "(nothing)"],
+      answer: "The",
+    },
+    {
+      id: "q2",
+      prompt: "Can I ask ___ question?",
+      choices: ["a", "an", "the", "(nothing)"],
+      answer: "a",
+    },
+    {
+      id: "q3",
+      prompt: "You look very tired. You need ___ holiday.",
+      choices: ["a", "an", "the", "(nothing)"],
+      answer: "a",
+    },
+    {
+      id: "q4",
+      prompt: "Where's Tom? — He's in ___ garden.",
+      choices: ["a", "an", "the", "(nothing)"],
+      answer: "the",
+    },
+    {
+      id: "q5",
+      prompt: "Eve is ___ interesting person. You should meet her.",
+      choices: ["a", "an", "the", "(nothing)"],
+      answer: "an",
+    },
+    {
+      id: "q6",
+      prompt: "Excuse me, can you tell me how to get to ___ city centre?",
+      choices: ["a", "an", "the", "(nothing)"],
+      answer: "the",
+    },
+    {
+      id: "q7",
+      prompt: "Take ___ next turning left.",
+      choices: ["a", "an", "the", "(nothing)"],
+      answer: "the",
+      explainWrong: "There's only one \"next turning\" — the.",
+    },
+    {
+      id: "q8",
+      prompt: "Shall we go out for ___ meal this evening? — Yes, that's ___ good idea.",
+      choices: ["the … a", "a … a", "a … the", "an … a"],
+      answer: "a … a",
+    },
+    {
+      id: "q9",
+      prompt: "It's ___ nice morning. Let's go for ___ walk.",
+      choices: ["a … a", "the … a", "a … the", "the … the"],
+      answer: "a … a",
+    },
+    {
+      id: "q10",
+      prompt: "Amanda is ___ student. She wants to be ___ journalist.",
+      choices: ["the … the", "a … a", "an … a", "a … the"],
+      answer: "a … a",
+    },
+    {
+      id: "q11",
+      prompt: "Peter and Mary have two children, ___ boy and ___ girl. ___ boy is seven, and ___ girl is three.",
+      choices: ["a … a … the … the", "a … a … a … a", "the … the … the … the", "an … a … the … the"],
+      answer: "a … a … the … the",
+      explainWrong: "First mention: a (one of many). Second mention: the (now we both know which one).",
+    },
+  ]}
+/>
+
+## Pictures: complete the request
+
+Pick the right *a / an / the + noun*.
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="69-a-an-and-the"
+  id="picture-articles"
+  questions={[
+    {
+      id: "q1",
+      prompt: "Two people in a small office, one wooden door: 'Can you open ___ , please?'",
+      choices: ["a door", "the door", "door", "an door"],
+      answer: "the door",
+    },
+    {
+      id: "q2",
+      prompt: "A driver leaning out of a taxi window: 'How far is it to ___ ?'",
+      choices: ["a airport", "an airport", "the airport", "airport"],
+      answer: "the airport",
+    },
+    {
+      id: "q3",
+      prompt: "At a café counter: 'Can I have ___ of coffee, please?'",
+      choices: ["a cup", "the cup", "cup", "an cup"],
+      answer: "a cup",
+    },
+    {
+      id: "q4",
+      prompt: "Pointing at a painting on a wall: 'That's ___ nice ___ — I like it.'",
+      choices: ["the … picture", "a … picture", "an … picture", "a … the picture"],
+      answer: "a … picture",
+    },
+    {
+      id: "q5",
+      prompt: "In a library, asking across a table: 'Can you pass me ___ , please?'",
+      choices: ["a dictionary", "an dictionary", "the dictionary", "dictionary"],
+      answer: "the dictionary",
+    },
+    {
+      id: "q6",
+      prompt: "Pointing at people sitting on the ground: 'Why are you sitting on ___ ?'",
+      choices: ["a floor", "an floor", "the floor", "floor"],
+      answer: "the floor",
+    },
+  ]}
+/>
+
+## Add the missing word
+
+These sentences forgot a/an or the. Pick the corrected version.
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="69-a-an-and-the"
+  id="add-article"
+  questions={[
+    {
+      id: "q1",
+      prompt: "Don't forget to turn off light when you go out.",
+      choices: ["turn off a light", "turn off the light", "turn off light", "turn off an light"],
+      answer: "turn off the light",
+    },
+    {
+      id: "q2",
+      prompt: "Enjoy your trip, and don't forget to send me postcard.",
+      choices: ["a postcard", "the postcard", "an postcard", "postcard"],
+      answer: "a postcard",
+    },
+    {
+      id: "q3",
+      prompt: "What is name of this village?",
+      choices: ["a name", "the name", "an name", "name"],
+      answer: "the name",
+    },
+    {
+      id: "q4",
+      prompt: "Canada is very big country.",
+      choices: ["a very big country", "the very big country", "an very big country", "very big country"],
+      answer: "a very big country",
+    },
+    {
+      id: "q5",
+      prompt: "What is largest city in Canada?",
+      choices: ["a largest city", "the largest city", "an largest city", "largest city"],
+      answer: "the largest city",
+    },
+    {
+      id: "q6",
+      prompt: "I like this room, but I don't like colour of carpet.",
+      choices: ["a colour of a carpet", "the colour of the carpet", "the colour of a carpet", "a colour of the carpet"],
+      answer: "the colour of the carpet",
+    },
+    {
+      id: "q7",
+      prompt: "Are you OK? — No, I've got headache.",
+      choices: ["a headache", "the headache", "an headache", "headache"],
+      answer: "a headache",
+    },
+    {
+      id: "q8",
+      prompt: "We live in old house near station.",
+      choices: ["a old house near a station", "an old house near the station", "the old house near the station", "an old house near a station"],
+      answer: "an old house near the station",
+    },
+    {
+      id: "q9",
+      prompt: "What is name of director of film we saw last night?",
+      choices: ["a name of a director of a film", "the name of the director of the film", "the name of a director of a film", "a name of the director of the film"],
+      answer: "the name of the director of the film",
+    },
+  ]}
+/>
+
+## Build the sentence
+
+<QuestionBuilder
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="69-a-an-and-the"
+  id="build-articles"
+  prompts={[
+    {
+      id: "q1",
+      prompt: "Build: I bought a jacket and a shirt.",
+      correctOrder: ["I", "bought", "a", "jacket", "and", "a", "shirt", "."],
+    },
+    {
+      id: "q2",
+      prompt: "Build: The jacket was cheap, but the shirt was expensive.",
+      correctOrder: ["The", "jacket", "was", "cheap", ",", "but", "the", "shirt", "was", "expensive", "."],
+    },
+    {
+      id: "q3",
+      prompt: "Build: Can you open the window?",
+      correctOrder: ["Can", "you", "open", "the", "window", "?"],
+    },
+    {
+      id: "q4",
+      prompt: "Build: I'd like to speak to the manager, please.",
+      correctOrder: ["I'd", "like", "to", "speak", "to", "the", "manager", ",", "please", "."],
+    },
+    {
+      id: "q5",
+      prompt: "Build: Paris is the capital of France.",
+      correctOrder: ["Paris", "is", "the", "capital", "of", "France", "."],
+    },
+  ]}
+/>
+
+## Now you try
+
+Write **six** sentences using *a/an* or *the* correctly.
+
+1. *I've got ___ … (introduce something new)*
+2. *___ … is/was very nice. (refer back to it)*
+3. *Where's …? — In ___ kitchen / garden / bathroom.*
+4. *___ … is the only one of its kind. (e.g., the capital, the youngest)*
+5. *I'd like to speak to ___ manager.*
+6. *I bought ___ … and ___ … . ___ … was cheap.*
+
+<Callout type="tip" title="Star challenge — first mention vs second mention">
+  Write a four-sentence story. In sentence 1, introduce **two new things** with *a/an*. In sentences 2–4, refer back to them with *the*. Example: <br /><br />
+  *Yesterday I bought **a book** and **a pen**. **The book** is about Japan. **The pen** is red. **The book** was cheaper than **the pen**.*
+</Callout>
+
+</Lesson>

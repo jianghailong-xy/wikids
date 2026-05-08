@@ -484,6 +484,90 @@ const textbook: Textbook = {
         "Pair a/an + singular countable (a car, an apple) with some + plural countable (some apples) and some + uncountable (some water). Plus the double-life nouns (a cake / some cake, a chicken / some chicken, a paper / some paper) and the always-uncountable trap (advice, bread, furniture, hair, information, news, weather, work).",
       estimatedMinutes: 25,
     },
+    {
+      slug: "69-a-an-and-the",
+      title: "a/an and the",
+      description:
+        "The next big article choice: a/an for one of many (a window in a room of three), the for the only one or the one we both already know (the window in a room with one). Plus the everyday the with parts of a room/house/town (the door, the kitchen, the centre) and the only-one-of-its-kind (the capital of France, the youngest student, the manager).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "70-the",
+      title: "the ...",
+      description:
+        "The next layer of the. Use it for the only-one things we share (the name, the time, the city centre, the nearest bank), in fixed phrases (the same), with one-of-a-kind nouns (the sun, the moon, the world, the police, the army, the radio, the internet) and with positions (the top, the end, the middle, the left), and to play a musical instrument (the piano). Drop it for TV, breakfast/lunch/dinner, and next/last + week/month/year.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "71-go-to-work-go-home-go-to-the-cinema",
+      title: "go to work / go home / go to the cinema",
+      description:
+        "Two no-the families (go to work / school / university / hospital / prison / church / bed; and go home — no to either!) and two with-the families (go to the cinema / theatre / bank / post office / station / airport / city centre; and go to the doctor / the dentist).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "72-i-like-music",
+      title: "I like music — I hate exams",
+      description:
+        "The flip side of the: when you talk in general (music, exams, cold weather, flowers, life, fish, history) — drop the. Same for sports (football, skiing), languages and school subjects (English, physics). Add the back when you mean a specific set (the flowers in this garden, the weather today, the fish we ate last night, the history of your country).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "73-the-names-of-places",
+      title: "the ... (names of places)",
+      description:
+        "Most place names take no the (France, Cairo, Corsica, Peru) — but a long list want it: countries with Republic / States / Kingdom (the USA, the UK), plural names (the Netherlands, the Alps), oceans/seas/rivers/canals (the Atlantic, the Nile), and X of Y names (the University of California, the Tower of London, the north of Italy). Plus most hotels, museums, theatres and cinemas (the Regent Hotel, the National Theatre).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "74-this-that-these-those",
+      title: "this / that / these / those",
+      description:
+        "Pointing words for here vs there: this/these for the things near you, that/those for the things further away. Use them with a noun (this picture, those people) or alone (Who's that? — That's right). Plus on the phone (this is David, is that Sarah?) and to introduce people (Ben, this is Chris).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "75-one-ones",
+      title: "one / ones",
+      description:
+        "A tiny stand-in word that saves repeating a noun: one for a/an + singular (Would you like one? = a chocolate?), and ones for plurals (the white ones = the white flowers). Plus combinations like this one, the one near …, the brown one, a clean one, some new ones.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "76-some-and-any",
+      title: "some and any",
+      description:
+        "Two little quantifiers with a clear split: some in positives (I have some money), any in negatives (I don't have any money) and in most questions (Do you have any money?). Use some when you offer or ask for things (Would you like some coffee? Can I have some soup?). Plus the somebody/anybody, something/anything family.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "77-not-any-no-none",
+      title: "not + any   no   none",
+      description:
+        "Three flavours of zero. not (-n't) + any with a negative verb (There aren't any cars). no + noun with a positive verb (There are no cars). And none on its own — the noun-less twin — to answer How much? or How many? (How much money? — None). Plus no-one = nobody for Who?",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "78-anybody-nobody-anything-nothing",
+      title: "not + anybody/anyone/anything   nobody/no-one/nothing",
+      description:
+        "Two ways to say zero with people and things: negative verb + anybody/anything (There isn't anybody / I don't know anything), or positive verb + nobody/nothing (There is nobody / I know nothing). Same meaning, different shape. Plus the golden rule: never two negatives — He doesn't know anything (not He doesn't know nothing).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "79-somebody-anything-nowhere",
+      title: "somebody/anything/nowhere etc.",
+      description:
+        "The triple word family: -body/-one for people, -thing for things, -where for places. Crossed with some- (positive), any- (questions/negatives), no- (zero), every- (lesson 80) you get a 12-cell grid. Plus how they pair with adjectives (something interesting, nothing important) and with to + verb (something to eat, nowhere to go).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "80-every-and-all",
+      title: "every and all",
+      description:
+        "Two ways to say 100%. every + singular noun + singular verb (every house is the same, every country has a flag). all + plural / uncountable (all the houses, all the students). Plus every day (= on each day, how often) vs all day (= the whole day, how long). And the every- family: everybody/everyone, everything, everywhere — all take a singular verb (Everybody has problems).",
+      estimatedMinutes: 25,
+    },
   ],
 };
 

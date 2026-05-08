@@ -1,0 +1,407 @@
+<Lesson textbook="essential-grammar-in-use" slug="73-the-names-of-places">
+
+Place names break English's *the* rules in their own special way. *France* is fine on its own, but *the United States* always wants the. *Egypt* takes none, but *the Nile* always does. The trick is sorting place names into two camps: those that **never** take *the* (most countries, cities, streets, single mountains), and those that **always** do (republics, plural names, oceans/seas/rivers, *X of Y* names).
+
+## A geography quiz
+
+<ChatDialog
+  title="Where is what?"
+  participants={[
+    { name: "Mei", emoji: "👩🏼", side: "left", tone: "rose" },
+    { name: "Jay", emoji: "🧑🏽", side: "right", tone: "sky" },
+  ]}
+  turns={[
+    { speaker: "Mei", text: "Quick quiz — Cairo is the capital of Egypt. France is a large country. Easy!", say: "Cairo is the capital of Egypt. France is a large country." },
+    { speaker: "Jay", text: "Try this: where do you live, the UK or the USA?" },
+    { speaker: "Mei", text: "Spain. But I've been to the Netherlands and the Philippines." },
+    { speaker: "Jay", text: "And to the Alps for skiing?" },
+    { speaker: "Mei", text: "Yes! And once down the Nile to the Black Sea." },
+    { speaker: "Jay", text: "Last question: Cambridge University or the University of California?" },
+    { speaker: "Mei", text: "Cambridge — no the. The other one keeps the." },
+  ]}
+/>
+
+<Callout type="tip" title="Listen for of, plurals, oceans">
+  Plain country / city / street name → no the. Has *Republic / States / Kingdom* → the. Plural name (-s) → the. Ocean / sea / river / canal → the. Has *of …* in it → the.
+</Callout>
+
+## Part A — Continents, countries, cities (no *the*)
+
+<div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-5 shadow-sm">
+    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-emerald-700">✅ no the</p>
+    <p className="text-base text-emerald-900"><strong>France</strong> is a very large country.</p>
+    <p className="mt-2 text-base text-emerald-900">Cairo is the capital of <strong>Egypt</strong>.</p>
+    <p className="mt-2 text-base text-emerald-900"><strong>Corsica</strong> is an island in the Mediterranean.</p>
+    <p className="mt-2 text-base text-emerald-900"><strong>Peru</strong> is in <strong>South America</strong>.</p>
+  </div>
+  <div className="rounded-2xl border-2 border-violet-200 bg-violet-50 p-5 shadow-sm">
+    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-violet-700">✅ but with Republic / States / Kingdom → the</p>
+    <p className="text-base text-violet-900"><strong>the Czech Republic</strong></p>
+    <p className="mt-2 text-base text-violet-900"><strong>the United States of America (the USA)</strong></p>
+    <p className="mt-2 text-base text-violet-900"><strong>the United Kingdom (the UK)</strong></p>
+  </div>
+</div>
+
+## Part B — Plural names of countries / islands / mountains → *the*
+
+If the name **ends in -s** (a group), it takes *the*.
+
+- **the Netherlands**, **the Philippines**, **the Canary Islands**, **the Alps**
+
+## Part C — Oceans / seas / rivers / canals → *the*
+
+- **the Atlantic (Ocean)**, **the Mediterranean (Sea)**, **the Black Sea**
+- **the Amazon**, **the (River) Nile**, **the Suez Canal**
+
+## Part D — Streets, buildings, airports, stations, universities
+
+<div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-5 shadow-sm">
+    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-emerald-700">no the — most streets, squares, and named buildings</p>
+    <p className="text-base text-emerald-900">Kevin lives in <strong>Newton Street</strong>.</p>
+    <p className="mt-2 text-base text-emerald-900">Where is <strong>Highfield Road</strong>?</p>
+    <p className="mt-2 text-base text-emerald-900"><strong>Times Square</strong> is in New York.</p>
+    <p className="mt-2 text-sm text-emerald-900"><strong>Kennedy Airport</strong>, <strong>Westminster Abbey</strong>, <strong>London Zoo</strong>, <strong>Victoria Station</strong>, <strong>Edinburgh Castle</strong>, <strong>Cambridge University</strong>, <strong>Harvard University</strong></p>
+  </div>
+  <div className="rounded-2xl border-2 border-violet-200 bg-violet-50 p-5 shadow-sm">
+    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-violet-700">with the — hotels, museums, theatres, cinemas</p>
+    <p className="text-base text-violet-900"><strong>the Regent Hotel</strong></p>
+    <p className="mt-2 text-base text-violet-900"><strong>the National Theatre</strong></p>
+    <p className="mt-2 text-base text-violet-900"><strong>the Science Museum</strong></p>
+    <p className="mt-2 text-base text-violet-900"><strong>the Odeon</strong> (cinema)</p>
+  </div>
+</div>
+
+## Part E — *the …* of *…* names
+
+If the name has **of** in it, use **the**.
+
+- **the Museum of Modern Art**, **the University of California**, **the Great Wall of China**, **the Tower of London**
+
+We also say **the north / the south / the east / the west (of …)**:
+
+- I've been to **the north of Italy**, but not to **the south**.
+
+## Quick check: spot the broken
+
+<SpotTheBroken
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="73-the-names-of-places"
+  id="spot-the-broken"
+  items={[
+    { id: "s1", text: "France is a very large country.", isCorrect: true },
+    { id: "s2", text: "The France is a very large country.", isCorrect: false, fix: "France is a very large country." },
+    { id: "s3", text: "Have you ever been to the Philippines?", isCorrect: true },
+    { id: "s4", text: "Have you ever been to Philippines?", isCorrect: false, fix: "Have you ever been to the Philippines?" },
+    { id: "s5", text: "Cairo is the capital of Egypt.", isCorrect: true },
+    { id: "s6", text: "I hope to go to United States next year.", isCorrect: false, fix: "I hope to go to the United States next year." },
+    { id: "s7", text: "Mary comes from west of Ireland.", isCorrect: false, fix: "Mary comes from the west of Ireland." },
+    { id: "s8", text: "Alan is a student at Manchester University.", isCorrect: true },
+    { id: "s9", text: "Alan is a student at the Manchester University.", isCorrect: false, fix: "Alan is a student at Manchester University." },
+    { id: "s10", text: "We went to see a play at National Theatre.", isCorrect: false, fix: "… at the National Theatre." },
+    { id: "s11", text: "Kevin lives in Newton Street.", isCorrect: true },
+    { id: "s12", text: "Panama Canal joins Atlantic Ocean and Pacific Ocean.", isCorrect: false, fix: "The Panama Canal joins the Atlantic Ocean and the Pacific Ocean." },
+  ]}
+/>
+
+## Geography questions — pick the right form
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="73-the-names-of-places"
+  id="geography"
+  questions={[
+    {
+      id: "q1",
+      prompt: "___ is the capital of Egypt.",
+      choices: ["Cairo", "The Cairo", "A Cairo", "Cairos"],
+      answer: "Cairo",
+    },
+    {
+      id: "q2",
+      prompt: "___ is between Africa and America.",
+      choices: ["Atlantic", "The Atlantic", "An Atlantic", "Atlantics"],
+      answer: "The Atlantic",
+    },
+    {
+      id: "q3",
+      prompt: "___ is a country in northern Europe.",
+      choices: ["Sweden", "The Sweden", "A Sweden", "Swedens"],
+      answer: "Sweden",
+    },
+    {
+      id: "q4",
+      prompt: "___ is a river in South America.",
+      choices: ["Amazon", "The Amazon", "An Amazon", "Amazons"],
+      answer: "The Amazon",
+    },
+    {
+      id: "q5",
+      prompt: "___ is the largest continent in the world.",
+      choices: ["Asia", "The Asia", "An Asia", "Asias"],
+      answer: "Asia",
+    },
+    {
+      id: "q6",
+      prompt: "___ is the largest ocean.",
+      choices: ["Pacific", "The Pacific", "A Pacific", "Pacifics"],
+      answer: "The Pacific",
+    },
+    {
+      id: "q7",
+      prompt: "___ is a river in Europe.",
+      choices: ["Rhine", "The Rhine", "A Rhine", "Rhines"],
+      answer: "The Rhine",
+    },
+    {
+      id: "q8",
+      prompt: "___ is a country in East Africa.",
+      choices: ["Kenya", "The Kenya", "A Kenya", "Kenyas"],
+      answer: "Kenya",
+    },
+    {
+      id: "q9",
+      prompt: "___ is between Canada and Mexico.",
+      choices: ["United States", "The United States", "A United States", "United Statess"],
+      answer: "The United States",
+    },
+    {
+      id: "q10",
+      prompt: "___ are mountains in South America.",
+      choices: ["Andes", "The Andes", "An Andes", "Andess"],
+      answer: "The Andes",
+    },
+    {
+      id: "q11",
+      prompt: "___ is the capital of Thailand.",
+      choices: ["Bangkok", "The Bangkok", "A Bangkok", "Bangkoks"],
+      answer: "Bangkok",
+    },
+    {
+      id: "q12",
+      prompt: "___ are mountains in central Europe.",
+      choices: ["Alps", "The Alps", "An Alps", "Alpss"],
+      answer: "The Alps",
+    },
+    {
+      id: "q13",
+      prompt: "___ is between Saudi Arabia and Africa.",
+      choices: ["Red Sea", "The Red Sea", "A Red Sea", "Red Seas"],
+      answer: "The Red Sea",
+    },
+    {
+      id: "q14",
+      prompt: "___ is an island in the Caribbean.",
+      choices: ["Jamaica", "The Jamaica", "A Jamaica", "Jamaicas"],
+      answer: "Jamaica",
+    },
+    {
+      id: "q15",
+      prompt: "___ are a group of islands near Florida.",
+      choices: ["Bahamas", "The Bahamas", "A Bahamas", "Bahamass"],
+      answer: "The Bahamas",
+    },
+  ]}
+/>
+
+## Add *the* where necessary
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="73-the-names-of-places"
+  id="the-or-ok"
+  questions={[
+    {
+      id: "q1",
+      prompt: "Kevin lives in Newton Street.",
+      choices: ["Add the", "OK as is"],
+      answer: "OK as is",
+    },
+    {
+      id: "q2",
+      prompt: "We went to see a play at National Theatre.",
+      choices: ["at the National Theatre", "OK as is", "at a National Theatre", "at National's Theatre"],
+      answer: "at the National Theatre",
+    },
+    {
+      id: "q3",
+      prompt: "Have you ever been to China?",
+      choices: ["to the China", "OK as is"],
+      answer: "OK as is",
+    },
+    {
+      id: "q4",
+      prompt: "Have you ever been to Philippines?",
+      choices: ["to the Philippines", "OK as is"],
+      answer: "to the Philippines",
+    },
+    {
+      id: "q5",
+      prompt: "Have you ever been to south of France?",
+      choices: ["to the south of France", "OK as is", "to a south of France", "to south of the France"],
+      answer: "to the south of France",
+    },
+    {
+      id: "q6",
+      prompt: "Can you tell me where Regal Cinema is?",
+      choices: ["the Regal Cinema", "OK as is", "a Regal Cinema", "Regal's Cinema"],
+      answer: "the Regal Cinema",
+    },
+    {
+      id: "q7",
+      prompt: "Can you tell me where Merrion Street is?",
+      choices: ["the Merrion Street", "OK as is", "a Merrion Street", "Merrion's Street"],
+      answer: "OK as is",
+    },
+    {
+      id: "q8",
+      prompt: "Can you tell me where Museum of Art is?",
+      choices: ["the Museum of Art", "OK as is", "a Museum of Art", "Museum's of Art"],
+      answer: "the Museum of Art",
+    },
+    {
+      id: "q9",
+      prompt: "Europe is bigger than Australia.",
+      choices: ["The Europe is bigger than the Australia", "OK as is", "Europe is bigger than the Australia", "The Europe is bigger than Australia"],
+      answer: "OK as is",
+    },
+    {
+      id: "q10",
+      prompt: "Belgium is smaller than Netherlands.",
+      choices: ["… than the Netherlands", "OK as is", "The Belgium … the Netherlands", "The Belgium … Netherlands"],
+      answer: "… than the Netherlands",
+    },
+    {
+      id: "q11",
+      prompt: "Which river is longer — Mississippi or Nile?",
+      choices: ["the Mississippi or the Nile", "OK as is", "the Mississippi or Nile", "Mississippi or the Nile"],
+      answer: "the Mississippi or the Nile",
+    },
+    {
+      id: "q12",
+      prompt: "Did you go to National Gallery when you were in London?",
+      choices: ["the National Gallery", "OK as is", "a National Gallery", "National's Gallery"],
+      answer: "the National Gallery",
+    },
+    {
+      id: "q13",
+      prompt: "We stayed at Park Hotel in Hudson Road.",
+      choices: ["the Park Hotel in Hudson Road", "the Park Hotel in the Hudson Road", "Park Hotel in the Hudson Road", "OK as is"],
+      answer: "the Park Hotel in Hudson Road",
+    },
+    {
+      id: "q14",
+      prompt: "How far is it from Trafalgar Square to Victoria Station?",
+      choices: ["the Trafalgar Square to the Victoria Station", "OK as is", "the Trafalgar Square to Victoria Station", "Trafalgar Square to the Victoria Station"],
+      answer: "OK as is",
+    },
+    {
+      id: "q15",
+      prompt: "Rocky Mountains are in North America.",
+      choices: ["The Rocky Mountains are in North America", "OK as is", "The Rocky Mountains are in the North America", "Rocky Mountains are in the North America"],
+      answer: "The Rocky Mountains are in North America",
+    },
+    {
+      id: "q16",
+      prompt: "Texas is famous for oil and cowboys.",
+      choices: ["The Texas", "OK as is", "A Texas", "Texass"],
+      answer: "OK as is",
+    },
+    {
+      id: "q17",
+      prompt: "I hope to go to United States next year.",
+      choices: ["the United States", "OK as is", "an United States", "Unitings States"],
+      answer: "the United States",
+    },
+    {
+      id: "q18",
+      prompt: "Mary comes from west of Ireland.",
+      choices: ["the west of Ireland", "the west of the Ireland", "OK as is", "west of the Ireland"],
+      answer: "the west of Ireland",
+    },
+    {
+      id: "q19",
+      prompt: "Alan is a student at Manchester University.",
+      choices: ["the Manchester University", "OK as is", "a Manchester University", "Manchester's University"],
+      answer: "OK as is",
+    },
+    {
+      id: "q20",
+      prompt: "Panama Canal joins Atlantic Ocean and Pacific Ocean.",
+      choices: ["The Panama Canal joins the Atlantic Ocean and the Pacific Ocean", "OK as is", "Panama Canal joins the Atlantic Ocean and the Pacific Ocean", "The Panama Canal joins Atlantic Ocean and Pacific Ocean"],
+      answer: "The Panama Canal joins the Atlantic Ocean and the Pacific Ocean",
+    },
+  ]}
+/>
+
+## Build the sentence
+
+<QuestionBuilder
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="73-the-names-of-places"
+  id="build-place-names"
+  prompts={[
+    {
+      id: "q1",
+      prompt: "Build: France is a very large country.",
+      correctOrder: ["France", "is", "a", "very", "large", "country", "."],
+    },
+    {
+      id: "q2",
+      prompt: "Build: The Czech Republic is in Europe.",
+      correctOrder: ["The", "Czech", "Republic", "is", "in", "Europe", "."],
+    },
+    {
+      id: "q3",
+      prompt: "Build: I want to visit the Tower of London.",
+      correctOrder: ["I", "want", "to", "visit", "the", "Tower", "of", "London", "."],
+    },
+    {
+      id: "q4",
+      prompt: "Build: I've been to the north of Italy.",
+      correctOrder: ["I've", "been", "to", "the", "north", "of", "Italy", "."],
+    },
+    {
+      id: "q5",
+      prompt: "Build: The Amazon is a river in South America.",
+      correctOrder: ["The", "Amazon", "is", "a", "river", "in", "South", "America", "."],
+    },
+  ]}
+/>
+
+## Match: place name → article
+
+<Match
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="73-the-names-of-places"
+  id="match-place-the"
+  title="Drag each place to no the or the"
+  pairs={[
+    { id: "p1", left: "France / Cairo / Peru", right: "no the" },
+    { id: "p2", left: "Newton Street / Times Square", right: "no the" },
+    { id: "p3", left: "Cambridge University", right: "no the" },
+    { id: "p4", left: "the United Kingdom / the USA", right: "the" },
+    { id: "p5", left: "the Netherlands / the Alps", right: "the" },
+    { id: "p6", left: "the Atlantic / the Nile", right: "the" },
+    { id: "p7", left: "the Tower of London / the Great Wall of China", right: "the" },
+    { id: "p8", left: "the Regent Hotel / the National Theatre", right: "the" },
+  ]}
+/>
+
+## Now you try
+
+Write **six** true sentences about places.
+
+1. *I live in ___ .* (your country — usually no the)
+2. *I'd like to visit ___ .* (a country / region with the)
+3. *The longest river in ___ is ___ .*
+4. *I've been to ___ .* (a famous building or museum with the)
+5. *I went to ___ University.* (no the)
+6. *I went to ___ .* (a hotel or theatre — with the)
+
+<Callout type="tip" title="Star challenge — three quick rules">
+  Memorise these three: *(1) plural country/island name → the (the Netherlands, the Alps); (2) ocean/river/canal → the (the Atlantic, the Nile, the Suez Canal); (3) name with* of *→ the (the University of California, the Tower of London).* If a name fails all three tests, default to **no the**.
+</Callout>
+
+</Lesson>

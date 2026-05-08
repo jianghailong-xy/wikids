@@ -1,0 +1,313 @@
+<Lesson textbook="essential-grammar-in-use" slug="75-one-ones">
+
+In English, repeating the noun twice sounds clumsy: *I need a pen. Do you have a pen?* The fix is **one** — a tiny stand-in word that means *a + (the noun we just said)*. Plural? Use **ones**. Today you also learn the combos: *this one, that one, the one near …, the brown one, a clean one, some new ones*.
+
+## Chocolates and hats
+
+<ChatDialog
+  title="Would you like one?"
+  participants={[
+    { name: "Mum", emoji: "👩🏼", side: "left", tone: "rose" },
+    { name: "Kit", emoji: "🧒🏽", side: "right", tone: "sky" },
+  ]}
+  turns={[
+    { speaker: "Mum", text: "These chocolates are good. Would you like one?", say: "These chocolates are good. Would you like one?" },
+    { speaker: "Kit", text: "Yes, please! Which one?" },
+    { speaker: "Mum", text: "Take any. Or — try the dark one." },
+    { speaker: "Kit", text: "Mmm. Can I have another one?" },
+    { speaker: "Mum", text: "Sure." },
+  ]}
+/>
+
+<Callout type="tip" title="One = a + noun">
+  *Would you like **one**?* = *Would you like **a chocolate**?* The same trick works with most singular countable nouns: *I need a pen — do you have **one**?*
+</Callout>
+
+## Part A — *one* = *a / an + noun*
+
+- I need **a pen**. Do you have **one**? *(one = a pen)*
+- A: Is there **a bank** near here? <br /> B: Yes, there's **one** at the end of this street. *(one = a bank)*
+
+## Part B — *one* (singular) and *ones* (plural)
+
+<div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  <div className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-5 shadow-sm">
+    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-emerald-700">one (singular)</p>
+    <p className="text-base text-emerald-900">Which <strong>one</strong> do you want? — <strong>This one</strong>. <span className="text-xs italic text-slate-500">(one = hat / car / girl etc.)</span></p>
+    <p className="mt-2 text-base text-emerald-900">Which car is yours? <strong>This one</strong> or <strong>that one</strong>?</p>
+    <p className="mt-2 text-base text-emerald-900">Which hotel did you stay at? — <strong>The one</strong> opposite the station.</p>
+    <p className="mt-2 text-base text-emerald-900">I don't like the black coat, but I like <strong>the brown one</strong>.</p>
+    <p className="mt-2 text-base text-emerald-900">This cup is dirty. Can I have <strong>a clean one</strong>?</p>
+  </div>
+  <div className="rounded-2xl border-2 border-violet-200 bg-violet-50 p-5 shadow-sm">
+    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-violet-700">ones (plural)</p>
+    <p className="text-base text-violet-900">Which <strong>ones</strong> do you want? — <strong>The white ones</strong>. <span className="text-xs italic text-slate-500">(ones = flowers / cars / girls etc.)</span></p>
+    <p className="mt-2 text-base text-violet-900">Which flowers do you want? <strong>These ones</strong> or <strong>those ones</strong>? <span className="text-xs italic text-slate-500">(or simply: These or those?)</span></p>
+    <p className="mt-2 text-base text-violet-900">Which books are yours? — <strong>The ones</strong> on the table.</p>
+    <p className="mt-2 text-base text-violet-900">I don't like the red shoes, but I like <strong>the green ones</strong>.</p>
+    <p className="mt-2 text-base text-violet-900">These cups are dirty. Can we have <strong>some clean ones</strong>?</p>
+  </div>
+</div>
+
+<Callout type="info" title="another one">
+  *another* = *an + other*. So *another **one*** = *another (chocolate, biscuit, cup …)*. *That biscuit was nice. I'm going to have **another one**.*
+</Callout>
+
+## Quick check: spot the broken
+
+<SpotTheBroken
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="75-one-ones"
+  id="spot-the-broken"
+  items={[
+    { id: "s1", text: "I need a pen. Do you have one?", isCorrect: true },
+    { id: "s2", text: "I need a pen. Do you have a one?", isCorrect: false, fix: "I need a pen. Do you have one?" },
+    { id: "s3", text: "These cups are dirty. Can we have some clean ones?", isCorrect: true },
+    { id: "s4", text: "These cups are dirty. Can we have a clean ones?", isCorrect: false, fix: "Can we have some clean ones?" },
+    { id: "s5", text: "Which one do you want? — This one.", isCorrect: true },
+    { id: "s6", text: "Which one do you want? — These one.", isCorrect: false, fix: "Which one do you want? — This one. (or These ones)" },
+    { id: "s7", text: "I don't like the red shoes, but I like the green ones.", isCorrect: true },
+    { id: "s8", text: "I don't like the red shoes, but I like the greens.", isCorrect: false, fix: "I don't like the red shoes, but I like the green ones." },
+    { id: "s9", text: "That biscuit was nice. I'm going to have another one.", isCorrect: true },
+    { id: "s10", text: "That biscuit was nice. I'm going to have an other one.", isCorrect: false, fix: "That biscuit was nice. I'm going to have another one." },
+    { id: "s11", text: "Which hotel did you stay at? — The one opposite the station.", isCorrect: true },
+    { id: "s12", text: "I want a clean cup, can I have clean one?", isCorrect: false, fix: "I want a clean cup, can I have a clean one?" },
+  ]}
+/>
+
+## Use *one*
+
+A asks B; B answers using *one* (not *a/an + noun*).
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="75-one-ones"
+  id="answer-one"
+  questions={[
+    {
+      id: "q1",
+      prompt: "A: Can you lend me a pen? — B: I'm sorry, ___ .",
+      choices: ["I don't have a pen", "I don't have one", "I don't have", "I don't have any"],
+      answer: "I don't have one",
+    },
+    {
+      id: "q2",
+      prompt: "A: Would you like to have a car? — B: No, ___ .",
+      choices: ["I don't need a car", "I don't need one", "I don't need it", "I don't need"],
+      answer: "I don't need one",
+    },
+    {
+      id: "q3",
+      prompt: "A: Do you have a bike? — B: No, but ___ .",
+      choices: ["I'm going to get a bike", "I'm going to get one", "I'm going to get it", "I'm going to get"],
+      answer: "I'm going to get one",
+    },
+    {
+      id: "q4",
+      prompt: "A: Can you lend me an umbrella? — B: I'm sorry, but ___ .",
+      choices: ["I don't have an umbrella", "I don't have one", "I don't have it", "I don't have any"],
+      answer: "I don't have one",
+    },
+    {
+      id: "q5",
+      prompt: "A: Would you like a cup of coffee? — B: No, thank you. ___ .",
+      choices: ["I've just had a cup of coffee", "I've just had one", "I've just had it", "I've just had"],
+      answer: "I've just had one",
+    },
+    {
+      id: "q6",
+      prompt: "A: Is there a chemist near here? — B: Yes, ___ in Mill Road.",
+      choices: ["there's a chemist", "there's one", "there's it", "there's any"],
+      answer: "there's one",
+    },
+  ]}
+/>
+
+## Use *a / an … one*
+
+Pick the adjective that fits, then frame it as *a/an + adj + one*.
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="75-one-ones"
+  id="a-adj-one"
+  questions={[
+    {
+      id: "q1",
+      prompt: "This cup is dirty. Can I have ___ ?",
+      choices: ["a clean one", "an clean one", "the clean one", "clean one"],
+      answer: "a clean one",
+    },
+    {
+      id: "q2",
+      prompt: "I'm going to sell my car and buy ___ .",
+      choices: ["a new one", "an new one", "the new one", "new one"],
+      answer: "a new one",
+    },
+    {
+      id: "q3",
+      prompt: "That's not a very good photo, but this is ___ .",
+      choices: ["a better one", "an better one", "the better one", "better one"],
+      answer: "a better one",
+    },
+    {
+      id: "q4",
+      prompt: "I want today's newspaper. This is ___ .",
+      choices: ["a old one", "an old one", "the old one", "old one"],
+      answer: "an old one",
+    },
+    {
+      id: "q5",
+      prompt: "This box is too small. I need ___ .",
+      choices: ["a big one", "an big one", "the big one", "big one"],
+      answer: "a big one",
+    },
+    {
+      id: "q6",
+      prompt: "Why do we always go to the same restaurant? Let's go to ___ .",
+      choices: ["a different one", "an different one", "the different one", "different one"],
+      answer: "a different one",
+    },
+  ]}
+/>
+
+## Mini-dialogues — *one* / *ones*
+
+Pick the right *which …* / *the …* answer.
+
+<Quiz
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="75-one-ones"
+  id="mini-dialogues"
+  questions={[
+    {
+      id: "q1",
+      prompt: "A stayed at a hotel opposite the station. A: We stayed at a hotel. B: ___ ? A: ___ .",
+      choices: ["Which one … The one opposite the station.", "What one … An opposite the station.", "Which ones … The ones opposite the station.", "Which one … One opposite the station."],
+      answer: "Which one … The one opposite the station.",
+    },
+    {
+      id: "q2",
+      prompt: "A sees green shoes in a window. A: I like those shoes. B: Which ___ ? A: The ___ .",
+      choices: ["one … green one", "ones … green ones", "ones … green one", "one … green ones"],
+      answer: "ones … green ones",
+    },
+    {
+      id: "q3",
+      prompt: "A is looking at a house with a red door. A: That's a nice house. B: ___ ? A: ___ with ___ .",
+      choices: ["Which house … This house … a red door", "Which one … The one … a red door", "Which one … One … red door", "Which house … One … the red door"],
+      answer: "Which one … The one … a red door",
+    },
+    {
+      id: "q4",
+      prompt: "A is looking at CDs on the top shelf. A: Are those your CDs? B: Which ___ ? A: ___ on the top shelf.",
+      choices: ["one … The one", "ones … The ones", "ones … One", "one … Ones"],
+      answer: "ones … The ones",
+    },
+    {
+      id: "q5",
+      prompt: "A is looking at a black jacket. A: Do you like that jacket? B: Which ___ ? A: ___ .",
+      choices: ["one … The black one", "ones … The black ones", "one … One black", "ones … The blacks"],
+      answer: "one … The black one",
+    },
+    {
+      id: "q6",
+      prompt: "A is looking at an interesting picture on the wall. A: That's an interesting picture. B: Which ___ ? A: The ___ on the wall.",
+      choices: ["ones … ones", "one … one", "one … ones", "ones … one"],
+      answer: "one … one",
+    },
+    {
+      id: "q7",
+      prompt: "A sees a tall girl with long hair. A: Do you know that girl? B: Which ___ ? A: The ___ with long hair.",
+      choices: ["one … one", "ones … ones", "one … ones", "ones … one"],
+      answer: "one … one",
+    },
+    {
+      id: "q8",
+      prompt: "A is looking at yellow flowers. A: Those flowers are beautiful. B: Which ___ ? A: The yellow ___ .",
+      choices: ["ones … ones", "one … one", "ones … one", "one … ones"],
+      answer: "ones … ones",
+    },
+    {
+      id: "q9",
+      prompt: "A sees a man with a moustache and glasses. A: Who's that man? B: Which ___ ? A: The ___ with a moustache and glasses.",
+      choices: ["one … one", "ones … ones", "one … ones", "ones … one"],
+      answer: "one … one",
+    },
+    {
+      id: "q10",
+      prompt: "A took photos at a party. A: Did I show you my photos? B: Which ___ ? A: The ___ from the party last week.",
+      choices: ["one … one", "ones … ones", "one … ones", "ones … one"],
+      answer: "ones … ones",
+    },
+  ]}
+/>
+
+## Build the sentence
+
+<QuestionBuilder
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="75-one-ones"
+  id="build-one-ones"
+  prompts={[
+    {
+      id: "q1",
+      prompt: "Build: Would you like one?",
+      correctOrder: ["Would", "you", "like", "one", "?"],
+    },
+    {
+      id: "q2",
+      prompt: "Build: Which one do you want? — This one.",
+      correctOrder: ["Which", "one", "do", "you", "want", "?", "—", "This", "one", "."],
+    },
+    {
+      id: "q3",
+      prompt: "Build: Can I have a clean one?",
+      correctOrder: ["Can", "I", "have", "a", "clean", "one", "?"],
+    },
+    {
+      id: "q4",
+      prompt: "Build: I like the green ones.",
+      correctOrder: ["I", "like", "the", "green", "ones", "."],
+    },
+    {
+      id: "q5",
+      prompt: "Build: I'm going to buy some new ones.",
+      correctOrder: ["I'm", "going", "to", "buy", "some", "new", "ones", "."],
+    },
+  ]}
+/>
+
+## Match: combo → meaning
+
+<Match
+  textbookSlug="essential-grammar-in-use"
+  lessonSlug="75-one-ones"
+  id="match-one-combos"
+  title="Drag each combo to its description"
+  pairs={[
+    { id: "p1", left: "this one / that one", right: "= this hat / that car etc." },
+    { id: "p2", left: "the one near …", right: "= the hotel near …" },
+    { id: "p3", left: "the brown one", right: "= the brown coat" },
+    { id: "p4", left: "a clean one", right: "= a clean cup" },
+    { id: "p5", left: "another one", right: "= another biscuit" },
+    { id: "p6", left: "some new ones", right: "= some new shoes" },
+  ]}
+/>
+
+## Now you try
+
+Write **six** sentences using *one* or *ones*.
+
+1. *I need a pen. Do you have ___ ?*
+2. *I don't like these shoes. I like the ___ .* (colour or other adj. + ones)
+3. *That cup is dirty. Can I have ___ ?* (a + adj + one)
+4. *Which book? — The ___ .* (the one + where/who)
+5. *These biscuits are nice. I'll have another ___ .*
+6. *Those flowers are beautiful. Which ___ ?* (one or ones?)
+
+<Callout type="tip" title="Star challenge — never repeat the noun">
+  Take a paragraph you wrote yesterday and underline each noun that appears more than once. Try replacing the second mention with *one / ones / it / them*. The text gets shorter and sounds more natural every time.
+</Callout>
+
+</Lesson>
