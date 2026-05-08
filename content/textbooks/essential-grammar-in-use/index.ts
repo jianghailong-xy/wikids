@@ -352,6 +352,13 @@ const textbook: Textbook = {
       estimatedMinutes: 25,
     },
     {
+      slug: "50-she-said-that",
+      title: "She said that ... He told me that ...",
+      description:
+        "Reported speech — the present-to-past shift. When you re-tell what someone said, every verb steps back one tense (am/is → was, are → were, have/has → had, can → could, will → would, do/does → did) and the pronouns swing to your perspective. Plus the say-vs-tell trap: tell wants a person, say doesn't.",
+      estimatedMinutes: 25,
+    },
+    {
       slug: "54-i-went-to-the-shop-to",
       title: "I went to the shop to ...",
       description:
