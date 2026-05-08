@@ -610,6 +610,62 @@ const textbook: Textbook = {
         "Adverbs answer how? Take an adjective and stamp -ly on it (quick → quickly, careful → carefully, heavy → heavily). Adverbs go with action verbs (speaks quietly, listen carefully); adjectives stay with be / look / feel / smell / taste / sound (Sue is quiet, You look tired). Plus the four exception words — hard, fast, late, early — that wear the same shape in both jobs, and the special pair good → well.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "87-comparatives",
+      title: "old / older, expensive / more expensive",
+      description:
+        "Two recipes for the comparative — pick by counting syllables. Short word (1 syllable) → +-er (old → older, big → bigger, nice → nicer). Long word (2/3/4 syllables) → more + adjective (more expensive, more interesting). Words ending in -y → -ier (easy → easier). Plus the four irregulars: good/well → better, bad → worse, far → further.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "88-comparatives-than",
+      title: "older than ... / more expensive than ...",
+      description:
+        "Add than to introduce the second half of a comparison (Athens is older than Rome). Object pronouns are the everyday choice (taller than him), but than he is / than I do also work. Plus more / less than for amounts and a bit / much in front of the comparative for size of the gap (a bit older, much bigger).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "89-not-as-as",
+      title: "not as ... as",
+      description:
+        "The other side of than: not as + plain adjective + as (Rome is not as old as Athens = Athens is older). Plus not as much as (uncountable) / not as many as (plural), object pronouns (as him / as he is), and the cousin shape the same as for things that are equal (the same age as Laura).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "90-superlatives",
+      title: "the oldest / the most expensive",
+      description:
+        "Top of the group. Same recipe as comparatives, with the in front: short word → the -est (the oldest, the biggest); long word → the most ... (the most expensive). Plus the three irregulars (the best / the worst / the furthest) and the popular pattern superlative + I've ever ... (the worst film I've ever seen).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "91-enough",
+      title: "enough",
+      description:
+        "Three slots, one rule. enough + noun (enough money, enough time). adjective + enough (tall enough, big enough). Plus the follow-ups enough for somebody/something, enough to do something, and enough for somebody to do something — note the to + verb, never for + verb.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "92-too",
+      title: "too",
+      description:
+        "too = more than you want, more than is good. too + adjective/adverb (too big, too hard); too much + uncountable (too much sugar); too many + plural (too many cars). Plus too ... for somebody, too ... to do something — and the contrast with not enough (the opposite face of the wrong amount).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "93-word-order-1",
+      title: "He speaks English very well (word order 1)",
+      description:
+        "Two locked rules. (1) verb + object stay together — never slip another word between them (He speaks English very well, not He speaks very well English). (2) place (where?) before time (when? / how long? / how often?) (We went to a party last night, not We went last night to a party).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "94-word-order-2",
+      title: "always / usually / often etc. (word order 2)",
+      description:
+        "A family of middle words — always, usually, often, sometimes, ever, never, rarely, seldom, also, just, already, still, all, both — share one slot rule. Before the main verb (I always drink coffee). After am/is/are/was/were (I am always tired). Between two verbs — helper + main (I will always remember you, Have you ever been …?).",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
