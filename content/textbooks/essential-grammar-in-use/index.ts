@@ -288,6 +288,13 @@ const textbook: Textbook = {
         "The echo trick: skip the rest of the sentence and reply with just the helping verb (am, is, do, can, will, has...) — plus the rule about full vs short forms in short answers.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "41-have-you-are-you",
+      title: "Have you? Are you? Don't you? etc.",
+      description:
+        "Two new jobs for the little helpers from lesson 40: bounce them back as reply questions (Have you? Are you? Didn't she?) to show interest, and tape them onto the end of a sentence (…isn't it? …have you?) as question tags.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
