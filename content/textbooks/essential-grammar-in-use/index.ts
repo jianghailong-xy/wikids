@@ -757,6 +757,62 @@ const textbook: Textbook = {
         "The everyday phrase list for place. in bed / hospital / the sky / a newspaper / a picture / a car / the middle. at home / work / school / university / a concert / a party / the station / Lisa's. on a bus / train / plane / ship / the first floor / the way home. Plus the in-or-at choice for hotels and restaurants.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "108-to-in-at-places-3",
+      title: "to / in / at (places 3)",
+      description:
+        "Two big jobs split by movement vs. position. to + place for go/come/return/walk (going to London, walked to the centre); in/at + place for be/stay/do (Piccadilly Circus is in London, stayed at her brother's house). Plus the no-preposition trap with home (go home, at home — never to home), and the arrive/get pair: arrive in a country/town, arrive at other places, get to a place — but get/arrive home with no word.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "109-under-behind-opposite",
+      title: "under, behind, opposite etc.",
+      description:
+        "The position-prepositions for placing one thing relative to another. next to / beside / between / in front of / behind for a row of people; opposite for face-to-face (across a table or train aisle); by = next to / beside (by the window, by the sea, by the fire); under for below something; above and below for higher / lower than. Plus on the left, on the right, in the middle.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "110-up-over-through",
+      title: "up, over, through etc.",
+      description:
+        "Movement-prepositions that draw the path. to / from a point; into vs out of an enclosure (and put something in, not into); on / off a surface; up / down a slope or stairs; over / under something in the way; through / round (= around) for going across or skirting; along a road or river, across to the other side; past for going by something on the way.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "111-on-at-by-with-about",
+      title: "on / at / by / with / about",
+      description:
+        "Five tiny prepositions for the everyday list. on holiday / on TV / on the phone / on fire / on time. at 21 / at 100 km/h / at 100°C. by car / by bus / by bike (but on foot), a book by Dickens, and the passive by. with friends / with milk / with a beard / without me. talk / think / hear / a book about. Pick the one the noun expects.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "112-afraid-of-good-at",
+      title: "afraid of …, good at … etc. (preposition + -ing)",
+      description:
+        "The locked partners of common adjectives: afraid of, angry with somebody / about something, different from/to, fed up with, full of, good at, interested in, married to, kind of/to, sorry about/for. Plus the rule that turns up everywhere — after a preposition (of / at / for / with / without …) the verb takes -ing: good at telling, fed up with doing, sorry for not phoning, thank you for helping, without saying.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "113-listen-to-look-at",
+      title: "listen to, look at … (verb + preposition)",
+      description:
+        "Verbs that drag a little preposition behind them: ask for, belong to, happen to, listen to, talk/speak to, thank somebody for, think about/of, wait for. Then the look family: look at (eyes on it), look for (= try to find), look after (= take care of). Plus depend on (it depends on the weather) and the no-preposition trap with phone / call / text / email somebody.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "114-phrasal-verbs-1",
+      title: "go in, fall off, run away (phrasal verbs 1)",
+      description:
+        "Verb + tiny direction word = a new meaning. go in / out, get on / off, stand up / sit down / lie down, fall down / fall off, run away / drive off, come back / be back, climb over / turn over, look round / turn round. Most are intransitive — the direction word follows the verb on its own with no object.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "115-phrasal-verbs-2",
+      title: "put on your shoes / put your shoes on (phrasal verbs 2)",
+      description:
+        "Phrasal verbs with an object — and the word-order rule. put on / take off, turn on / turn off, switch on / switch off, pick up / put down, bring back / take back / give back / put back. Two slots are fine for a noun (put on your coat / put your coat on), but a pronoun (it / them) must sit between verb and particle (put it on, never put on it).",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
