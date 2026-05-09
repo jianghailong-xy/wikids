@@ -666,6 +666,13 @@ const textbook: Textbook = {
         "A family of middle words — always, usually, often, sometimes, ever, never, rarely, seldom, also, just, already, still, all, both — share one slot rule. Before the main verb (I always drink coffee). After am/is/are/was/were (I am always tired). Between two verbs — helper + main (I will always remember you, Have you ever been …?).",
       estimatedMinutes: 25,
     },
+    {
+      slug: "95-still-yet-already",
+      title: "still / yet / already",
+      description:
+        "Three little time-words for the same moment, told three ways: still says it's going on (it's still raining), yet says it hasn't happened so far (Ben hasn't come yet, only with n't or in a question), and already says it happened sooner than expected (he's already here). Plus the yet-still pair: She hasn't gone yet = She's still here.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
