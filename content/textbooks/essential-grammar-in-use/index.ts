@@ -673,6 +673,41 @@ const textbook: Textbook = {
         "Three little time-words for the same moment, told three ways: still says it's going on (it's still raining), yet says it hasn't happened so far (Ben hasn't come yet, only with n't or in a question), and already says it happened sooner than expected (he's already here). Plus the yet-still pair: She hasn't gone yet = She's still here.",
       estimatedMinutes: 25,
     },
+    {
+      slug: "96-give-me-that-book",
+      title: "Give me that book! Give it to me!",
+      description:
+        "Two-passenger verbs (give / lend / pass / send / show, plus buy / get) carry both a thing and a person. Two locked shapes: thing-first with to/for (I gave the keys to Sarah; I bought flowers for my mother) and person-first with no preposition (I gave Sarah the keys). Plus the four traps — never *to + person + thing*, prefer the to-shape with it/them (I gave it to her, not I gave her it), use *for* with buy/get, and never drop the glue word.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "97-and-but-or-so-because",
+      title: "and / but / or / so / because",
+      description:
+        "Five tiny conjunctions glue two short sentences into one. and = both true; but = a contrast; or = a choice; so = the result; because = the reason. Plus commas in lists (and before the last item), Because at the start of a sentence, and stacking two conjunctions in one sentence (It was late and I was tired, so I went to bed).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "98-when",
+      title: "When ...",
+      description:
+        "Two big jobs of when (and its cousins before / while / after / until). (1) Position: when can sit at the start (with a comma) or in the middle (no comma). (2) The locked rule: after when / before / while / after / until, never use will — even for the future. Use the present: When I get home, I'll have a shower (not When I will get home).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "99-if-we-go",
+      title: "If we go ... If you see ... etc.",
+      description:
+        "The real if — for possible futures. After if, use the present (not will): If you see Ann tomorrow, can you ask her to call me? Plus the if-vs-when split: if = maybe (If I go out, I'll close the windows), when = sure (When I go out, I'll close the windows).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "100-if-i-had",
+      title: "If I had ... If we went ... etc.",
+      description:
+        "The unreal if — for dreams, wishes, and advice. Past form in the if-half (had / knew / lived / were / could) + would/wouldn't/could/couldn't in the main half: If he had the money, he would buy a fast car (but he doesn't). Plus if I were you for advice, the if-was/were option, and the side-by-side compare with the real if from Unit 99 (If I have time, I'll go vs If I had time, I'd go).",
+      estimatedMinutes: 30,
+    },
   ],
 };
 
