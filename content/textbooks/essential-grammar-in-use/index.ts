@@ -708,6 +708,55 @@ const textbook: Textbook = {
         "The unreal if — for dreams, wishes, and advice. Past form in the if-half (had / knew / lived / were / could) + would/wouldn't/could/couldn't in the main half: If he had the money, he would buy a fast car (but he doesn't). Plus if I were you for advice, the if-was/were option, and the side-by-side compare with the real if from Unit 99 (If I have time, I'll go vs If I had time, I'd go).",
       estimatedMinutes: 30,
     },
+    {
+      slug: "101-a-person-who",
+      title: "a person who ... / a thing that/which ... (relative clauses 1)",
+      description:
+        "Glue two short sentences into one with who/that/which. who = for people, which = for things, that = for either. I met a woman. She speaks six languages → I met a woman who speaks six languages. Plus the trap: never use which for people.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "102-the-people-we-met",
+      title: "the people we met / the hotel you stayed at (relative clauses 2)",
+      description:
+        "When the relative word is the object, you can drop it: the bag (that) he is carrying, the people (who) we met, the books (that) you wanted. Plus prepositions hang on the end (the hotel we stayed at, the books I told you about) and the place-word where (the hotel where we stayed).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "103-at-on-in-time",
+      title: "at 8 o'clock / on Monday / in April",
+      description:
+        "Three little time-prepositions on a sliding scale: at + clock time (at 5.30, at midnight), on + a day or date (on Monday, on 22 November), in + a month/year/season (in April, in 1995, in spring). Plus at the weekend / at night / at Christmas, in five minutes for time from now, and the no-preposition trap before this/last/next/every.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "104-from-until-since-for",
+      title: "from ... to / until / since / for",
+      description:
+        "Four words for time spans. from … to / until marks the end (We lived in Japan from 2003 to 2010 / until 2010). since + a starting point with the present perfect (since Monday, since 1998). for + a length (for three days, for ten years). Plus the trap: not since three days — for three days.",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "105-before-after-during-while",
+      title: "before / after / during / while",
+      description:
+        "Time joiners with two splits to learn. before/during/after for what comes earlier, in the middle, and later. during + noun (during the meal) vs while + verb (while we were eating). for (not during) + a length (for two hours). Plus before/after + -ing for joining two actions (before going to work, after doing the shopping).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "106-in-at-on-places-1",
+      title: "in / at / on (places 1)",
+      description:
+        "The first map of place-prepositions. in for inside something or in an area (in a room, in a town, in Brazil). at for a point or position (at the bus stop, at the door, at the traffic lights, at the top / bottom / end). on for a surface (on a shelf, on the wall, on the floor, on a horse / a bicycle).",
+      estimatedMinutes: 25,
+    },
+    {
+      slug: "107-in-at-on-places-2",
+      title: "in / at / on (places 2)",
+      description:
+        "The everyday phrase list for place. in bed / hospital / the sky / a newspaper / a picture / a car / the middle. at home / work / school / university / a concert / a party / the station / Lisa's. on a bus / train / plane / ship / the first floor / the way home. Plus the in-or-at choice for hotels and restaurants.",
+      estimatedMinutes: 25,
+    },
   ],
 };
 
