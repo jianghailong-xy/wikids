@@ -15,10 +15,12 @@ export function Flashcard({
   front,
   back,
   className,
+  cardClassName,
 }: {
   front: React.ReactNode | FlashcardSide;
   back: React.ReactNode | FlashcardSide;
   className?: string;
+  cardClassName?: string;
 }) {
   const [flipped, setFlipped] = useState(false);
 
@@ -28,7 +30,10 @@ export function Flashcard({
         type="button"
         onClick={() => setFlipped((f) => !f)}
         aria-pressed={flipped}
-        className="group relative h-56 w-full max-w-md select-none [perspective:1000px]"
+        className={cn(
+          "group relative h-56 w-full max-w-md select-none [perspective:1000px]",
+          cardClassName,
+        )}
       >
         <div
           className="relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d]"
@@ -113,9 +118,13 @@ function renderSide(side: React.ReactNode | FlashcardSide) {
 export function FlashcardDeck({
   cards,
   title = "Flashcards",
+  layout = "carousel",
+  cardClassName,
 }: {
   cards: { front: FlashcardSide | React.ReactNode; back: FlashcardSide | React.ReactNode }[];
   title?: string;
+  layout?: "carousel" | "grid";
+  cardClassName?: string;
 }) {
   const [index, setIndex] = useState(0);
   const [keyTick, setKeyTick] = useState(0);
@@ -126,6 +135,32 @@ export function FlashcardDeck({
 
   function go(delta: number) {
     setIndex((i) => Math.min(cards.length - 1, Math.max(0, i + delta)));
+  }
+
+  if (layout === "grid") {
+    return (
+      <div className="not-prose my-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+        <div className="mb-3 flex items-center justify-between">
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+            {title}
+          </p>
+          <p className="text-xs text-slate-500">
+            Tap any card to flip · {cards.length} cards
+          </p>
+        </div>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {cards.map((card, i) => (
+            <Flashcard
+              key={i}
+              front={card.front}
+              back={card.back}
+              className="!my-0"
+              cardClassName={cn("max-w-none", cardClassName)}
+            />
+          ))}
+        </div>
+      </div>
+    );
   }
 
   return (
