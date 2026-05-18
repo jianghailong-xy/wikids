@@ -63,6 +63,7 @@ export function IrregularVerbDeck({
   const [order, setOrder] = useState<IrregularVerb[]>([]);
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
+  const [mode, setMode] = useState<"practice" | "list">("practice");
 
   useEffect(() => {
     const loaded = loadStats();
@@ -117,9 +118,20 @@ export function IrregularVerbDeck({
         <span className="text-xs font-bold uppercase tracking-wider text-purple-700">
           {title ?? "Your irregular-verb deck"}
         </span>
-        <span className="text-xs font-medium text-purple-700">
-          ⭐ {masteredCount} / {total} mastered
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-medium text-purple-700">
+            ⭐ {masteredCount} / {total} mastered
+          </span>
+          <button
+            type="button"
+            onClick={() =>
+              setMode((m) => (m === "practice" ? "list" : "practice"))
+            }
+            className="rounded-full border border-purple-300 bg-white px-2.5 py-1 text-xs font-medium text-purple-700 hover:bg-purple-50"
+          >
+            {mode === "practice" ? "Show all →" : "← Practice"}
+          </button>
+        </div>
       </div>
 
       <div className="mb-4 h-2 w-full overflow-hidden rounded-full bg-white/70">
@@ -131,7 +143,9 @@ export function IrregularVerbDeck({
         />
       </div>
 
-      {finished ? (
+      {mode === "list" ? (
+        <VerbTable verbs={allUnlocked} stats={stats} />
+      ) : finished ? (
         <FinishedCard
           masteredCount={masteredCount}
           total={total}
@@ -149,6 +163,69 @@ export function IrregularVerbDeck({
           onWrong={() => record(false)}
         />
       ) : null}
+    </div>
+  );
+}
+
+function VerbTable({
+  verbs,
+  stats,
+}: {
+  verbs: IrregularVerb[];
+  stats: AllStats;
+}) {
+  return (
+    <div className="overflow-x-auto rounded-xl border-2 border-purple-200 bg-white shadow-sm">
+      <table className="w-full text-sm">
+        <thead className="bg-purple-50">
+          <tr className="text-xs font-bold uppercase tracking-wider text-purple-700">
+            <th className="px-3 py-2 text-left">Base</th>
+            <th className="px-3 py-2 text-left">Past</th>
+            <th className="px-3 py-2 text-left">Past participle</th>
+            <th className="px-3 py-2 text-right">Streak</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-purple-100">
+          {verbs.map((v) => {
+            const streak = stats[v.base]?.streak ?? 0;
+            const mastered = streak >= MASTERED_AT;
+            return (
+              <tr key={v.base} className="hover:bg-purple-50/40">
+                <td className="px-3 py-2 font-medium text-slate-900">
+                  <span className="inline-flex items-center gap-1.5">
+                    {v.base}
+                    <button
+                      type="button"
+                      onClick={() =>
+                        speak(`${v.base}, ${v.past}, ${v.participle}`)
+                      }
+                      aria-label={`Pronounce ${v.base}, ${v.past}, ${v.participle}`}
+                      className="rounded-full p-0.5 text-purple-500 hover:bg-purple-100 hover:text-purple-700"
+                    >
+                      <Volume2 className="h-3.5 w-3.5" />
+                    </button>
+                  </span>
+                </td>
+                <td className="px-3 py-2 text-slate-700">{v.past}</td>
+                <td className="px-3 py-2 text-slate-700">{v.participle}</td>
+                <td className="px-3 py-2 text-right text-xs">
+                  {mastered ? (
+                    <span className="font-medium text-emerald-600">
+                      ⭐ mastered
+                    </span>
+                  ) : streak > 0 ? (
+                    <span className="text-purple-600">
+                      {"⭐".repeat(streak)}
+                    </span>
+                  ) : (
+                    <span className="text-slate-300">—</span>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }
