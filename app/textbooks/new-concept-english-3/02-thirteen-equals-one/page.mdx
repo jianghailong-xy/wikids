@@ -31,6 +31,25 @@ One night, however, our vicar woke up with a start: the clock was striking the h
 
 <SayIt text="Thirteen is not as good as one, but it's better than nothing." />
 
+### 对话回放 Replay the conversation
+
+把课文 l.10–18 的牧师和 Bill 的对话拎出来——点每条气泡可以听语音。先看几遍，再合上原文听一遍试试能跟上多少：
+
+<ChatDialog
+  title="In the clock tower · 凌晨一点"
+  participants={[
+    { name: "Vicar", emoji: "👨‍🦳", side: "left", tone: "slate" },
+    { name: "Bill", emoji: "🛒", side: "right", tone: "brand" },
+  ]}
+  turns={[
+    { speaker: "Vicar", text: "Whatever are you doing up here, Bill?" },
+    { speaker: "Bill", text: "I'm trying to repair the bell. I've been coming up here night after night for weeks now. You see, I was hoping to give you a surprise." },
+    { speaker: "Vicar", text: "You certainly did give me a surprise! You've probably woken up everyone in the village as well. Still, I'm glad the bell is working again." },
+    { speaker: "Bill", text: "That's the trouble, vicar. It's working all right, but I'm afraid that at one o'clock it will strike thirteen times and there's nothing I can do about it." },
+    { speaker: "Vicar", text: "We'll get used to that, Bill. Thirteen is not as good as one, but it's better than nothing. Now let's go downstairs and have a cup of tea." },
+  ]}
+/>
+
 ## 课文注释 Notes on the text
 
 <Callout type="info" title="6 个值得停下来嚼一嚼的点">
@@ -254,6 +273,75 @@ One night, however, our vicar woke up with a start: the clock was striking the h
       choices: ["hearing", "hear", "the sound", "having heard"],
       answer: "hearing",
       explainWrong: "**get used to** 的 to 是**介词**，后接名词或 -ing 形式。要表达'习惯听到这个'，用 *hearing*。to hear 是不定式，错；having heard 是完成式动名词，时态不合。",
+    },
+  ]}
+/>
+
+### 判一判：句子站得住吗？Spot the broken sentence
+
+每张卡是一句英文，本课的结构如果踩雷会犯哪些错——你判断它**说得通** ✓ 还是**垮了** ✗。点错了卡片背面会告诉你正确写法。
+
+<SpotTheBroken
+  textbookSlug="new-concept-english-3"
+  lessonSlug="02-thirteen-equals-one"
+  id="structure-spot"
+  title="Good or broken? 句子结构判一判"
+  items={[
+    {
+      id: "b1",
+      text: "Our vicar is always raising money for one cause or another.",
+      isCorrect: true,
+    },
+    {
+      id: "b2",
+      text: "Our vicar always is raising money for one cause or another.",
+      isCorrect: false,
+      fix: "always 应放在 be 动词**后**：Our vicar **is always** raising money...",
+    },
+    {
+      id: "b3",
+      text: "He has never managed to get enough money to have the church clock repaired.",
+      isCorrect: true,
+    },
+    {
+      id: "b4",
+      text: "He has never managed to get enough money to have the church clock repair.",
+      isCorrect: false,
+      fix: "have sth. **done**（让某物被做）要用过去分词：to have the church clock **repaired**。",
+    },
+    {
+      id: "b5",
+      text: "The clock was damaged many years ago and is silent ever since.",
+      isCorrect: false,
+      fix: "**ever since** 必须配现在完成时：...and **has been** silent ever since.",
+    },
+    {
+      id: "b6",
+      text: "You certainly did give me a surprise!",
+      isCorrect: true,
+    },
+    {
+      id: "b7",
+      text: "You certainly did gave me a surprise!",
+      isCorrect: false,
+      fix: "强调用 did + **动词原形**，不能用过去式：did **give**（不是 gave）。",
+    },
+    {
+      id: "b8",
+      text: "We'll get used to hear thirteen strokes every night.",
+      isCorrect: false,
+      fix: "get used **to** 的 to 是介词，后接 -ing：get used to **hearing**...",
+    },
+    {
+      id: "b9",
+      text: "I've been coming up here night after night for weeks now.",
+      isCorrect: true,
+    },
+    {
+      id: "b10",
+      text: "Whatever you are doing up here, Bill?",
+      isCorrect: false,
+      fix: "*whatever* 加强语气，但句子仍是**疑问句**，要倒装：**Whatever are you** doing up here?",
     },
   ]}
 />
