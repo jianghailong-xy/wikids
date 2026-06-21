@@ -18,7 +18,8 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "user:create": "node scripts/create-user.mjs"
+    "user:create": "node scripts/create-user.mjs",
+    "user:create:docker": "docker compose run --rm --no-deps --entrypoint node -v \"$PWD:/repo\" -w /repo web scripts/create-user.mjs"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.7.4",
