@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth, signIn } from "@/lib/auth";
 
@@ -65,11 +64,9 @@ export default async function SignInPage({
         </button>
       </form>
 
-      <p className="mt-4 text-center text-sm text-slate-600">
-        New here?{" "}
-        <Link href="/sign-up" className="font-medium text-brand-600">
-          Create an account
-        </Link>
+      <p className="mt-4 text-center text-sm text-slate-500">
+        Accounts are created by an administrator. Contact your administrator if
+        you need access.
       </p>
     </div>
   );

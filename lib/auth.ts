@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
+import { authConfig } from "@/lib/auth.config";
 import { db } from "@/lib/db";
 import {
   accounts,
@@ -18,16 +19,13 @@ const credentialsSchema = z.object({
 });
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   adapter: DrizzleAdapter(db, {
     usersTable: users,
     accountsTable: accounts,
     sessionsTable: sessions,
     verificationTokensTable: verificationTokens,
   }),
-  session: { strategy: "jwt" },
-  pages: {
-    signIn: "/sign-in",
-  },
   providers: [
     Credentials({
       name: "Email and password",
@@ -59,14 +57,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    jwt: async ({ token, user }) => {
-      if (user?.id) token.sub = user.id;
-      return token;
-    },
-    session: async ({ session, token }) => {
-      if (session.user && token.sub) session.user.id = token.sub;
-      return session;
-    },
-  },
 });

@@ -18,7 +18,6 @@ next-env.d.ts
 .turbo
 .tsbuildinfo
 tsconfig.tsbuildinfo
-pages/
-pages-2/
+pages*/
 
 New-Concept-English
