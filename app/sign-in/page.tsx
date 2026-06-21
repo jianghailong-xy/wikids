@@ -1,3 +1,4 @@
+import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
 import { auth, signIn } from "@/lib/auth";
 
@@ -27,11 +28,26 @@ export default async function SignInPage({
       <form
         action={async (formData) => {
           "use server";
-          await signIn("credentials", {
-            email: formData.get("email"),
-            password: formData.get("password"),
-            redirectTo: callbackUrl ?? "/textbooks",
-          });
+          try {
+            await signIn("credentials", {
+              email: formData.get("email"),
+              password: formData.get("password"),
+              redirectTo: callbackUrl ?? "/textbooks",
+            });
+          } catch (err) {
+            // A successful sign-in throws a NEXT_REDIRECT we must re-throw so
+            // Next.js performs the redirect. A failed login throws an AuthError
+            // (e.g. CredentialsSignin); without this catch it would surface as
+            // an unhandled server-side exception (500) instead of the inline
+            // "Invalid email or password." message. Redirect back to the
+            // sign-in page with the error flag the page already renders.
+            if (err instanceof AuthError) {
+              const params = new URLSearchParams({ error: err.type });
+              if (callbackUrl) params.set("callbackUrl", callbackUrl);
+              redirect(`/sign-in?${params.toString()}`);
+            }
+            throw err;
+          }
         }}
         className="space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
       >
