@@ -1,12 +1,20 @@
 import Link from "next/link";
 import { getAllTextbooks } from "@/lib/content";
+import { auth } from "@/lib/auth";
+import { getStudyStats } from "@/lib/study-stats";
+import { StudyStatsOverview } from "@/components/study-stats-overview";
 
 const HIDDEN_ON_HOME = new Set(["math-grade-1", "english-grade-1"]);
 
-export default function HomePage() {
+export default async function HomePage() {
   const textbooks = getAllTextbooks().filter(
     (t) => !HIDDEN_ON_HOME.has(t.slug),
   );
+
+  const session = await auth();
+  const stats = session?.user?.id
+    ? await getStudyStats(session.user.id)
+    : null;
 
   return (
     <div className="space-y-12">
@@ -30,6 +38,8 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+
+      {stats && <StudyStatsOverview stats={stats} />}
 
       <section>
         <h2 className="mb-4 text-2xl font-semibold text-slate-900">

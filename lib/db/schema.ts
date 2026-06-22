@@ -1,5 +1,6 @@
 import {
   boolean,
+  date,
   integer,
   jsonb,
   pgEnum,
@@ -135,8 +136,33 @@ export const quizAttempts = pgTable("quiz_attempts", {
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
 });
 
+// Active study time, bucketed into one row per (user, calendar day). The
+// lesson tracker flushes accumulated seconds and we increment the day's total,
+// so row growth is bounded (one per user per day) and homepage stats —
+// total / today / this week / streak — are cheap to compute.
+export const studyTimeDaily = pgTable(
+  "study_time_daily",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    // Calendar day "YYYY-MM-DD" in the app timezone (see lib/study-stats.ts).
+    day: date("day", { mode: "string" }).notNull(),
+    seconds: integer("seconds").notNull().default(0),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (t) => ({
+    userDayUnique: uniqueIndex("study_time_daily_user_day_unique").on(
+      t.userId,
+      t.day,
+    ),
+  }),
+);
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type LessonProgress = typeof lessonProgress.$inferSelect;
 export type Favorite = typeof favorites.$inferSelect;
 export type QuizAttempt = typeof quizAttempts.$inferSelect;
+export type StudyTimeDaily = typeof studyTimeDaily.$inferSelect;

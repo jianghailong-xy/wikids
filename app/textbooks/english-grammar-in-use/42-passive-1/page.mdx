@@ -1,0 +1,486 @@
+<Lesson textbook="english-grammar-in-use" slug="42-passive-1">
+
+## A — Study this example
+
+Look at this sentence:
+
+<SayIt text="This house was built in 1981." />
+
+**This house was built** is passive. Compare active and passive:
+
+| Active | Passive |
+|---|---|
+| Somebody **built** this house in 1981. | This house **was built** in 1981. |
+
+When we use an **active** verb, we say what the subject **does**:
+
+<SayIt text="My grandfather was a builder. He built this house in 1981." />
+<br />
+<SayIt text="It's a big company. It employs two hundred people." />
+
+When we use a **passive** verb, we say what **happens to** the subject:
+
+<SayIt text="'How old is this house?' 'It was built in 1981.'" />
+<br />
+<SayIt text="Two hundred people are employed by the company." />
+
+<Callout type="tip" title="The core shift">
+  **Active:** I tell you *who did it*. The doer is the star.<br />
+  **Passive:** I tell you *what happened*. The action is the star — and the doer may not even appear.
+</Callout>
+
+## B — When to use the passive
+
+When we use the passive, **who or what causes the action** is often unknown or unimportant:
+
+<SayIt text="A lot of money was stolen in the robbery." />
+<p className="text-sm text-slate-500 mt-1">(Somebody stole it, but we don't know who.)</p>
+
+<SayIt text="Is this room cleaned every day?" />
+<p className="text-sm text-slate-500 mt-1">(Does somebody clean it? — it's not important who.)</p>
+
+<Callout type="info" title="The passive test">
+  Ask yourself: **Do I care who did it?** If the answer is "not really" or "I don't know", the passive is probably your best choice.
+</Callout>
+
+A few more examples where the doer isn't the point:
+
+<SayIt text="My car was stolen last week." />
+<br />
+<SayIt text="The streets are swept every night." />
+<br />
+<SayIt text="English is spoken all over the world." />
+
+## C — Adding *by ...* when you need the doer
+
+If we **do** want to say who does or what causes the action, we use **by**:
+
+<SayIt text="This house was built by my grandfather." />
+<br />
+<SayIt text="Two hundred people are employed by the company." />
+
+<Callout type="warning" title="Don't overuse by">
+  Only add <strong>by ...</strong> when the doer is new, interesting, or surprising information. Saying <em>"The rubbish is collected by the bin men every Tuesday"</em> is grammatically correct but sounds unnatural — unless the bin men are the surprise of the story.
+</Callout>
+
+## D — The formula: be + past participle
+
+The passive is always:
+
+<div className="not-prose my-6 rounded-2xl border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-indigo-50 p-5 text-center shadow-sm">
+  <p className="text-2xl font-bold text-purple-800">
+    <span className="text-purple-400">be</span> + <span className="text-indigo-600">past participle</span>
+  </p>
+  <p className="mt-2 text-sm text-slate-500">is done &nbsp;·&nbsp; was cleaned &nbsp;·&nbsp; are damaged &nbsp;·&nbsp; were built &nbsp;·&nbsp; is seen</p>
+</div>
+
+The past participle often ends in **-ed** (cleaned, damaged, invited etc.), but many important verbs are **irregular** (built, done, stolen, seen etc.).
+
+<div className="not-prose my-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
+  {[
+    { base: "build", pp: "built" },
+    { base: "do", pp: "done" },
+    { base: "steal", pp: "stolen" },
+    { base: "see", pp: "seen" },
+    { base: "make", pp: "made" },
+    { base: "send", pp: "sent" },
+    { base: "find", pp: "found" },
+    { base: "hold", pp: "held" },
+  ].map(({ base, pp }) => (
+    <div key={base} className="rounded-lg border-2 border-purple-200 bg-white px-3 py-2 text-center">
+      <span className="text-sm text-slate-500">{base}</span>
+      <span className="mx-1 text-purple-400">→</span>
+      <span className="text-sm font-bold text-purple-800">{pp}</span>
+    </div>
+  ))}
+</div>
+
+---
+
+## E — Present simple passive
+
+| | Active | Passive |
+|---|---|---|
+| **Form** | clean(s) / see(s) etc. | am/is/are + cleaned/seen etc. |
+| **Example** | Somebody **cleans** the room every day. | The room **is cleaned** every day. |
+
+<SayIt text="Many accidents are caused by careless driving." />
+<br />
+<SayIt text="I'm not invited to parties very often." />
+<br />
+<SayIt text="How is this word pronounced?" />
+
+## F — Past simple passive
+
+| | Active | Passive |
+|---|---|---|
+| **Form** | cleaned / saw etc. | was/were + cleaned/seen etc. |
+| **Example** | Somebody **cleaned** the room yesterday. | The room **was cleaned** yesterday. |
+
+<SayIt text="We were woken up by a loud noise during the night." />
+<br />
+<SayIt text="'Did you go to the party?' 'No, I wasn't invited.'" />
+<br />
+<SayIt text="How much money was stolen in the robbery?" />
+
+<Callout type="info" title="Present vs past — the only difference">
+  The passive doesn't add extra rules for each tense. The **be** verb carries the tense, and the past participle stays the same:<br />
+  • Present: <strong>is</strong> cleaned &nbsp;·&nbsp; <strong>are</strong> caused &nbsp;·&nbsp; <strong>am</strong> invited<br />
+  • Past: <strong>was</strong> cleaned &nbsp;·&nbsp; <strong>were</strong> caused &nbsp;·&nbsp; <strong>was</strong> invited
+</Callout>
+
+---
+
+## Exercise 42.1 — Choose the right passive form
+
+Complete each sentence with the verb in the correct passive form — present or past.
+
+<Quiz
+  textbookSlug="english-grammar-in-use"
+  lessonSlug="42-passive-1"
+  id="ex42-1-passive-form"
+  questions={[
+    {
+      id: "q1",
+      prompt: "Many accidents ___ by careless driving. (cause)",
+      choices: ["are caused", "were caused", "is caused", "caused"],
+      answer: "are caused",
+      explainWrong: "This is a general truth — present simple passive: are + past participle.",
+    },
+    {
+      id: "q2",
+      prompt: "Cheese ___ from milk. (make)",
+      choices: ["is made", "was made", "are made", "made"],
+      answer: "is made",
+      explainWrong: "Cheese is uncountable → singular. Present simple passive: is + made (irregular past participle of make).",
+    },
+    {
+      id: "q3",
+      prompt: "The roof of the building ___ in a storm a few days ago. (damage)",
+      choices: ["was damaged", "is damaged", "were damaged", "damaged"],
+      answer: "was damaged",
+      explainWrong: "'A few days ago' = past time → past simple passive: was + damaged. Roof is singular.",
+    },
+    {
+      id: "q4",
+      prompt: "A cinema is a place where films ___. (show)",
+      choices: ["are shown", "were shown", "is shown", "showed"],
+      answer: "are shown",
+      explainWrong: "General fact about what cinemas are for → present passive. Films = plural → are + shown (irregular past participle of show).",
+    },
+    {
+      id: "q5",
+      prompt: "You ___ to the party. Why didn't you go? (invite)",
+      choices: ["were invited", "was invited", "are invited", "invited"],
+      answer: "were invited",
+      explainWrong: "'Why didn't you go?' is past → past passive. You = were + invited.",
+    },
+    {
+      id: "q6",
+      prompt: "In the US, elections for president ___ every four years. (hold)",
+      choices: ["are held", "were held", "is held", "held"],
+      answer: "are held",
+      explainWrong: "A recurring event (every four years) → present passive. Elections = plural → are + held (irregular past participle of hold).",
+    },
+    {
+      id: "q7",
+      prompt: "There was an accident last night, but fortunately nobody ___. (injure)",
+      choices: ["was injured", "were injured", "is injured", "injured"],
+      answer: "was injured",
+      explainWrong: "'Last night' = past → past passive. Nobody = singular → was + injured.",
+    },
+    {
+      id: "q8",
+      prompt: "I never received the letter. It ___ to the wrong address. (send)",
+      choices: ["was sent", "is sent", "were sent", "sent"],
+      answer: "was sent",
+      explainWrong: "The sending happened in the past → past passive. It = singular → was + sent (irregular past participle of send).",
+    },
+  ]}
+/>
+
+## Exercise 42.2 — Write passive questions
+
+Form questions using the passive. Some are present, some are past.
+
+<QuestionBuilder
+  textbookSlug="english-grammar-in-use"
+  lessonSlug="42-passive-1"
+  id="ex42-2-passive-questions"
+  prompts={[
+    {
+      id: "r1",
+      prompt: "Ask about glass. (how / make?)",
+      correctOrder: ["How", "is", "glass", "made", "?"],
+    },
+    {
+      id: "r2",
+      prompt: "Ask about television. (when / invent?)",
+      correctOrder: ["When", "was", "television", "invented", "?"],
+    },
+    {
+      id: "r3",
+      prompt: "Ask about mountains. (how / form?)",
+      correctOrder: ["How", "are", "mountains", "formed", "?"],
+    },
+    {
+      id: "r4",
+      prompt: "Ask about DNA. (when / discover?)",
+      correctOrder: ["When", "was", "DNA", "discovered", "?"],
+    },
+    {
+      id: "r5",
+      prompt: "Ask about silver. (what / use for?)",
+      correctOrder: ["What", "is", "silver", "used", "for", "?"],
+    },
+  ]}
+/>
+
+## Exercise 42.3 — Active or passive?
+
+Put the verb into the correct form: present or past, active or passive.
+
+<Quiz
+  textbookSlug="english-grammar-in-use"
+  lessonSlug="42-passive-1"
+  id="ex42-3-active-or-passive"
+  questions={[
+    {
+      id: "ap1",
+      prompt: "Two hundred people ___ by the company. (employ)",
+      choices: ["are employed", "employ", "employs", "were employing"],
+      answer: "are employed",
+      explainWrong: "The sentence is about what happens to the people — they are employed (passive, present). Compare: 'The company employs 200 people' (active).",
+    },
+    {
+      id: "ap2",
+      prompt: "Water ___ most of the earth's surface. (cover)",
+      choices: ["covers", "is covered", "was covered", "are covered"],
+      answer: "covers",
+      explainWrong: "Water does the covering — it's the subject doing the action (active, present). Compare: 'How much of the earth's surface is covered by water?' (passive).",
+    },
+    {
+      id: "ap3",
+      prompt: "How much of the earth's surface ___ by water? (cover)",
+      choices: ["is covered", "covers", "covered", "are covered"],
+      answer: "is covered",
+      explainWrong: "The surface receives the action — it is covered (passive, present). 'How much' = uncountable → is.",
+    },
+    {
+      id: "ap4",
+      prompt: "While I was on holiday, my camera ___ from my hotel room. (steal)",
+      choices: ["was stolen", "stole", "is stolen", "were stolen"],
+      answer: "was stolen",
+      explainWrong: "The camera didn't steal anything — it was stolen (passive, past). The doer is unknown.",
+    },
+    {
+      id: "ap5",
+      prompt: "While I was on holiday, my camera ___ from my hotel room. (disappear)",
+      choices: ["disappeared", "was disappeared", "is disappeared", "were disappeared"],
+      answer: "disappeared",
+      explainWrong: "Disappear is intransitive — the camera disappeared by itself (active, past). You can't 'be disappeared'.",
+    },
+    {
+      id: "ap6",
+      prompt: "Robert's parents ___ when he was very young. (die)",
+      choices: ["died", "were died", "was died", "are died"],
+      answer: "died",
+      explainWrong: "Die is intransitive — people die, they aren't 'died' (active, past). No passive form.",
+    },
+    {
+      id: "ap7",
+      prompt: "Robert and his sister ___ by their grandparents. (bring up)",
+      choices: ["were brought up", "brought up", "was brought up", "are bring up"],
+      answer: "were brought up",
+      explainWrong: "They received the upbringing — they were brought up (passive, past). Robert and his sister = plural → were.",
+    },
+    {
+      id: "ap8",
+      prompt: "The boat hit a rock and ___ quickly. (sink)",
+      choices: ["sank", "was sunk", "were sunk", "is sunk"],
+      answer: "sank",
+      explainWrong: "The boat sank by itself — active, past (sink → sank → sunk). Compare: 'The ship was sunk by a torpedo' (passive — someone/something did it).",
+    },
+    {
+      id: "ap9",
+      prompt: "Fortunately everybody ___. (rescue)",
+      choices: ["was rescued", "rescued", "were rescued", "is rescued"],
+      answer: "was rescued",
+      explainWrong: "Everybody receives the rescue — passive, past. Everybody = singular → was rescued.",
+    },
+    {
+      id: "ap10",
+      prompt: "Bill ___ from his job. He wasn't very good at it. (fire)",
+      choices: ["was fired", "fired", "is fired", "were fired"],
+      answer: "was fired",
+      explainWrong: "Bill didn't do the firing — he was fired (passive, past). Someone else fired him.",
+    },
+  ]}
+/>
+
+---
+
+## Exercise 42.4 — Rewrite as passive
+
+Instead of using *somebody*, *they*, *people* etc., rewrite each sentence in the passive.
+
+<Quiz
+  textbookSlug="english-grammar-in-use"
+  lessonSlug="42-passive-1"
+  id="ex42-4-rewrite-passive"
+  questions={[
+    {
+      id: "rw1",
+      prompt: "Somebody cleans the room every day. → The room ___ every day.",
+      choices: ["is cleaned", "was cleaned", "cleans", "cleaned"],
+      answer: "is cleaned",
+      explainWrong: "Present simple (cleans → is cleaned). The room receives the action.",
+    },
+    {
+      id: "rw2",
+      prompt: "They cancelled all flights because of fog. → All flights ___ because of fog.",
+      choices: ["were cancelled", "are cancelled", "was cancelled", "cancelled"],
+      answer: "were cancelled",
+      explainWrong: "Past simple (cancelled → were cancelled). Flights = plural.",
+    },
+    {
+      id: "rw3",
+      prompt: "Somebody accused me of stealing money. → I ___ of stealing money.",
+      choices: ["was accused", "am accused", "were accused", "accused"],
+      answer: "was accused",
+      explainWrong: "Past simple (accused → was accused). I → was.",
+    },
+    {
+      id: "rw4",
+      prompt: "How do you use this word? → How ___ this word ___?",
+      choices: ["is ... used", "was ... used", "does ... use", "are ... used"],
+      answer: "is ... used",
+      explainWrong: "Present simple question in passive: How + is + subject + past participle?",
+    },
+    {
+      id: "rw5",
+      prompt: "The price includes all taxes. → All taxes ___ in the price.",
+      choices: ["are included", "is included", "were included", "include"],
+      answer: "are included",
+      explainWrong: "Present simple (includes → are included). Taxes = plural.",
+    },
+    {
+      id: "rw6",
+      prompt: "People warned us not to go out alone. → We ___ not to go out alone.",
+      choices: ["were warned", "are warned", "was warned", "warned"],
+      answer: "were warned",
+      explainWrong: "Past simple (warned → were warned). We → were.",
+    },
+    {
+      id: "rw7",
+      prompt: "We don't use this office any more. → This office ___ any more.",
+      choices: ["isn't used", "wasn't used", "doesn't use", "aren't used"],
+      answer: "isn't used",
+      explainWrong: "Present simple negative: isn't + used. Office = singular.",
+    },
+    {
+      id: "rw8",
+      prompt: "They invited five hundred people to the wedding. → Five hundred people ___ to the wedding.",
+      choices: ["were invited", "are invited", "was invited", "invited"],
+      answer: "were invited",
+      explainWrong: "Past simple (invited → were invited). People = plural.",
+    },
+  ]}
+/>
+
+## Spot the broken ones
+
+Some of these sentences are correct. Others have the wrong voice, a missing word, or a form that doesn't work. Tap **Good** or **Broken**.
+
+<SpotTheBroken
+  textbookSlug="english-grammar-in-use"
+  lessonSlug="42-passive-1"
+  id="spot-passive-broken"
+  items={[
+    { id: "s1", text: "This house was built in 1981.", isCorrect: true },
+    { id: "s2", text: "Cheese is make from milk.", isCorrect: false, fix: "Cheese is made from milk." },
+    { id: "s3", text: "A lot of money was stolen in the robbery.", isCorrect: true },
+    { id: "s4", text: "I wasn't invited to the party.", isCorrect: true },
+    { id: "s5", text: "When was television invented?", isCorrect: true },
+    { id: "s6", text: "My camera was disappeared from my hotel room.", isCorrect: false, fix: "My camera disappeared from my hotel room." },
+    { id: "s7", text: "Robert's parents were died when he was very young.", isCorrect: false, fix: "Robert's parents died when he was very young." },
+    { id: "s8", text: "We were woken up by a loud noise during the night.", isCorrect: true },
+    { id: "s9", text: "The boat was sunk quickly.", isCorrect: false, fix: "The boat sank quickly." },
+    { id: "s10", text: "Many accidents are caused by careless driving.", isCorrect: true },
+    { id: "s11", text: "English is speak all over the world.", isCorrect: false, fix: "English is spoken all over the world." },
+    { id: "s12", text: "All flights were cancelled because of fog.", isCorrect: true },
+  ]}
+/>
+
+---
+
+## Match: active ↔ passive
+
+Drag each active sentence to its passive partner.
+
+<Match
+  textbookSlug="english-grammar-in-use"
+  lessonSlug="42-passive-1"
+  id="ex42-match-active-passive"
+  title="Match each active sentence to its passive equivalent"
+  pairs={[
+    { id: "m1", left: "Somebody cleans the room every day.", right: "The room is cleaned every day." },
+    { id: "m2", left: "Somebody cleaned the room yesterday.", right: "The room was cleaned yesterday." },
+    { id: "m3", left: "They make cheese from milk.", right: "Cheese is made from milk." },
+    { id: "m4", left: "They cancelled all flights.", right: "All flights were cancelled." },
+    { id: "m5", left: "My grandfather built this house.", right: "This house was built by my grandfather." },
+    { id: "m6", left: "People speak English all over the world.", right: "English is spoken all over the world." },
+    { id: "m7", left: "A loud noise woke us up.", right: "We were woken up by a loud noise." },
+    { id: "m8", left: "They don't invite me to parties.", right: "I'm not invited to parties." },
+  ]}
+/>
+
+---
+
+## Now you try — say it out loud
+
+Tap **Tap to speak** and say a full passive sentence. We'll tick off the words you get.
+
+<SpeakingTry
+  prompts={[
+    {
+      id: "sp1",
+      prompt: "Say that this room is cleaned every day (somebody cleans it — but you don't need to say who).",
+      example: "This room is cleaned every day.",
+      slots: [
+        { label: "is / are", anyOf: ["is", "are"] },
+        { label: "a past participle", anyOf: ["cleaned", "swept", "washed", "tidied", "painted", "locked"] },
+      ],
+    },
+    {
+      id: "sp2",
+      prompt: "Say that a car was stolen last week (you don't know who stole it).",
+      example: "My car was stolen last week.",
+      slots: [
+        { label: "was / were", anyOf: ["was", "were"] },
+        { label: "a past participle", anyOf: ["stolen", "taken", "damaged", "broken", "hit", "found"] },
+      ],
+    },
+    {
+      id: "sp3",
+      prompt: "Say that this house was built by your grandfather (you DO want to say who built it).",
+      example: "This house was built by my grandfather.",
+      slots: [
+        { label: "was / were", anyOf: ["was", "were"] },
+        { label: "a past participle", anyOf: ["built", "designed", "painted", "bought", "owned"] },
+        { label: "by + person", anyOf: ["by my grandfather", "by my father", "by my uncle", "by my family"] },
+      ],
+    },
+  ]}
+/>
+
+<Callout type="tip" title="Take it further">
+  Look around the room you're in. Describe **five things** using the passive — who made them, what they're made of, when they were bought. Then describe **two things that happened to you** in the past week where you don't know (or don't need to say) who did them. <br /><br />
+  *Examples: This table was made in Sweden. My phone was dropped on the floor yesterday. The windows are cleaned once a month.*
+</Callout>
+
+---
+
+Next: **Unit 43 — Passive 2** covers the passive in more tenses: *be done*, *been done*, and *being done* — the forms you need for the present perfect, modals, and the continuous.
+
+</Lesson>

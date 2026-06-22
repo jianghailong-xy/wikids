@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LessonProgressBeacon } from "./lesson-progress-beacon";
 import { LessonStars } from "./lesson-stars";
+import { StudyTimeTracker } from "./study-time-tracker";
 import { getAdjacentLessons, getLesson } from "@/lib/content";
 
 // Wraps a lesson MDX file with the standard chrome (breadcrumb, title,
@@ -24,6 +25,7 @@ export function Lesson({
 
   return (
     <article>
+      <StudyTimeTracker />
       <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
         <Link href={`/textbooks/${textbook.slug}`} className="hover:underline">
           {textbook.title}

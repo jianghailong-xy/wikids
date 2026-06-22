@@ -1,0 +1,835 @@
+<Lesson textbook="english-grammar-in-use" slug="05-past-simple">
+
+## A — Study this example situation
+
+<div className="not-prose my-6 rounded-2xl border-2 border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-5 shadow-sm">
+  <div className="flex flex-col items-center gap-4 sm:flex-row">
+    <div className="rounded-xl bg-amber-100 p-4 text-center text-4xl shadow-inner">🎼</div>
+    <div className="flex-1">
+      <p className="text-lg font-semibold text-amber-900">Wolfgang Amadeus Mozart</p>
+      <p className="text-sm text-amber-700">Austrian composer (1756–1791)</p>
+      <p className="mt-2 text-base text-amber-800">
+        He <strong>lived</strong> from 1756 to 1791.
+        He <strong>started</strong> composing at the age of five.
+        He <strong>wrote</strong> more than 600 pieces of music.
+      </p>
+    </div>
+  </div>
+</div>
+
+<SayIt text="Mozart lived from 1756 to 1791. He started composing at the age of five and wrote more than 600 pieces." />
+
+**Lived / started / composed / wrote / died** are all **past simple**.
+
+The past simple tells us about **a finished action at a finished time**. Mozart's life is over. He composed his music a long time ago — and then he stopped. The action is **complete, not connected to now**.
+
+<Callout type="tip" title="The core idea">
+  The past simple is for <strong>finished actions at a finished time</strong>. The action started in the past and finished in the past. There's no link to the present — it's over.
+</Callout>
+
+---
+
+Very often the past simple ends in **-ed** (regular verbs):
+
+<SayIt text="I work in a travel agency now. Before that I worked in a department store." />
+<br />
+<SayIt text="We invited them to our party, but they decided not to come." />
+<br />
+<SayIt text="The police stopped me on my way home last night." />
+<br />
+<SayIt text="Laura passed her exam because she studied very hard." />
+
+<Callout type="info" title="Time markers that signal the past simple">
+  When you see these, the past simple is almost certainly the right tense: <strong>yesterday</strong>, <strong>last night/week/month/year</strong>, <strong>... ago</strong>, <strong>in 2010</strong>, <strong>when I was a child</strong>, <strong>at the age of five</strong>, <strong>for ten years</strong> (a finished period).
+</Callout>
+
+## Spelling: how to add -ed correctly
+
+Most verbs just add **-ed**: *work → worked*, *start → started*, *play → played*, *rain → rained*. But three patterns are worth knowing:
+
+### Rule 1 — verb ends in -e? Just add -d.
+
+<Contraction
+  caption="live → lived"
+  segments={[
+    { keep: "liv" },
+    { swap: "e", to: "ed" },
+  ]}
+/>
+
+Same: **dance → danced**, **like → liked**, **hope → hoped**, **phone → phoned**, **invite → invited**.
+
+### Rule 2 — consonant + y? y → ied.
+
+<Contraction
+  caption="study → studied"
+  segments={[
+    { keep: "stud" },
+    { swap: "y", to: "ied" },
+  ]}
+/>
+
+Same: **try → tried**, **copy → copied**, **cry → cried**, **carry → carried**, **hurry → hurried**.
+
+<Callout type="warning" title="Vowel + y stays put">
+  Only swap when a <strong>consonant</strong> comes before the <strong>y</strong>. After a vowel, just add normal <strong>-ed</strong>: ✅ <em>play → played</em>, ✅ <em>enjoy → enjoyed</em>, ✅ <em>stay → stayed</em>.
+</Callout>
+
+### Rule 3 — short word, one vowel + one consonant? Double the consonant.
+
+<Contraction
+  caption="stop → stopped"
+  segments={[
+    { keep: "sto" },
+    { swap: "p", to: "pped" },
+  ]}
+/>
+
+Same: **plan → planned**, **shop → shopped**, **rob → robbed**, **rub → rubbed** (and **prefer → preferred**, **admit → admitted** — the stress is on the last syllable).
+
+But no doubling in **happen → happened**, **visit → visited**, **open → opened**, **listen → listened** (the last syllable isn't stressed, or the word ends in two consonants already).
+
+### Quick check — spell the past form
+
+<Quiz
+  textbookSlug="english-grammar-in-use"
+  lessonSlug="05-past-simple"
+  id="ex5-spelling"
+  questions={[
+    {
+      id: "sp1",
+      prompt: "The past simple of **dance** is …",
+      choices: ["danced", "danceed", "dancced", "dancet"],
+      answer: "danced",
+      explainWrong: "Verb ends in -e → just add -d: dance → danced. No extra e, no doubling.",
+    },
+    {
+      id: "sp2",
+      prompt: "The past simple of **study** is …",
+      choices: ["studied", "studyed", "studyd", "studded"],
+      answer: "studied",
+      explainWrong: "Consonant + y → y changes to ied: study → studied. (studyed is never correct.)",
+    },
+    {
+      id: "sp3",
+      prompt: "The past simple of **stop** is …",
+      choices: ["stopped", "stoped", "stoppped", "stopt"],
+      answer: "stopped",
+      explainWrong: "One vowel + one consonant → double the p: stop → stopped. Stoped would rhyme with 'hoped'.",
+    },
+    {
+      id: "sp4",
+      prompt: "The past simple of **play** is …",
+      choices: ["played", "plaied", "plaid", "playd"],
+      answer: "played",
+      explainWrong: "Vowel + y → just add -ed: play → played. The y stays because a vowel (a) comes before it.",
+    },
+    {
+      id: "sp5",
+      prompt: "The past simple of **plan** is …",
+      choices: ["planned", "planed", "pland", "plannned"],
+      answer: "planned",
+      explainWrong: "One vowel + one consonant → double the n: plan → planned. Planed means something different.",
+    },
+    {
+      id: "sp6",
+      prompt: "The past simple of **hurry** is …",
+      choices: ["hurried", "hurryed", "hurred", "huryd"],
+      answer: "hurried",
+      explainWrong: "Consonant (r) + y → y changes to ied: hurry → hurried.",
+    },
+    {
+      id: "sp7",
+      prompt: "The past simple of **enjoy** is …",
+      choices: ["enjoyed", "enjoied", "enjoyd", "enjoid"],
+      answer: "enjoyed",
+      explainWrong: "Vowel (o) + y → just add -ed: enjoy → enjoyed. The y stays.",
+    },
+    {
+      id: "sp8",
+      prompt: "The past simple of **prefer** is …",
+      choices: ["preferred", "prefered", "preferrd", "preferd"],
+      answer: "preferred",
+      explainWrong: "Stress on the last syllable → double the r: prefer → preferred. Same rule as admit → admitted.",
+    },
+  ]}
+/>
+
+---
+
+## B — Irregular verbs
+
+Not all verbs end in **-ed**. Some of the most common English verbs are **irregular** — their past simple is a completely different word:
+
+<div className="not-prose my-6 overflow-hidden rounded-2xl border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-fuchsia-50 shadow-sm">
+  <p className="bg-purple-100 py-2 text-center text-xs font-bold uppercase tracking-wider text-purple-800">
+    No -ed — these change shape
+  </p>
+  <div className="grid grid-cols-2 gap-x-6 gap-y-1 p-5 text-sm sm:grid-cols-3 md:grid-cols-4">
+    <div>be → <strong>was/were</strong></div>
+    <div>begin → <strong>began</strong></div>
+    <div>break → <strong>broke</strong></div>
+    <div>bring → <strong>brought</strong></div>
+    <div>build → <strong>built</strong></div>
+    <div>buy → <strong>bought</strong></div>
+    <div>catch → <strong>caught</strong></div>
+    <div>come → <strong>came</strong></div>
+    <div>do → <strong>did</strong></div>
+    <div>drink → <strong>drank</strong></div>
+    <div>drive → <strong>drove</strong></div>
+    <div>eat → <strong>ate</strong></div>
+    <div>fall → <strong>fell</strong></div>
+    <div>feel → <strong>felt</strong></div>
+    <div>find → <strong>found</strong></div>
+    <div>fly → <strong>flew</strong></div>
+    <div>forget → <strong>forgot</strong></div>
+    <div>get → <strong>got</strong></div>
+    <div>give → <strong>gave</strong></div>
+    <div>go → <strong>went</strong></div>
+    <div>have → <strong>had</strong></div>
+    <div>hear → <strong>heard</strong></div>
+    <div>keep → <strong>kept</strong></div>
+    <div>know → <strong>knew</strong></div>
+    <div>leave → <strong>left</strong></div>
+    <div>lose → <strong>lost</strong></div>
+    <div>make → <strong>made</strong></div>
+    <div>meet → <strong>met</strong></div>
+    <div>pay → <strong>paid</strong></div>
+    <div>put → <strong>put</strong></div>
+    <div>read → <strong>read</strong>*</div>
+    <div>ring → <strong>rang</strong></div>
+    <div>run → <strong>ran</strong></div>
+    <div>say → <strong>said</strong></div>
+    <div>see → <strong>saw</strong></div>
+    <div>sell → <strong>sold</strong></div>
+    <div>sing → <strong>sang</strong></div>
+    <div>sit → <strong>sat</strong></div>
+    <div>sleep → <strong>slept</strong></div>
+    <div>speak → <strong>spoke</strong></div>
+    <div>spend → <strong>spent</strong></div>
+    <div>stand → <strong>stood</strong></div>
+    <div>swim → <strong>swam</strong></div>
+    <div>take → <strong>took</strong></div>
+    <div>teach → <strong>taught</strong></div>
+    <div>tell → <strong>told</strong></div>
+    <div>think → <strong>thought</strong></div>
+    <div>understand → <strong>understood</strong></div>
+    <div>wear → <strong>wore</strong></div>
+    <div>win → <strong>won</strong></div>
+    <div>write → <strong>wrote</strong></div>
+  </div>
+  <p className="bg-purple-50 px-5 py-2 text-xs italic text-purple-700">
+    * Spelled the same, but past <strong>read</strong> rhymes with "red", not "reed".
+  </p>
+</div>
+
+<Callout type="info" title="Same form for every subject">
+  The past simple — regular or irregular — is the <strong>same word for all persons</strong>. No -s, no am/is/are split: I <strong>went</strong>, you <strong>went</strong>, he <strong>went</strong>, she <strong>went</strong>, we <strong>went</strong>, they <strong>went</strong>.
+</Callout>
+
+Listen to a few irregular verbs in real sentences:
+
+<SayIt text="We went to the cinema last night. The film was great." />
+<br />
+<SayIt text="I got up late this morning, so I didn't have breakfast." />
+<br />
+<SayIt text="She saw her friend at the station and they had coffee together." />
+<br />
+<SayIt text="James came into the room, took off his coat, and sat down." />
+<br />
+<SayIt text="I knew the answer, but I didn't say anything." />
+
+### Flashcard warm-up — do you know these?
+
+<FlashcardDeck
+  cards={[
+    { id: "fc1", front: { text: "go", caption: "present" }, back: { text: "went", caption: "past" } },
+    { id: "fc2", front: { text: "have", caption: "present" }, back: { text: "had", caption: "past" } },
+    { id: "fc3", front: { text: "see", caption: "present" }, back: { text: "saw", caption: "past" } },
+    { id: "fc4", front: { text: "buy", caption: "present" }, back: { text: "bought", caption: "past" } },
+    { id: "fc5", front: { text: "eat", caption: "present" }, back: { text: "ate", caption: "past" } },
+    { id: "fc6", front: { text: "think", caption: "present" }, back: { text: "thought", caption: "past" } },
+    { id: "fc7", front: { text: "make", caption: "present" }, back: { text: "made", caption: "past" } },
+    { id: "fc8", front: { text: "take", caption: "present" }, back: { text: "took", caption: "past" } },
+    { id: "fc9", front: { text: "tell", caption: "present" }, back: { text: "told", caption: "past" } },
+    { id: "fc10", front: { text: "find", caption: "present" }, back: { text: "found", caption: "past" } },
+    { id: "fc11", front: { text: "give", caption: "present" }, back: { text: "gave", caption: "past" } },
+    { id: "fc12", front: { text: "know", caption: "present" }, back: { text: "knew", caption: "past" } },
+  ]}
+/>
+
+## Exercise 5.1 — Regular or irregular?
+
+Read the sentence and pick the correct past simple form.
+
+<Quiz
+  textbookSlug="english-grammar-in-use"
+  lessonSlug="05-past-simple"
+  id="ex5-1-regular-irregular"
+  questions={[
+    {
+      id: "q1",
+      prompt: "Yesterday the police ___ me on my way home. (stop)",
+      choices: ["stopped", "stoped", "stops", "stopt"],
+      answer: "stopped",
+      explainWrong: "Stop is a short word — one vowel + one consonant → double the p: stopped.",
+    },
+    {
+      id: "q2",
+      prompt: "Mozart ___ more than 600 pieces of music. (write)",
+      choices: ["writed", "wrote", "writ", "wroted"],
+      answer: "wrote",
+      explainWrong: "Write is irregular — the past is wrote. No -ed on an irregular verb.",
+    },
+    {
+      id: "q3",
+      prompt: "Laura passed her exam because she ___ very hard. (study)",
+      choices: ["studied", "studyed", "studyd", "studded"],
+      answer: "studied",
+      explainWrong: "Consonant (d) + y → y changes to ied: study → studied.",
+    },
+    {
+      id: "q4",
+      prompt: "We ___ them to our party, but they decided not to come. (invite)",
+      choices: ["invited", "invitied", "invitet", "invitedd"],
+      answer: "invited",
+      explainWrong: "Verb ends in -e → just add -d: invite → invited. No spelling trick needed.",
+    },
+    {
+      id: "q5",
+      prompt: "I usually get up early, but this morning I ___ up at 9. (get)",
+      choices: ["getted", "got", "gat", "get"],
+      answer: "got",
+      explainWrong: "Get is irregular — the past is got. 'Getted' doesn't exist.",
+    },
+    {
+      id: "q6",
+      prompt: "James ___ into the room and ___ off his coat. (come / take)",
+      choices: ["came … took", "comed … taked", "came … taked", "came … tooked"],
+      answer: "came … took",
+      explainWrong: "Both come and take are irregular: come → came, take → took. No -ed on either.",
+    },
+    {
+      id: "q7",
+      prompt: "We ___ our holiday last year. We ___ a great time. (enjoy / have)",
+      choices: ["enjoyed … had", "enjoyed … haved", "enjoied … had", "enjoy … had"],
+      answer: "enjoyed … had",
+      explainWrong: "Enjoy is regular (vowel + y → -ed). Have is irregular → had.",
+    },
+    {
+      id: "q8",
+      prompt: "She ___ a new job last month. She ___ her old one. (find / leave)",
+      choices: ["found … left", "finded … leaved", "founded … left", "find … leaved"],
+      answer: "found … left",
+      explainWrong: "Both are irregular: find → found (not finded), leave → left (not leaved).",
+    },
+    {
+      id: "q9",
+      prompt: "I ___ a really good film on TV last night. (see)",
+      choices: ["seed", "saw", "seen", "sawed"],
+      answer: "saw",
+      explainWrong: "See is irregular → saw. 'Seed' and 'sawed' are never the past of see.",
+    },
+    {
+      id: "q10",
+      prompt: "They ___ a lot of money on their new car. (spend)",
+      choices: ["spended", "spent", "spend", "spended"],
+      answer: "spent",
+      explainWrong: "Spend is irregular → spent. Same pattern as send → sent, lend → lent.",
+    },
+    {
+      id: "q11",
+      prompt: "It ___ all day yesterday. We ___ at home. (rain / stay)",
+      choices: ["rained … stayed", "rain … stay", "rained … staied", "rained … stayd"],
+      answer: "rained … stayed",
+      explainWrong: "Rain is regular → rained. Stay ends in vowel + y → just add -ed: stayed (not staied).",
+    },
+    {
+      id: "q12",
+      prompt: "She ___ me a beautiful present for my birthday. (give)",
+      choices: ["gived", "gave", "gaved", "gove"],
+      answer: "gave",
+      explainWrong: "Give is irregular → gave. 'Gived' doesn't exist in standard English.",
+    },
+  ]}
+/>
+
+## Exercise 5.2 — Match present to past
+
+Match each present-tense verb on the left to its past-tense partner on the right. Some are regular, some are irregular — stay sharp.
+
+<Match
+  textbookSlug="english-grammar-in-use"
+  lessonSlug="05-past-simple"
+  id="ex5-2-match"
+  title="Match each verb with its past simple form"
+  pairs={[
+    { id: "m1", left: "write", right: "wrote" },
+    { id: "m2", left: "stop", right: "stopped" },
+    { id: "m3", left: "study", right: "studied" },
+    { id: "m4", left: "think", right: "thought" },
+    { id: "m5", left: "fly", right: "flew" },
+    { id: "m6", left: "hear", right: "heard" },
+    { id: "m7", left: "catch", right: "caught" },
+    { id: "m8", left: "lose", right: "lost" },
+    { id: "m9", left: "carry", right: "carried" },
+    { id: "m10", left: "bring", right: "brought" },
+    { id: "m11", left: "plan", right: "planned" },
+    { id: "m12", left: "sing", right: "sang" },
+  ]}
+/>
+
+---
+
+## C — Questions with did
+
+In the past simple, we use **did** + the **base form** (infinitive without *to*) to make questions — for **all persons** (I, you, he, she, it, we, they):
+
+| | |
+|---|---|
+| **Did** I / you / he / she / it / we / they | **work?** &nbsp; **go?** &nbsp; **see?** &nbsp; **have?** |
+
+<SayIt text="Did you go to the cinema last night?" />
+<br />
+<SayIt text="Did she see the email I sent?" />
+<br />
+<SayIt text="What did you do at the weekend?" />
+<br />
+<SayIt text="Where did they go for their holiday?" />
+<br />
+<SayIt text="How did the accident happen?" />
+
+<Callout type="warning" title="Two critical rules for did-questions">
+  1. <strong>Did</strong> goes before the subject. <br />
+  2. The main verb stays in the <strong>plain form</strong> — never in the past. <br /><br />
+  ✅ <strong>Did</strong> you <strong>go</strong> out last night? &nbsp;&nbsp; ❌ Did you went out last night? <br />
+  ✅ What <strong>did</strong> you <strong>do</strong>? &nbsp;&nbsp; ❌ What did you did? <br />
+  ✅ Where <strong>did</strong> she <strong>buy</strong> that bag? &nbsp;&nbsp; ❌ Where did she bought that bag? <br />
+  <br />
+  Think: <em>did</em> already carries the past — the main verb can relax in the plain form.
+</Callout>
+
+### Yes/No answers: short forms
+
+In conversation, we don't repeat the full sentence. We use short answers:
+
+<SayIt text="'Did you go to the cinema?' 'Yes, I did.'" />
+<br />
+<SayIt text="'Did she see you?' 'No, she didn't.'" />
+<br />
+<SayIt text="'Did they enjoy the party?' 'Yes, they did.'" />
+
+The pattern: **Yes + subject + did** or **No + subject + didn't**. Never say "Yes, I went" or "No, I didn't go" as a short answer — it sounds unnatural.
+
+## D — Negatives with didn't
+
+To make a negative in the past simple, use **didn't** (= did not) + the **base form** — again, for all persons:
+
+| | |
+|---|---|
+| I / you / he / she / it / we / they | **didn't** work &nbsp; **didn't** go &nbsp; **didn't** see |
+
+<SayIt text="I didn't go out last night. I stayed at home." />
+<br />
+<SayIt text="She didn't enjoy the film. She thought it was boring." />
+<br />
+<SayIt text="They didn't have any money, so they walked home." />
+<br />
+<SayIt text="He didn't pass the exam because he didn't study enough." />
+
+Listen to the contrast — a negative followed by a positive, just like in real conversation:
+
+<SayIt text="I didn't watch TV last night. I read a book instead." />
+<br />
+<SayIt text="We didn't go away at the weekend. We stayed at home." />
+<br />
+<SayIt text="He didn't call me — he sent a text message." />
+
+<Callout type="warning" title="Didn't + BASE form — never the past">
+  Once <strong>didn't</strong> is there, the main verb goes back to its plain form: <br />
+  ✅ I <strong>didn't go</strong> out. &nbsp;&nbsp; ❌ I didn't went out. <br />
+  ✅ She <strong>didn't see</strong> him. &nbsp;&nbsp; ❌ She didn't saw him. <br />
+  ✅ They <strong>didn't have</strong> breakfast. &nbsp;&nbsp; ❌ They didn't had breakfast. <br />
+  <br />
+  <em>Didn't</em> carries the past — the verb doesn't need to.
+</Callout>
+
+---
+
+## Exercise 5.3 — Did or didn't?
+
+Choose the right helper to complete each question or negative.
+
+<Quiz
+  textbookSlug="english-grammar-in-use"
+  lessonSlug="05-past-simple"
+  id="ex5-3-did-didnt"
+  questions={[
+    {
+      id: "d1",
+      prompt: "___ you go out last night? — No, I ___.",
+      choices: ["Did … didn't", "Did … did", "Do … didn't", "Does … didn't"],
+      answer: "Did … didn't",
+      explainWrong: "Past question → Did. Negative short answer → didn't. 'Did you go out?' 'No, I didn't.'",
+    },
+    {
+      id: "d2",
+      prompt: "What ___ she say about the plan?",
+      choices: ["did", "does", "was", "had"],
+      answer: "did",
+      explainWrong: "Wh- question in the past → did + subject + base form: 'What did she say?' (not 'What did she said').",
+    },
+    {
+      id: "d3",
+      prompt: "I ___ enjoy the party. The music was terrible.",
+      choices: ["didn't", "did", "don't", "not"],
+      answer: "didn't",
+      explainWrong: "Past negative → didn't + base form: 'I didn't enjoy.' Don't would be present tense.",
+    },
+    {
+      id: "d4",
+      prompt: "___ your parents have a good holiday?",
+      choices: ["Did", "Do", "Was", "Had"],
+      answer: "Did",
+      explainWrong: "Past question for all persons → Did: 'Did your parents have...?' (not 'Had your parents...').",
+    },
+    {
+      id: "d5",
+      prompt: "He ___ pass the exam. He ___ study at all.",
+      choices: ["didn't … didn't", "didn't … did", "did … didn't", "don't … didn't"],
+      answer: "didn't … didn't",
+      explainWrong: "Both parts are negative: he didn't pass, he didn't study. The past of 'don't study' is 'didn't study'.",
+    },
+    {
+      id: "d6",
+      prompt: "Where ___ you buy that jacket? It looks great.",
+      choices: ["did", "do", "was", "had"],
+      answer: "did",
+      explainWrong: "Wh- question in the past → did: 'Where did you buy...?' (not 'Where did you bought').",
+    },
+    {
+      id: "d7",
+      prompt: "She ___ call me yesterday. I waited all evening.",
+      choices: ["didn't", "did", "don't", "wasn't"],
+      answer: "didn't",
+      explainWrong: "Past negative → didn't + call: 'She didn't call.' Don't would mean it's a habit now.",
+    },
+    {
+      id: "d8",
+      prompt: "___ the police catch the thief?",
+      choices: ["Did", "Do", "Was", "Had"],
+      answer: "Did",
+      explainWrong: "Past question → Did: 'Did the police catch...?' The main verb stays in the base form (catch, not caught).",
+    },
+  ]}
+/>
+
+## Exercise 5.4 — Spot the broken ones
+
+Some of these past-tense sentences are correct; others have a wrong verb form, a spelling mistake, or a tense that doesn't belong. Tap **Good** or **Broken** for each.
+
+<SpotTheBroken
+  textbookSlug="english-grammar-in-use"
+  lessonSlug="05-past-simple"
+  id="ex5-4-spot-broken"
+  items={[
+    { id: "sb1", text: "We went to the cinema last night.", isCorrect: true },
+    { id: "sb2", text: "Did you went out last night?", isCorrect: false, fix: "Did you go out last night?" },
+    { id: "sb3", text: "I didn't have breakfast this morning.", isCorrect: true },
+    { id: "sb4", text: "She buyed a new car last week.", isCorrect: false, fix: "She bought a new car last week." },
+    { id: "sb5", text: "The police stoped me on my way home.", isCorrect: false, fix: "The police stopped me on my way home." },
+    { id: "sb6", text: "James came in, took off his coat, and sat down.", isCorrect: true },
+    { id: "sb7", text: "Where did she bought that bag?", isCorrect: false, fix: "Where did she buy that bag?" },
+    { id: "sb8", text: "I seed a great film on TV last night.", isCorrect: false, fix: "I saw a great film on TV last night." },
+    { id: "sb9", text: "They didn't enjoy the party very much.", isCorrect: true },
+    { id: "sb10", text: "He studyed very hard for the exam.", isCorrect: false, fix: "He studied very hard for the exam." },
+    { id: "sb11", text: "Mozart lived from 1756 to 1791.", isCorrect: true },
+    { id: "sb12", text: "I didn't went shopping yesterday.", isCorrect: false, fix: "I didn't go shopping yesterday." },
+    { id: "sb13", text: "We enjoyed our holiday last year.", isCorrect: true },
+    { id: "sb14", text: "He losed his wallet at the station.", isCorrect: false, fix: "He lost his wallet at the station." },
+  ]}
+/>
+
+## Exercise 5.5 — Put the words in order
+
+Build correct past simple questions and sentences.
+
+<QuestionBuilder
+  textbookSlug="english-grammar-in-use"
+  lessonSlug="05-past-simple"
+  id="ex5-5-word-order"
+  prompts={[
+    {
+      id: "w1",
+      prompt: "Ask if someone went out last night.",
+      correctOrder: ["Did", "you", "go", "out", "last", "night", "?"],
+    },
+    {
+      id: "w2",
+      prompt: "Ask what someone did at the weekend.",
+      correctOrder: ["What", "did", "you", "do", "at", "the", "weekend", "?"],
+    },
+    {
+      id: "w3",
+      prompt: "Ask where she bought that bag.",
+      correctOrder: ["Where", "did", "she", "buy", "that", "bag", "?"],
+    },
+    {
+      id: "w4",
+      prompt: "Say that you didn't watch TV last night.",
+      correctOrder: ["I", "didn't", "watch", "TV", "last", "night", "."],
+    },
+    {
+      id: "w5",
+      prompt: "Ask whether they enjoyed the party.",
+      correctOrder: ["Did", "they", "enjoy", "the", "party", "?"],
+    },
+    {
+      id: "w6",
+      prompt: "Say that she passed the exam because she studied hard.",
+      correctOrder: ["She", "passed", "the", "exam", "because", "she", "studied", "hard", "."],
+    },
+    {
+      id: "w7",
+      prompt: "Ask how the accident happened.",
+      correctOrder: ["How", "did", "the", "accident", "happen", "?"],
+    },
+    {
+      id: "w8",
+      prompt: "Say that James came in, took off his coat, and sat down.",
+      correctOrder: ["James", "came", "in,", "took", "off", "his", "coat,", "and", "sat", "down", "."],
+    },
+    {
+      id: "w9",
+      prompt: "Say that you got up late and didn't have breakfast.",
+      correctOrder: ["I", "got", "up", "late", "and", "didn't", "have", "breakfast", "."],
+    },
+    {
+      id: "w10",
+      prompt: "Ask whether the police caught the thief.",
+      correctOrder: ["Did", "the", "police", "catch", "the", "thief", "?"],
+    },
+  ]}
+/>
+
+---
+
+## Exercise 5.6 — Positive or negative?
+
+Complete each sentence with the correct past simple form. Read the context carefully — sometimes the verb should be positive, sometimes negative.
+
+<Quiz
+  textbookSlug="english-grammar-in-use"
+  lessonSlug="05-past-simple"
+  id="ex5-6-pos-neg"
+  questions={[
+    {
+      id: "pn1",
+      prompt: "I didn't go out last night. I ___ at home. (I / stay)",
+      choices: ["stayed", "didn't stay", "stays", "stay"],
+      answer: "stayed",
+      explainWrong: "I didn't go out → so I stayed at home. Positive — the action happened.",
+    },
+    {
+      id: "pn2",
+      prompt: "She wasn't hungry, so she ___ anything. (she / not / eat)",
+      choices: ["didn't eat", "ate", "eated", "eats"],
+      answer: "didn't eat",
+      explainWrong: "She wasn't hungry → so she ate nothing. Negative with didn't + base form.",
+    },
+    {
+      id: "pn3",
+      prompt: "The film wasn't very good. I ___ it much. (I / not / enjoy)",
+      choices: ["didn't enjoy", "enjoyed", "enjoied", "enjoy"],
+      answer: "didn't enjoy",
+      explainWrong: "Film wasn't good → I didn't enjoy it. Negative: didn't + enjoy (y stays, just add -ed isn't needed — we use didn't + base).",
+    },
+    {
+      id: "pn4",
+      prompt: "The hotel was very expensive. It ___ a lot to stay there. (it / cost)",
+      choices: ["cost", "costed", "costs", "didn't cost"],
+      answer: "cost",
+      explainWrong: "Cost is irregular — the past is also cost. Positive: it cost a lot. (Not costed.)",
+    },
+    {
+      id: "pn5",
+      prompt: "I was in a hurry, so I ___ time to call you. (I / not / have)",
+      choices: ["didn't have", "didn't had", "hadn't", "not had"],
+      answer: "didn't have",
+      explainWrong: "Past negative: didn't + have (not didn't + had). 'I didn't have time.'",
+    },
+    {
+      id: "pn6",
+      prompt: "The bed was very uncomfortable. I ___ very well. (I / not / sleep)",
+      choices: ["didn't sleep", "didn't slept", "not slept", "slept not"],
+      answer: "didn't sleep",
+      explainWrong: "Past negative: didn't + base form sleep (not slept). 'I didn't sleep well.'",
+    },
+    {
+      id: "pn7",
+      prompt: "The window was open and a bird ___ into the room. (a bird / fly)",
+      choices: ["flew", "didn't fly", "flied", "flies"],
+      answer: "flew",
+      explainWrong: "A bird came in → positive, and fly is irregular: fly → flew. (Not flied.)",
+    },
+    {
+      id: "pn8",
+      prompt: "Sue wasn't at work yesterday. She ___ very well. (she / not / feel)",
+      choices: ["didn't feel", "didn't felt", "not felt", "felt not"],
+      answer: "didn't feel",
+      explainWrong: "She was ill → negative: didn't + feel. The past of 'feel' is 'felt', but after didn't we use the base form.",
+    },
+    {
+      id: "pn9",
+      prompt: "It was a nice day, so we ___ for a walk along the river. (we / go)",
+      choices: ["went", "didn't go", "goed", "go"],
+      answer: "went",
+      explainWrong: "Nice day → we went for a walk. Positive, and go → went (irregular).",
+    },
+    {
+      id: "pn10",
+      prompt: "The bag was very heavy. I ___ it upstairs by myself. (I / not / carry)",
+      choices: ["didn't carry", "didn't carried", "not carried", "carried not"],
+      answer: "didn't carry",
+      explainWrong: "It was heavy → I didn't carry it alone. Negative: didn't + carry (base form). After didn't, no -ied spelling needed.",
+    },
+  ]}
+/>
+
+---
+
+## A full story: Tom's terrible morning
+
+Read this short story and pick the right past simple form for each gap. Tom had a bad start to his day — can you get all the verbs right?
+
+<Quiz
+  textbookSlug="english-grammar-in-use"
+  lessonSlug="05-past-simple"
+  id="ex5-7-toms-morning"
+  questions={[
+    {
+      id: "t1",
+      prompt: "Yesterday morning Tom ___ up late because his alarm ___ off. (get / not / go)",
+      choices: ["got … didn't go", "getted … didn't went", "got … didn't went", "get … doesn't go"],
+      answer: "got … didn't go",
+      explainWrong: "Get → got (irregular). Negative past: didn't + go (base form).",
+    },
+    {
+      id: "t2",
+      prompt: "He ___ out of bed, ___ into the kitchen, and ___ some coffee. (jump / run / make)",
+      choices: ["jumped … ran … made", "jumped … runned … maked", "jump … ran … make", "jumped … run … made"],
+      answer: "jumped … ran … made",
+      explainWrong: "Jumped is regular. Run → ran (irregular). Make → made (irregular).",
+    },
+    {
+      id: "t3",
+      prompt: "But he ___ the coffee on his shirt. (spill)",
+      choices: ["spilled", "spilt", "spill", "spillt"],
+      answer: "spilled",
+      explainWrong: "Spill is regular → spilled (British English also accepts 'spilt', but 'spilled' is the safe choice).",
+    },
+    {
+      id: "t4",
+      prompt: "He ___ his shirt quickly and ___ out of the house. (change / rush)",
+      choices: ["changed … rushed", "changed … rush", "change … rushed", "changed … rushhed"],
+      answer: "changed … rushed",
+      explainWrong: "Both regular: change → changed (ends in -e, add -d), rush → rushed (just add -ed).",
+    },
+    {
+      id: "t5",
+      prompt: "At the bus stop, he ___ he ___ his wallet at home. (realise / leave)",
+      choices: ["realised … had left", "realised … left", "realise … leaved", "realised … leaved"],
+      answer: "realised … left",
+      explainWrong: "Realise is regular → realised. Leave is irregular → left (not leaved).",
+    },
+    {
+      id: "t6",
+      prompt: "He ___ back home, ___ his wallet, but ___ the bus. (go / get / miss)",
+      choices: ["went … got … missed", "goed … getted … missed", "went … got … miss", "go … get … miss"],
+      answer: "went … got … missed",
+      explainWrong: "Go → went, get → got (both irregular). Miss → missed (regular, just add -ed).",
+    },
+    {
+      id: "t7",
+      prompt: "So he ___ to walk to work. It ___ him 45 minutes. (have / take)",
+      choices: ["had … took", "haved … taked", "had … taked", "have … took"],
+      answer: "had … took",
+      explainWrong: "Both irregular: have → had, take → took. No -ed on either.",
+    },
+    {
+      id: "t8",
+      prompt: "His boss ___ very happy. 'You're late again,' she ___. (not / be / say)",
+      choices: ["wasn't … said", "didn't be … sayed", "weren't … sayed", "didn't was … said"],
+      answer: "wasn't … said",
+      explainWrong: "Be → was/were, negative: wasn't (not 'didn't be'). Say → said (irregular, pronounced 'sed').",
+    },
+  ]}
+/>
+
+---
+
+## Now you try — say it out loud
+
+Tap **Tap to speak** and say a full past-simple sentence out loud. We'll tick off the words you get.
+
+<SpeakingTry
+  prompts={[
+    {
+      id: "sp1",
+      prompt: "Say one thing you did yesterday.",
+      example: "I went to the park yesterday.",
+      slots: [
+        { label: "a verb in the past", anyOf: ["went", "saw", "ate", "had", "watched", "played", "worked", "studied", "walked", "bought", "met", "cooked", "read", "wrote", "called", "visited", "cleaned", "did"] },
+      ],
+    },
+    {
+      id: "sp2",
+      prompt: "Say one thing you didn't do yesterday.",
+      example: "I didn't watch TV yesterday.",
+      slots: [
+        { label: "didn't + base verb", anyOf: ["didn't go", "didn't see", "didn't eat", "didn't have", "didn't watch", "didn't play", "didn't work", "didn't study", "didn't call", "didn't buy", "didn't read", "didn't cook", "didn't get", "didn't take", "didn't make"] },
+      ],
+    },
+    {
+      id: "sp3",
+      prompt: "Say what time you got up this morning.",
+      example: "I got up at seven o'clock this morning.",
+      slots: [
+        { label: "the verb get (past)", anyOf: ["got", "got up"] },
+        { label: "a time or number", anyOf: ["at six", "at seven", "at eight", "at nine", "at ten", "early", "late"] },
+      ],
+    },
+    {
+      id: "sp4",
+      prompt: "Ask a question about what someone did last weekend.",
+      example: "What did you do last weekend?",
+      slots: [
+        { label: "question word", anyOf: ["What", "Where", "Did", "Who"] },
+        { label: "did + base verb", anyOf: ["did you do", "did you go", "did you see", "did you have", "did you eat", "did you watch", "did you meet"] },
+      ],
+    },
+    {
+      id: "sp5",
+      prompt: "Tell me the last film you saw and whether you liked it.",
+      example: "I saw The Matrix last week — I really enjoyed it.",
+      slots: [
+        { label: "past of see", anyOf: ["saw", "watched"] },
+        { label: "liked or didn't like", anyOf: ["enjoyed", "liked", "loved", "didn't like", "didn't enjoy"] },
+      ],
+    },
+  ]}
+/>
+
+<Callout type="tip" title="Take it further">
+  Write a short diary entry about **yesterday** — 6 to 8 sentences. Use at least **three regular verbs** (-ed) and **three irregular verbs** (went, had, saw, ate, got, made, etc.). Include one question tag (*Did I ...?*), one negative (*I didn't ...*), and one time marker (*yesterday, last night, this morning, ... ago*). Read it out loud — your mouth needs the practice as much as your brain.
+</Callout>
+
+<Callout type="info" title="What's next?">
+  Unit 5 is just the foundation. The past simple gets more interesting when it meets the past continuous in **Unit 6** — *I was doing something when something else happened*. The past simple is the **finished event**; the past continuous is the **background activity**. That contrast is one of the most useful patterns in English storytelling.
+</Callout>
+
+---
+
+Next: **Unit 6 — Past continuous (I was doing)**
+
+</Lesson>
