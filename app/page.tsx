@@ -2,19 +2,21 @@ import Link from "next/link";
 import { getAllTextbooks } from "@/lib/content";
 import { auth } from "@/lib/auth";
 import { getStudyStats } from "@/lib/study-stats";
+import { getFavoriteTextbookSlugs } from "@/lib/textbook-favorites";
 import { StudyStatsOverview } from "@/components/study-stats-overview";
-
-const HIDDEN_ON_HOME = new Set(["math-grade-1", "english-grade-1"]);
+import { TextbookFavoriteButton } from "@/components/textbook-favorite-button";
 
 export default async function HomePage() {
-  const textbooks = getAllTextbooks().filter(
-    (t) => !HIDDEN_ON_HOME.has(t.slug),
-  );
+  const textbooks = getAllTextbooks();
 
   const session = await auth();
+  const authenticated = Boolean(session?.user?.id);
   const stats = session?.user?.id
     ? await getStudyStats(session.user.id)
     : null;
+  const favoriteSlugs = session?.user?.id
+    ? await getFavoriteTextbookSlugs(session.user.id)
+    : new Set<string>();
 
   return (
     <div className="space-y-12">
@@ -47,22 +49,30 @@ export default async function HomePage() {
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {textbooks.slice(0, 4).map((t) => (
-            <Link
+            <div
               key={t.slug}
-              href={`/textbooks/${t.slug}`}
-              className="block rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-brand-400 hover:shadow"
+              className="relative rounded-xl border border-slate-200 bg-white shadow-sm transition hover:border-brand-400 hover:shadow"
             >
-              <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
-                {t.subject} · {t.gradeLevel}
-              </p>
-              <h3 className="mt-1 text-lg font-semibold text-slate-900">
-                {t.title}
-              </h3>
-              <p className="mt-2 text-sm text-slate-600">{t.description}</p>
-              <p className="mt-3 text-xs text-slate-500">
-                {t.lessons.length} lesson{t.lessons.length === 1 ? "" : "s"}
-              </p>
-            </Link>
+              <Link href={`/textbooks/${t.slug}`} className="block p-5">
+                <p className="pr-9 text-xs font-medium uppercase tracking-wide text-slate-500">
+                  {t.subject} · {t.gradeLevel}
+                </p>
+                <h3 className="mt-1 pr-9 text-lg font-semibold text-slate-900">
+                  {t.title}
+                </h3>
+                <p className="mt-2 text-sm text-slate-600">{t.description}</p>
+                <p className="mt-3 text-xs text-slate-500">
+                  {t.lessons.length} lesson{t.lessons.length === 1 ? "" : "s"}
+                </p>
+              </Link>
+              <TextbookFavoriteButton
+                textbookSlug={t.slug}
+                title={t.title}
+                initialFavorited={favoriteSlugs.has(t.slug)}
+                authenticated={authenticated}
+                className="absolute right-3 top-3"
+              />
+            </div>
           ))}
         </div>
       </section>

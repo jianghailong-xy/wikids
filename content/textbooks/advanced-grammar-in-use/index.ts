@@ -12,6 +12,7 @@ const textbook: Textbook = {
     "Martin Hewings' advanced grammar reference and practice book — the third in the Cambridge 'in Use' series, after Essential and English Grammar in Use. 100 two-page units pairing a clear explanation with practice, covering tense and aspect, modals, the passive, reporting, relative and participle clauses, articles and quantifiers, adjectives and adverbs, conjunctions, prepositions, and ways of organising information.",
   subject: "English",
   gradeLevel: "Advanced",
+  series: "Grammar in Use",
   lessons: [
     // ── Tenses ────────────────────────────────────────────────────────
     {
@@ -229,7 +230,7 @@ const textbook: Textbook = {
       slug: "30-verb-plus-ing-forms-and-infinitives-1",
       title: "Verb + -ing forms and infinitives 1",
       description:
-        "Verbs followed by -ing or to with the same or a different meaning — remember, forget, regret, go on, mean, stop, try.",
+        "Object or possessive + -ing (resent Tom / Tom's winning); to + -ing and other preposition + -ing patterns (confess to, insist on, prevent … from); perception verbs with -ing or a bare infinitive (see, watch, hear); and dare, help, have, let and make with the infinitive.",
       estimatedMinutes: 30,
     },
     {
@@ -347,7 +348,7 @@ const textbook: Textbook = {
       slug: "46-a-an-the-and-zero-article-2",
       title: "A / an, the and zero article 2",
       description:
-        "Specific and known reference — when the marks something as identifiable, and how first and later mentions work.",
+        "Articles with jobs, titles and names — a/an for a job vs the/zero for a unique position, the Neil Armstrong and a Van Gogh, this in stories, and the with superlatives.",
       estimatedMinutes: 30,
     },
     {
@@ -542,7 +543,7 @@ const textbook: Textbook = {
       slug: "73-comparative-phrases-and-clauses",
       title: "Comparative phrases and clauses",
       description:
-        "than and as ... as, strengthening with much/far/a lot, the ... the ..., and more and more for gradual change.",
+        "as ... as and its negatives, as normal a life as possible, as few/much as, and enough / too / so ... that linking degree to result.",
       estimatedMinutes: 30,
     },
     {

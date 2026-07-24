@@ -7,6 +7,7 @@ const textbook: Textbook = {
     "Practice and Progress — the second book of the New Concept English series. Ninety-six short passages build intermediate reading and listening, with comprehension, structure, and the foundations of writing.",
   subject: "English",
   gradeLevel: "Intermediate",
+  series: "New Concept English",
   lessons: [
     {
       slug: "01-a-private-conversation",

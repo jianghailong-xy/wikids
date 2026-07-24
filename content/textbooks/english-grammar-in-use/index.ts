@@ -10,6 +10,7 @@ const textbook: Textbook = {
     "Raymond Murphy's classic blue intermediate grammar — the sequel to Essential Grammar in Use. 145 two-page units, each pairing a clear explanation with plenty of practice, covering tenses, modals, the passive, relative clauses, articles, prepositions, and phrasal verbs.",
   subject: "English",
   gradeLevel: "Intermediate",
+  series: "Grammar in Use",
   lessons: [
     // ── Present and past ──────────────────────────────────────────────
     {

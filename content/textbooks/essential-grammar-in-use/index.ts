@@ -7,6 +7,7 @@ const textbook: Textbook = {
     "Friendly, bite-sized lessons on the building blocks of English grammar.",
   subject: "English",
   gradeLevel: "Beginner",
+  series: "Grammar in Use",
   lessons: [
     {
       slug: "01-am-is-are",

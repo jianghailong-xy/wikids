@@ -19,6 +19,11 @@ export interface Textbook {
   description: string;
   subject: Subject;
   gradeLevel: string;
+  /**
+   * Optional series this book belongs to (e.g. "New Concept English").
+   * Books sharing a series are grouped together on the overview page.
+   */
+  series?: string;
   cover?: string;
   lessons: Lesson[];
 }

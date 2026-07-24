@@ -10,6 +10,39 @@ export function getAllTextbooks(): Textbook[] {
   return textbookRegistry;
 }
 
+export interface TextbookGroup {
+  /**
+   * The series these textbooks belong to (e.g. "New Concept English"), or
+   * null for a standalone book that isn't part of a series.
+   */
+  series: string | null;
+  textbooks: Textbook[];
+}
+
+/**
+ * Groups textbooks by `series` for grouped display on the overview page.
+ * Series order follows first appearance in the registry; standalone books
+ * (no `series`) each become their own single-book group in place.
+ */
+export function getTextbookGroups(): TextbookGroup[] {
+  const groups: TextbookGroup[] = [];
+  const bySeries = new Map<string, TextbookGroup>();
+  for (const textbook of textbookRegistry) {
+    if (!textbook.series) {
+      groups.push({ series: null, textbooks: [textbook] });
+      continue;
+    }
+    let group = bySeries.get(textbook.series);
+    if (!group) {
+      group = { series: textbook.series, textbooks: [] };
+      bySeries.set(textbook.series, group);
+      groups.push(group);
+    }
+    group.textbooks.push(textbook);
+  }
+  return groups;
+}
+
 export function getTextbook(slug: string): Textbook | undefined {
   return textbookRegistry.find((t) => t.slug === slug);
 }

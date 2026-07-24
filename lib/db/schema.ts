@@ -121,6 +121,26 @@ export const favorites = pgTable(
   }),
 );
 
+// Favorites at the whole-textbook level (the heart on textbook cards). Kept
+// separate from `favorites` above, which is per-lesson and requires a lesson
+// slug — a textbook favorite has no lesson.
+export const textbookFavorites = pgTable(
+  "textbook_favorites",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    textbookSlug: text("textbook_slug").notNull(),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (t) => ({
+    userTextbookUnique: uniqueIndex(
+      "textbook_favorites_user_textbook_unique",
+    ).on(t.userId, t.textbookSlug),
+  }),
+);
+
 export const quizAttempts = pgTable("quiz_attempts", {
   id: uuid("id").defaultRandom().primaryKey(),
   userId: uuid("user_id")
@@ -164,5 +184,6 @@ export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type LessonProgress = typeof lessonProgress.$inferSelect;
 export type Favorite = typeof favorites.$inferSelect;
+export type TextbookFavorite = typeof textbookFavorites.$inferSelect;
 export type QuizAttempt = typeof quizAttempts.$inferSelect;
 export type StudyTimeDaily = typeof studyTimeDaily.$inferSelect;

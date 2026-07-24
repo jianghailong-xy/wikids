@@ -7,6 +7,7 @@ const textbook: Textbook = {
     "Developing Skills — the third book of the New Concept English series, with longer passages for advanced reading, writing, and discussion.",
   subject: "English",
   gradeLevel: "Advanced",
+  series: "New Concept English",
   lessons: [
     {
       slug: "01-a-puma-at-large",

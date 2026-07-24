@@ -7,6 +7,7 @@ const textbook: Textbook = {
     "First Things First — the first book of the New Concept English series. One hundred and forty-four short lessons in matched pairs introduce essential pronunciation, everyday vocabulary, and the basic patterns of spoken English for absolute beginners.",
   subject: "English",
   gradeLevel: "Beginner",
+  series: "New Concept English",
   lessons: [
     {
       slug: "001-excuse-me",
