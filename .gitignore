@@ -19,6 +19,7 @@ next-env.d.ts
 .tsbuildinfo
 tsconfig.tsbuildinfo
 pages*/
+data/
 
 New-Concept-English
 .pages_aside_127/

@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: wikids
     volumes:
-      - wikids_postgres_data:/var/lib/postgresql/data
+      - ./data/postgres:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d wikids"]
       interval: 5s
@@ -38,5 +38,3 @@ services:
     ports:
       - "8880:3000"
 
-volumes:
-  wikids_postgres_data:
