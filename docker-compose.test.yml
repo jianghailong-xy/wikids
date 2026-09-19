@@ -1,0 +1,19 @@
+# Optional skeleton for future integration tests. Foundation tests do not start it.
+# It has a distinct project/service, database name, credentials, tmpfs storage and
+# no host port, so it cannot read or write the development database.
+name: wikids-test
+services:
+  test-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: wikids_test
+      POSTGRES_PASSWORD: wikids_test_only
+      POSTGRES_DB: wikids_test
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wikids_test -d wikids_test"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+    profiles: ["integration"]

@@ -34,6 +34,15 @@ services:
       # Required when Auth.js runs behind a reverse proxy or in a container
       # whose internal hostname differs from AUTH_URL.
       AUTH_TRUST_HOST: "true"
+      # Server-only AI provider config (P3.3): passed through from .env only
+      # when set; the provider fails closed (CONFIG) when any required piece
+      # is missing — no other credential is ever reused.
+      DEEPSEEK_API_KEY: "${DEEPSEEK_API_KEY:-}"
+      DEEPSEEK_BASE_URL: "${DEEPSEEK_BASE_URL:-https://api.deepseek.com}"
+      DEEPSEEK_MODEL: "${DEEPSEEK_MODEL:-}"
+      DEEPSEEK_TIMEOUT_MS: "${DEEPSEEK_TIMEOUT_MS:-30000}"
+      DEEPSEEK_MAX_OUTPUT_TOKENS: "${DEEPSEEK_MAX_OUTPUT_TOKENS:-1024}"
+      GAME_SEAT_HMAC_SECRET: "${GAME_SEAT_HMAC_SECRET:-}"
       NODE_ENV: production
     ports:
       - "8880:3000"

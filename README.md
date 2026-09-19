@@ -170,10 +170,24 @@ The lesson page also pings `/api/progress` on load and exposes a
 | `npm run dev`          | Start Next.js in dev mode on the host (needs db running)          |
 | `npm run build`        | Build the production bundle on the host                           |
 | `npm run typecheck`    | `tsc --noEmit`                                                    |
+| `npm run verify:security-baseline` | Security baseline: clean install, prod audit, typecheck, build, auth smoke, migration smoke against a throwaway Postgres (see [docs/security-baseline.md](docs/security-baseline.md)) |
+| `npm run test`          | Run the full Vitest suite (foundation + quick6-v1 spec)          |
+| `npm run test:watch`    | Vitest in watch mode                                           |
+| `npm run test:foundation` | Foundation smoke only (alias, fixed seeds, jsdom, fast-check, hermetic env) |
+| `npm run verify:test-foundation` | Test foundation: vitest run + typecheck; needs no database, browser or API key (see [docs/quick6-v1-rules.md](docs/quick6-v1-rules.md)) |
 
 After editing `lib/db/schema.ts`, run `npm run db:generate` to create a new
 migration in `drizzle/`, commit it. The next `docker:up` will apply it on
 container start; or run `npm run db:migrate` against a host-mode database.
+
+## Werewolf (quick6) test foundation
+
+The quick6 mode has a frozen, unambiguous rule spec at
+[docs/quick6-v1-rules.md](docs/quick6-v1-rules.md) and an executable reference
+model under `tests/spec/quick6/` (test-side only — this is the spec, not the
+production engine). Tests are hermetic by default: no dev database, no browser,
+no API key. An isolated Postgres skeleton for future integration tests lives in
+`docker-compose.test.yml` (profile `integration`).
 
 ## Architecture notes
 

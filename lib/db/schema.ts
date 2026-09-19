@@ -1,6 +1,9 @@
+import { sql } from "drizzle-orm";
 import {
   boolean,
+  check,
   date,
+  index,
   integer,
   jsonb,
   pgEnum,
@@ -180,6 +183,158 @@ export const studyTimeDaily = pgTable(
   }),
 );
 
+// ---------- Game persistence (P3) ----------
+//
+// Architecture invariants (see lib/games/core/repository.ts):
+// - game_events is the fact stream / source of truth. Every legal state is
+//   reachable by replaying the stream; (session_id, seq) is unique and seq
+//   is contiguous from 0.
+// - game_snapshots is a pure cache: one row per session carrying
+//   last_event_seq, a checksum over the cached state and the four frozen
+//   version stamps. A missing/corrupt/out-of-date snapshot is discarded and
+//   rebuilt from the event stream — never trusted.
+// - The session seed lives ONLY in game_system_private (SYSTEM-private
+//   state): never in events, receipts, projections or any client payload.
+// - All repository queries are owner-scoped: every SQL statement filters on
+//   game_sessions.owner_id.
+
+export const gameSessions = pgTable(
+  "game_sessions",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    ownerId: uuid("owner_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    definitionId: text("definition_id").notNull(),
+    title: text("title").notNull(),
+    // Frozen version stamps of the definition this session was created with.
+    definitionVersion: text("definition_version").notNull(),
+    rulesVersion: text("rules_version").notNull(),
+    eventSchemaVersion: text("event_schema_version").notNull(),
+    prngVersion: text("prng_version").notNull(),
+    status: text("status").notNull().default("active"),
+    // CAS tokens: revision bumps by exactly 1 per accepted transition and
+    // phase_token is the definition's phase token, both updated atomically
+    // with every event append.
+    revision: integer("revision").notNull().default(0),
+    phaseToken: text("phase_token").notNull().default(""),
+    // AI budget: every provider attempt (timeouts/failures/retries included)
+    // consumes one unit; claims are refused past the limit.
+    aiBudgetLimit: integer("ai_budget_limit").notNull().default(100),
+    aiBudgetConsumed: integer("ai_budget_consumed").notNull().default(0),
+    createdAt: timestamp("created_at", { mode: "date", withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date", withTimezone: true }).defaultNow().notNull(),
+  },
+  (t) => ({
+    ownerIdx: index("game_sessions_owner_idx").on(t.ownerId),
+  }),
+);
+
+export const gameEvents = pgTable(
+  "game_events",
+  {
+    sessionId: uuid("session_id")
+      .notNull()
+      .references(() => gameSessions.id, { onDelete: "cascade" }),
+    // Contiguous event index within the session, starting at 0.
+    seq: integer("seq").notNull(),
+    // Revision that produced this event.
+    revision: integer("revision").notNull(),
+    payload: jsonb("payload").$type<unknown>().notNull(),
+    createdAt: timestamp("created_at", { mode: "date", withTimezone: true }).defaultNow().notNull(),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.sessionId, t.seq] }),
+    seqCheck: check("game_events_seq_nonnegative", sql`${t.seq} >= 0`),
+  }),
+);
+
+export const gameSnapshots = pgTable("game_snapshots", {
+  sessionId: uuid("session_id")
+    .primaryKey()
+    .references(() => gameSessions.id, { onDelete: "cascade" }),
+  lastEventSeq: integer("last_event_seq").notNull(),
+  revision: integer("revision").notNull(),
+  // sha256 over the canonical {definitionId, versions, lastEventSeq,
+  // revision, stateJson} tuple — see lib/games/core/checksum.ts.
+  checksum: text("checksum").notNull(),
+  stateJson: text("state_json").notNull(),
+  definitionVersion: text("definition_version").notNull(),
+  rulesVersion: text("rules_version").notNull(),
+  eventSchemaVersion: text("event_schema_version").notNull(),
+  prngVersion: text("prng_version").notNull(),
+  createdAt: timestamp("created_at", { mode: "date", withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "date", withTimezone: true }).defaultNow().notNull(),
+});
+
+export const gameActionReceipts = pgTable(
+  "game_action_receipts",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    sessionId: uuid("session_id")
+      .notNull()
+      .references(() => gameSessions.id, { onDelete: "cascade" }),
+    // Client-supplied idempotency key, unique per session.
+    key: text("key").notNull(),
+    // sha256 of the canonical request payload.
+    requestHash: text("request_hash").notNull(),
+    // Stable response: returned verbatim on every replay of this key.
+    responseJson: jsonb("response_json").$type<unknown>().notNull(),
+    responseHash: text("response_hash").notNull(),
+    revision: integer("revision").notNull(),
+    createdAt: timestamp("created_at", { mode: "date", withTimezone: true }).defaultNow().notNull(),
+  },
+  (t) => ({
+    sessionKeyUnique: uniqueIndex("game_action_receipts_session_key_unique").on(
+      t.sessionId,
+      t.key,
+    ),
+  }),
+);
+
+export const gameAiRuns = pgTable(
+  "game_ai_runs",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    sessionId: uuid("session_id")
+      .notNull()
+      .references(() => gameSessions.id, { onDelete: "cascade" }),
+    seat: integer("seat").notNull(),
+    phaseToken: text("phase_token").notNull(),
+    purpose: text("purpose").notNull(),
+    status: text("status").notNull().default("idle"), // idle|claimed|running|succeeded|failed|timeout
+    // Lease (database-time based): a claim sets claim_token/claim_generation
+    // and lease_expires_at = now() + ttl; expiry or terminal status releases
+    // the lease for reclamation.
+    claimToken: uuid("claim_token"),
+    claimGeneration: integer("claim_generation").notNull().default(0),
+    leaseExpiresAt: timestamp("lease_expires_at", { mode: "date", withTimezone: true }),
+    attempts: integer("attempts").notNull().default(0),
+    result: jsonb("result"),
+    lastError: text("last_error"),
+    startedAt: timestamp("started_at", { mode: "date", withTimezone: true }),
+    completedAt: timestamp("completed_at", { mode: "date", withTimezone: true }),
+    createdAt: timestamp("created_at", { mode: "date", withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date", withTimezone: true }).defaultNow().notNull(),
+  },
+  (t) => ({
+    runUnique: uniqueIndex(
+      "game_ai_runs_session_seat_phase_purpose_unique",
+    ).on(t.sessionId, t.seat, t.phaseToken, t.purpose),
+  }),
+);
+
+export const gameSystemPrivate = pgTable("game_system_private", {
+  sessionId: uuid("session_id")
+    .primaryKey()
+    .references(() => gameSessions.id, { onDelete: "cascade" }),
+  // Hex-encoded session seed. The durable home of the seed: it survives
+  // snapshot loss and must never be projected to any seat or client.
+  seedHex: text("seed_hex").notNull(),
+  startOptions: jsonb("start_options").$type<unknown>(),
+  createdAt: timestamp("created_at", { mode: "date", withTimezone: true }).defaultNow().notNull(),
+});
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type LessonProgress = typeof lessonProgress.$inferSelect;
@@ -187,3 +342,9 @@ export type Favorite = typeof favorites.$inferSelect;
 export type TextbookFavorite = typeof textbookFavorites.$inferSelect;
 export type QuizAttempt = typeof quizAttempts.$inferSelect;
 export type StudyTimeDaily = typeof studyTimeDaily.$inferSelect;
+export type GameSession = typeof gameSessions.$inferSelect;
+export type GameEventRow = typeof gameEvents.$inferSelect;
+export type GameSnapshot = typeof gameSnapshots.$inferSelect;
+export type GameActionReceipt = typeof gameActionReceipts.$inferSelect;
+export type GameAiRun = typeof gameAiRuns.$inferSelect;
+export type GameSystemPrivate = typeof gameSystemPrivate.$inferSelect;
