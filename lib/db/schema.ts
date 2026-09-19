@@ -222,6 +222,13 @@ export const gameSessions = pgTable(
     // consumes one unit; claims are refused past the limit.
     aiBudgetLimit: integer("ai_budget_limit").notNull().default(100),
     aiBudgetConsumed: integer("ai_budget_consumed").notNull().default(0),
+    // P4.1 orchestration counters: provider-backed decisions made and provider
+    // response tokens received (failed attempts are charged by the claim, see
+    // ai_budget_consumed above). Both are updated by the orchestration layer
+    // (lib/games/orchestration) and read as budget pre-checks before a
+    // decision goes to the provider; exhaustion forces the fallback.
+    aiLogicalCalls: integer("ai_logical_calls").notNull().default(0),
+    aiTokensConsumed: integer("ai_tokens_consumed").notNull().default(0),
     createdAt: timestamp("created_at", { mode: "date", withTimezone: true }).defaultNow().notNull(),
     updatedAt: timestamp("updated_at", { mode: "date", withTimezone: true }).defaultNow().notNull(),
   },

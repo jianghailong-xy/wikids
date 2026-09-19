@@ -252,7 +252,7 @@ describe("P3 persistence (isolated real Postgres)", () => {
       expect(names.has(t), `missing table ${t}`).toBe(true);
     }
     const [m] = await client`select count(*)::int as n from drizzle.__drizzle_migrations`;
-    expect(m.n).toBe(4); // 0000..0003
+    expect(m.n).toBe(5); // 0000..0004
   });
 
   it("createSession writes session, initial events and a valid snapshot atomically", async () => {

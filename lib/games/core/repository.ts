@@ -56,6 +56,8 @@ export type PersistenceErrorCode =
   | "IDEMPOTENCY_CONFLICT"
   /** The AI budget is exhausted: this attempt was not counted nor run. */
   | "BUDGET_EXHAUSTED"
+  /** The owner's concurrent active-game budget is exhausted (P4.1 create guard). */
+  | "USER_BUDGET_EXHAUSTED"
   /** The lease was reclaimed or expired: this result is not accepted. */
   | "STALE_LEASE"
   /** Malformed input (bad checksum format, empty event batch, ...). */
@@ -112,6 +114,9 @@ export interface SessionInfo {
   readonly phaseToken: string;
   readonly aiBudgetLimit: number;
   readonly aiBudgetConsumed: number;
+  /** P4.1 orchestration counters: provider-backed decisions and tokens. */
+  readonly aiLogicalCalls: number;
+  readonly aiTokensConsumed: number;
   readonly createdAt: Date;
   readonly updatedAt: Date;
 }
@@ -166,6 +171,16 @@ export interface LoadStateResult<State> {
   readonly source: "snapshot" | "replay";
   /** Why the snapshot cache was rejected (null when served from it). */
   readonly snapshotRejectedReason: string | null;
+  /**
+   * Whether the state is complete enough to DISPATCH commands from. A
+   * snapshot-served state always is. A replayed state is only dispatchable
+   * when the event stream fully accounts for the session's revision — i.e.
+   * the last event's revision equals the session revision. Mid-collection
+   * states (night submissions) bump the revision WITHOUT events, so a
+   * replayed state there is a read-only projection and must not be
+   * dispatched (docs: night buffers are unreconstructable mid-night).
+   */
+  readonly dispatchable: boolean;
 }
 
 export interface AiLease {
@@ -238,6 +253,8 @@ function toSessionInfo(row: typeof schema.gameSessions.$inferSelect): SessionInf
     phaseToken: row.phaseToken,
     aiBudgetLimit: row.aiBudgetLimit,
     aiBudgetConsumed: row.aiBudgetConsumed,
+    aiLogicalCalls: row.aiLogicalCalls,
+    aiTokensConsumed: row.aiTokensConsumed,
     createdAt: row.createdAt,
     updatedAt: row.updatedAt,
   };
@@ -279,6 +296,14 @@ export class GameRepository {
     seedBytes: Uint8Array,
     options?: unknown,
     budget?: { readonly limit: number },
+    /**
+     * Optional per-user concurrency guard (P4.1): refuse the create when the
+     * owner already has maxActiveGames sessions in status 'active'. The
+     * count runs inside the same transaction as the insert, serialized by an
+     * owner-scoped advisory lock so concurrent creates for one owner cannot
+     * both pass the check (the refusal rolls the whole transaction back).
+     */
+    concurrencyGuard?: { readonly maxActiveGames: number },
   ): Promise<{ sessionId: string; revision: number; phaseToken: string }> {
     // Pure domain computation happens OUTSIDE the transaction: transactions
     // contain database statements only.
@@ -309,6 +334,26 @@ export class GameRepository {
       options === undefined ? null : JSON.parse(JSON.stringify(options));
 
     return withTx(this.db, async (tx) => {
+      if (concurrencyGuard) {
+        // Serialize concurrent creates of one owner (advisory lock held for
+        // the transaction), then enforce the active-games budget inside the
+        // same transaction as the insert: exceeding it throws, which rolls
+        // the insert AND the lock back together.
+        await tx.execute(
+          sql`select pg_advisory_xact_lock(hashtext(${`game-create:${ownerId}`}))`,
+        );
+        const [countRow] = await tx.execute(
+          sql`select count(*)::int as n from ${schema.gameSessions}
+              where owner_id = ${ownerId} and status = 'active'`,
+        );
+        const active = (countRow as { n: number }).n;
+        if (active >= concurrencyGuard.maxActiveGames) {
+          throw new PersistenceError(
+            "USER_BUDGET_EXHAUSTED",
+            `owner already has ${active} active games (limit ${concurrencyGuard.maxActiveGames})`,
+          );
+        }
+      }
       const [session] = await tx
         .insert(schema.gameSessions)
         .values({
@@ -443,10 +488,18 @@ export class GameRepository {
       );
     }
 
-    // Snapshot fast path (owner-scoped join).
+    // Snapshot fast path: ONE statement reads the snapshot row, the session
+    // row and the event-stream max seq together, so the three can never be
+    // observed in a mixture from racing appends (a concurrent append either
+    // committed before this read — snapshot+seq+revision all new — or after
+    // it — all old). A snapshot that fails ANY check is rejected and the
+    // state is rebuilt from the event stream.
     const snapRows = await this.db.execute(
       sql`select snap.last_event_seq, snap.revision, snap.checksum, snap.state_json,
-                 snap.definition_version, snap.rules_version, snap.event_schema_version, snap.prng_version
+                 snap.definition_version, snap.rules_version, snap.event_schema_version, snap.prng_version,
+                 s.revision as session_revision,
+                 coalesce((select max(seq) from ${schema.gameEvents} e
+                           where e.session_id = snap.session_id), -1)::int as max_seq
           from ${schema.gameSnapshots} snap
           join ${schema.gameSessions} s on s.id = snap.session_id
           where snap.session_id = ${sessionId} and s.owner_id = ${ownerId}
@@ -462,6 +515,8 @@ export class GameRepository {
           rules_version: string;
           event_schema_version: string;
           prng_version: string;
+          session_revision: number;
+          max_seq: number;
         }
       | undefined;
 
@@ -492,44 +547,37 @@ export class GameRepository {
           })
       ) {
         rejected = "checksum_mismatch";
-      } else if (snap.revision !== session.revision) {
+      } else if (snap.revision !== snap.session_revision) {
         rejected = "revision_mismatch";
+      } else if (snap.last_event_seq !== snap.max_seq) {
+        rejected = "seq_mismatch";
       } else {
-        const [maxRow] = await this.db.execute(
-          sql`select coalesce(max(${schema.gameEvents.seq}), -1)::int as m
-              from ${schema.gameEvents}
-              where session_id = ${sessionId}`,
-        );
-        const maxSeq = (maxRow as { m: number }).m;
-        if (snap.last_event_seq !== maxSeq) {
-          rejected = "seq_mismatch";
-        } else {
-          let snapshotState: State | null = null;
-          try {
-            snapshotState = definition.deserializeState(snap.state_json);
-          } catch {
-            rejected = "deserialize_failed";
+        let snapshotState: State | null = null;
+        try {
+          snapshotState = definition.deserializeState(snap.state_json);
+        } catch {
+          rejected = "deserialize_failed";
+        }
+        if (snapshotState !== null) {
+          const events = snapshotState.events;
+          // Zero-event transitions advance the revision without appending
+          // an event, so the last event's producing revision may be below
+          // the state revision — never above it.
+          const contiguous =
+            events.length === snap.last_event_seq + 1 &&
+            events.every((e, i) => e.index === i) &&
+            snapshotState.revision === snap.revision &&
+            (events.length === 0 ||
+              events[events.length - 1].revision <= snap.revision);
+          if (contiguous) {
+            return {
+              state: snapshotState,
+              source: "snapshot",
+              snapshotRejectedReason: null,
+              dispatchable: true,
+            };
           }
-          if (snapshotState !== null) {
-            const events = snapshotState.events;
-            // Zero-event transitions advance the revision without appending
-            // an event, so the last event's producing revision may be below
-            // the state revision — never above it.
-            const contiguous =
-              events.length === snap.last_event_seq + 1 &&
-              events.every((e, i) => e.index === i) &&
-              snapshotState.revision === snap.revision &&
-              (events.length === 0 ||
-                events[events.length - 1].revision <= snap.revision);
-            if (contiguous) {
-              return {
-                state: snapshotState,
-                source: "snapshot",
-                snapshotRejectedReason: null,
-              };
-            }
-            rejected = "state_inconsistent";
-          }
+          rejected = "state_inconsistent";
         }
       }
     }
@@ -566,6 +614,14 @@ export class GameRepository {
       stateJson,
     });
 
+    // A replayed state is dispatchable only when the event stream fully
+    // accounts for the session revision: the last event's producing revision
+    // must equal it. Zero-event transitions (night submissions) leave the
+    // event stream behind the session, and the replayed state is then a
+    // read-only projection (night buffers are unreconstructable).
+    const lastEventRevision = events.length > 0 ? events[events.length - 1].revision : 0;
+    const dispatchable = lastEventRevision === session.revision;
+
     // Heal the cache. When a bad row was observed, the heal is a
     // compare-and-swap on its checksum: it overwrites only if the row is
     // still the same bad one (a concurrent append rewrites the checksum and
@@ -598,7 +654,7 @@ export class GameRepository {
           where ${healWhere}`,
     );
 
-    return { state, source: "replay", snapshotRejectedReason: rejected };
+    return { state, source: "replay", snapshotRejectedReason: rejected, dispatchable };
   }
 
   // -------------------------------------------------------------------------

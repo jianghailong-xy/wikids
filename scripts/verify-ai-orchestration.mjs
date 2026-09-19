@@ -1,4 +1,4 @@
-// P3 persistence verification, run with: npm run verify:persistence
+// P4.1 AI-orchestration verification, run with: npm run verify:ai-orchestration
 //
 // Serial steps, each must pass (any failure cleans up in `finally` and exits
 // non-zero):
@@ -10,16 +10,17 @@
 //      development compose project) — postgres:16-alpine, the production
 //      image
 //   4. demonstrate the guard: the development URL is refused, the isolated
-//      URL is accepted (scripts/assert-isolated-db.mjs, mirroring
-//      lib/db/isolated-db.ts which the test suite enforces too)
+//      URL is accepted (scripts/assert-isolated-db.mjs with the p4v_ prefix,
+//      mirroring lib/db/isolated-db.ts which the test suite enforces too)
 //   5. migrate from an EMPTY database with scripts/migrate.mjs (all of
 //      ./drizzle, 0000..0004, applied in order)
 //   6. scripts/db-smoke.mjs — schema shape + migration bookkeeping
-//   7. vitest run --config vitest.persistence.config.ts — the real-Postgres
-//      suite: owner scoping, atomic append + CAS, concurrent unique commits,
-//      receipt idempotency, snapshot corruption/missing/seq/checksum
-//      recovery, database-time AI leases + budget, no network inside
-//      transactions, deterministic fallback
+//   7. vitest run --config vitest.orchestration.config.ts — the
+//      real-Postgres orchestration suite: create/resume/submit, the bounded
+//      advance (batch caps, concurrency, pending/retryAfter), speech-order
+//      visibility, database-time leases and stale-result rejection, retry
+//      and budget N-1/N/N+1 boundaries, deterministic fallback through
+//      every fault / switch-off / no-key path, whole-game completion
 //   8. npm run typecheck — the whole repo compiles
 //   9. finally: `docker compose down -v` on the random project and removal
 //      of the temp dir — verified by asserting no containers remain
@@ -63,7 +64,7 @@ function run(cmd, args, env = {}) {
 }
 
 function fail(message) {
-  console.error(`\nverify:persistence FAILED: ${message}`);
+  console.error(`\nverify:ai-orchestration FAILED: ${message}`);
   cleanup();
   process.exit(1);
 }
@@ -121,18 +122,18 @@ if (preset) {
 
 // --- step 3: isolated throwaway Postgres ------------------------------------
 const suffix = randomBytes(4).toString("hex");
-projectName = `wikids-p3v-${suffix}`;
-const dbName = `p3v_${suffix}`;
-const dbUser = `p3v_${suffix}`;
+projectName = `wikids-p4v-${suffix}`;
+const dbName = `p4v_${suffix}`;
+const dbUser = `p4v_${suffix}`;
 const dbPassword = randomBytes(12).toString("hex");
 const port = await findFreePort();
-tempDir = mkdtempSync(path.join(os.tmpdir(), "wikids-p3v-"));
+tempDir = mkdtempSync(path.join(os.tmpdir(), "wikids-p4v-"));
 composeFile = path.join(tempDir, "compose.yml");
 const databaseUrl = `postgres://${dbUser}:${dbPassword}@127.0.0.1:${port}/${dbName}`;
 
 writeFileSync(
   composeFile,
-  `# Generated per-run by scripts/verify-persistence.mjs — throwaway Postgres.
+  `# Generated per-run by scripts/verify-ai-orchestration.mjs — throwaway Postgres.
 # Random project/port/db/user/password and tmpfs storage: it can neither read
 # nor write the development database.
 services:
@@ -185,13 +186,13 @@ if (status !== 0) {
 
 // --- step 4: guard demo -----------------------------------------------------
 console.log("\n# step 4: isolated-db guard (dev URL must be refused)");
-let guard = spawnSync("node", [path.join(ROOT, "scripts", "assert-isolated-db.mjs"), DEV_DATABASE_URL], {
+let guard = spawnSync("node", [path.join(ROOT, "scripts", "assert-isolated-db.mjs"), DEV_DATABASE_URL, "p4v_"], {
   cwd: ROOT,
   encoding: "utf8",
 });
 if (guard.status === 0) fail("the development DATABASE_URL was NOT refused");
 console.log("  dev URL refused as expected (exit " + guard.status + ")");
-guard = spawnSync("node", [path.join(ROOT, "scripts", "assert-isolated-db.mjs"), databaseUrl], {
+guard = spawnSync("node", [path.join(ROOT, "scripts", "assert-isolated-db.mjs"), databaseUrl, "p4v_"], {
   cwd: ROOT,
   encoding: "utf8",
 });
@@ -208,12 +209,12 @@ console.log("\n# step 6: db smoke (schema shape + migration bookkeeping)");
 status = run("node", ["scripts/db-smoke.mjs"], { DATABASE_URL: databaseUrl });
 if (status !== 0) fail("db smoke");
 
-// --- step 7: the real-Postgres persistence suite ----------------------------
-console.log("\n# step 7: persistence test suite (isolated real Postgres)");
-status = run(path.join(BIN, "vitest"), ["run", "--config", "vitest.persistence.config.ts"], {
+// --- step 7: the real-Postgres orchestration suite --------------------------
+console.log("\n# step 7: orchestration test suite (isolated real Postgres)");
+status = run(path.join(BIN, "vitest"), ["run", "--config", "vitest.orchestration.config.ts"], {
   DATABASE_URL: databaseUrl,
 });
-if (status !== 0) fail("persistence test suite");
+if (status !== 0) fail("orchestration test suite");
 
 // --- step 8: typecheck --------------------------------------------------------
 console.log("\n# step 8: typecheck");
@@ -223,7 +224,7 @@ if (status !== 0) fail("typecheck");
 // --- step 9: cleanup ---------------------------------------------------------
 cleanup();
 
-console.log("\nverify:persistence PASSED (isolated Postgres, migrated from zero, cleaned up)");
+console.log("\nverify:ai-orchestration PASSED (isolated Postgres, migrated from zero, cleaned up)");
 process.exit(0);
 
 // ---------------------------------------------------------------------------

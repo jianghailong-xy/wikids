@@ -34,7 +34,7 @@ const EXPECTED_TABLES = {
   drizzle: ["__drizzle_migrations"],
 };
 
-const EXPECTED_MIGRATIONS = 4; // 0000_init .. 0003_p3_game_tables
+const EXPECTED_MIGRATIONS = 5; // 0000_init .. 0004_p4_orchestration_budgets
 
 const sql = postgres(connectionString, { max: 1 });
 
@@ -85,6 +85,23 @@ try {
     process.exitCode = 1;
   } else {
     console.log(`All ${EXPECTED_MIGRATIONS} migrations recorded.`);
+  }
+
+  // P4.1 orchestration budget columns on game_sessions.
+  const budgetColumns = await sql`
+    select column_name from information_schema.columns
+    where table_schema = 'public' and table_name = 'game_sessions'
+      and column_name in ('ai_logical_calls', 'ai_tokens_consumed')
+  `;
+  const haveBudget = new Set(budgetColumns.map((r) => r.column_name));
+  const missingBudget = ["ai_logical_calls", "ai_tokens_consumed"].filter(
+    (c) => !haveBudget.has(c),
+  );
+  if (missingBudget.length > 0) {
+    console.error(`Missing game_sessions budget columns: ${missingBudget.join(", ")}`);
+    process.exitCode = 1;
+  } else {
+    console.log("game_sessions budget columns present.");
   }
 } catch (err) {
   console.error("DB smoke failed:", err);

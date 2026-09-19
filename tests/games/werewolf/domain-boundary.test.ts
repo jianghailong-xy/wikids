@@ -7,10 +7,19 @@
  *
  * 该守卫静态扫描源码文本，任何违规直接判测试失败。
  *
- * P3 持久化边界（任务 P3.1）：core/repository.ts 是唯一例外 —— 它以注入的
- * drizzle 数据库为端口（仅导入 drizzle-orm 与表结构定义 lib/db/schema，
- * 不读环境变量、不开连接、不调用 Provider）；core/checksum.ts 用
- * node:crypto 做 sha256（确定性摘要，非随机性生成）。
+ * P3 持久化边界（任务 P3.1）：core/repository.ts 以注入的 drizzle 数据库为
+ * 端口（仅导入 drizzle-orm 与表结构定义 lib/db/schema，不读环境变量、
+ * 不开连接、不调用 Provider）；core/checksum.ts 用 node:crypto 做 sha256
+ * （确定性摘要，非随机性生成）。
+ *
+ * P4.1 应用服务层边界：orchestration/{service,store}.ts 与 P3 同边界（注入
+ * drizzle 端口 + 表结构定义）；orchestration/{engine,service}.ts 只导入
+ * lib/ai 的纯契约/错误模块（contract/errors 无 server-only、无环境依赖、
+ * 无具体 Provider）；core/tx.ts 用 node:async_hooks 的 AsyncLocalStorage
+ * 按异步流隔离事务深度（纯 Node 内置，无网络/环境访问）；
+ * orchestration/runtime.ts 是唯一 SERVER-ONLY 接线文件（`import
+ * "server-only"`）：它读取环境允许列表、构造 DeepSeek Provider 并为 Next
+ * 路由组装服务 —— 具体 Provider 与 process.env 只允许出现在这里。
  */
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
@@ -112,6 +121,24 @@ const P3_DB_ALLOWED = ["drizzle-orm", "@/lib/db/schema"];
 /** 允许用 node:crypto 做确定性 sha256 摘要的文件。 */
 const P3_HASH_FILES = new Set([join(LIB_GAMES, "core", "checksum.ts")]);
 
+/** P4.1 应用服务层：注入 drizzle 端口的文件（与 P3 同边界）。 */
+const P4_DB_BOUNDARY = new Set([
+  ...P3_DB_BOUNDARY,
+  join(LIB_GAMES, "orchestration", "service.ts"),
+  join(LIB_GAMES, "orchestration", "store.ts"),
+  join(LIB_GAMES, "orchestration", "runtime.ts"),
+]);
+/** P4.1 纯 AI 契约模块（contract/errors：无 server-only、无环境、无 Provider）。 */
+const P4_AI_CONTRACT_FILES = new Set([
+  join(LIB_GAMES, "orchestration", "engine.ts"),
+  join(LIB_GAMES, "orchestration", "service.ts"),
+  join(LIB_GAMES, "orchestration", "runtime.ts"),
+]);
+const P4_AI_CONTRACT_ALLOWED = ["@/lib/ai/contract", "@/lib/ai/errors"];
+/** 唯一 SERVER-ONLY 接线文件：具体 DeepSeek Provider 只允许在这里出现。 */
+const P4_SERVER_ONLY_FILES = new Set([join(LIB_GAMES, "orchestration", "runtime.ts")]);
+const P4_SERVER_ONLY_ALLOWED = ["@/lib/ai/providers/deepseek", "server-only"];
+
 function importSpecifiers(source: string): string[] {
   const specifiers: string[] = [];
   const re =
@@ -140,8 +167,13 @@ describe("领域边界：lib/games 纯净性（静态守卫）", () => {
           specifier.startsWith("./") ||
           specifier.startsWith("@/lib/games") ||
           specifier === "node:crypto" ||
-          (P3_DB_BOUNDARY.has(file) &&
-            P3_DB_ALLOWED.some((p) => specifier.startsWith(p)));
+          specifier === "node:async_hooks" ||
+          (P4_DB_BOUNDARY.has(file) &&
+            P3_DB_ALLOWED.some((p) => specifier.startsWith(p))) ||
+          (P4_AI_CONTRACT_FILES.has(file) &&
+            P4_AI_CONTRACT_ALLOWED.some((p) => specifier.startsWith(p))) ||
+          (P4_SERVER_ONLY_FILES.has(file) &&
+            P4_SERVER_ONLY_ALLOWED.some((p) => specifier.startsWith(p)));
         expect(
           ok,
           `${file.replace(LIB_GAMES, "lib/games")} 导入了领域外模块: ${specifier}`,
@@ -155,8 +187,10 @@ describe("领域边界：lib/games 纯净性（静态守卫）", () => {
       const source = readFileSync(file, "utf8");
       for (const specifier of importSpecifiers(source)) {
         const p3Exempt =
-          P3_DB_BOUNDARY.has(file) &&
-          P3_DB_ALLOWED.some((p) => specifier.startsWith(p));
+          (P4_DB_BOUNDARY.has(file) &&
+            P3_DB_ALLOWED.some((p) => specifier.startsWith(p))) ||
+          (P4_SERVER_ONLY_FILES.has(file) &&
+            P4_SERVER_ONLY_ALLOWED.some((p) => specifier.startsWith(p)));
         for (const prefix of FORBIDDEN_SPECIFIER_PREFIXES) {
           expect(
             p3Exempt || !specifier.startsWith(prefix),
@@ -171,8 +205,11 @@ describe("领域边界：lib/games 纯净性（静态守卫）", () => {
     for (const file of files) {
       const code = stripComments(readFileSync(file, "utf8"));
       for (const token of FORBIDDEN_TOKENS) {
+        // process.env 只允许出现在 server-only 接线文件 runtime.ts 里
+        // （环境允许列表）；其余文件一律禁止。
+        const envExempt = token === "process.env" && P4_SERVER_ONLY_FILES.has(file);
         expect(
-          !code.includes(token),
+          envExempt || !code.includes(token),
           `${file.replace(LIB_GAMES, "lib/games")} 出现被禁止的调用: ${token}`,
         ).toBe(true);
       }
