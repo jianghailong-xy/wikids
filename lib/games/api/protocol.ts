@@ -94,6 +94,8 @@ export const PUBLIC_ERRORS = {
   rateLimited: "rate_limited",
   advanceInProgress: "advance_in_progress",
   activeSessionExists: "active_session_exists",
+  /** P6.3: the owner's daily game-creation budget is exhausted (429). */
+  dailyLimitExceeded: "daily_limit_exceeded",
   stale: "stale",
   revisionConflict: "revision_conflict",
   phaseConflict: "phase_conflict",

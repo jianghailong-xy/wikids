@@ -42,7 +42,12 @@ export type AiErrorCode =
   /** Returned choice_id is not in the seat's authorized choice set (§4). */
   | "ILLEGAL_CHOICE"
   /** Returned utterance exceeds the length cap (§4). Never retried. */
-  | "UTTERANCE_TOO_LONG";
+  | "UTTERANCE_TOO_LONG"
+  /**
+   * The serialized prompt would exceed the frozen 24KiB budget (P6.3).
+   * Never sent, never retried: the orchestration falls back deterministically.
+   */
+  | "PROMPT_TOO_LARGE";
 
 /** Codes that are ever retried (with a limited retry budget). */
 export const RETRYABLE_CODES: ReadonlySet<AiErrorCode> = new Set([

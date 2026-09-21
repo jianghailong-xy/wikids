@@ -53,12 +53,12 @@ Responses API 调用」。回合调度、费用控制、记忆与状态保存属
 - `model` = `DEEPSEEK_MODEL`(原样发送);
 - `input` = system(user 提示词 + 白名单事实 JSON)/ user 消息;
 - `reasoning: { effort: "none" }` —— 不做深度推理;
-- `max_output_tokens` = min(`DEEPSEEK_MAX_OUTPUT_TOKENS`(默认 1024),
-  硬上限 `MAX_OUTPUT_TOKENS_CAP` = 2048);
+- `max_output_tokens` = min(`DEEPSEEK_MAX_OUTPUT_TOKENS`(P6.3 冻结默认 256),
+  硬上限 `MAX_OUTPUT_TOKENS_CAP` = 256);
 - `tool_choice: "none"` 且**不传 `tools`** —— 无工具调用能力;
 - `text.format` = `{ type: "json_schema", name: <按阶段>, strict: true,
   schema: … }`,其中 `choice_id.enum` 恰为本座位授权选项 id 集合、
-  `utterance.maxLength` = `MAX_UTTERANCE_CHARS`(500)、
+  `utterance.maxLength` = `MAX_UTTERANCE_CHARS`(P6.3 冻结 180)、
   `additionalProperties: false`、required 恰为 `choice_id`/`utterance`。
   阶段 schema 名:`decision_night_v1` / `decision_day_discussion_v1` /
   `decision_day_vote_v1`;

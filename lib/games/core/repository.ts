@@ -58,6 +58,8 @@ export type PersistenceErrorCode =
   | "BUDGET_EXHAUSTED"
   /** The owner's concurrent active-game budget is exhausted (P4.1 create guard). */
   | "USER_BUDGET_EXHAUSTED"
+  /** The owner's daily game-creation budget is exhausted (P6.3). */
+  | "DAILY_GAME_LIMIT_EXCEEDED"
   /**
    * The session exists for the owner but is not playable: abandoned by the
    * owner or aborted by the round budget (P5.1). Mutating calls refuse it;
@@ -123,6 +125,9 @@ export interface SessionInfo {
   /** P4.1 orchestration counters: provider-backed decisions and tokens. */
   readonly aiLogicalCalls: number;
   readonly aiTokensConsumed: number;
+  /** P6.3 input/output token split. */
+  readonly aiInputTokensConsumed: number;
+  readonly aiOutputTokensConsumed: number;
   readonly createdAt: Date;
   readonly updatedAt: Date;
 }
@@ -200,6 +205,26 @@ export interface AiLease {
 
 export type AiRunStatus = "succeeded" | "failed" | "timeout";
 
+/**
+ * P6.3: the ONLY metadata an AI run may persist. Field names are a closed
+ * whitelist — a caller cannot smuggle a key, PII, reasoning content or
+ * prompt text through an extra field, because only these are projected
+ * into the row.
+ */
+export interface AiRunMeta {
+  readonly provider: string | null;
+  readonly requestedModel: string | null;
+  readonly responseModel: string | null;
+  readonly responseId: string | null;
+  readonly systemFingerprint: string | null;
+  readonly promptVersion: string;
+  readonly latencyMs: number | null;
+  readonly inputTokens: number | null;
+  readonly outputTokens: number | null;
+  readonly totalTokens: number | null;
+  readonly cachedInputTokens: number | null;
+}
+
 export interface CompleteAiRunInput {
   readonly seat: number;
   readonly phaseToken: string;
@@ -207,8 +232,12 @@ export interface CompleteAiRunInput {
   readonly claimToken: string;
   readonly generation: number;
   readonly status: AiRunStatus;
-  readonly result?: unknown;
-  readonly error?: string | null;
+  /** Sanitized response metadata (whitelist projection, see AiRunMeta). */
+  readonly meta?: AiRunMeta;
+  /** Stable sanitized error code — never message text. */
+  readonly errorCode?: string | null;
+  /** True when this run ended in the deterministic fallback. */
+  readonly fallback?: boolean;
 }
 
 export interface AiRunInfo {
@@ -220,8 +249,19 @@ export interface AiRunInfo {
   readonly claimGeneration: number;
   readonly leaseExpiresAt: Date | null;
   readonly attempts: number;
-  readonly result: unknown;
-  readonly lastError: string | null;
+  readonly provider: string | null;
+  readonly requestedModel: string | null;
+  readonly responseModel: string | null;
+  readonly responseId: string | null;
+  readonly systemFingerprint: string | null;
+  readonly promptVersion: string | null;
+  readonly latencyMs: number | null;
+  readonly inputTokens: number | null;
+  readonly outputTokens: number | null;
+  readonly totalTokens: number | null;
+  readonly cachedInputTokens: number | null;
+  readonly fallback: boolean;
+  readonly errorCode: string | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -261,6 +301,8 @@ function toSessionInfo(row: typeof schema.gameSessions.$inferSelect): SessionInf
     aiBudgetConsumed: row.aiBudgetConsumed,
     aiLogicalCalls: row.aiLogicalCalls,
     aiTokensConsumed: row.aiTokensConsumed,
+    aiInputTokensConsumed: row.aiInputTokensConsumed,
+    aiOutputTokensConsumed: row.aiOutputTokensConsumed,
     createdAt: row.createdAt,
     updatedAt: row.updatedAt,
   };
@@ -303,13 +345,14 @@ export class GameRepository {
     options?: unknown,
     budget?: { readonly limit: number },
     /**
-     * Optional per-user concurrency guard (P4.1): refuse the create when the
-     * owner already has maxActiveGames sessions in status 'active'. The
-     * count runs inside the same transaction as the insert, serialized by an
+     * Optional per-user budget guard (P4.1 + P6.3): refuse the create when
+     * the owner already has maxActiveGames sessions in status 'active', or
+     * has created maxGamesPerDay sessions today (database time). The counts
+     * run inside the same transaction as the insert, serialized by an
      * owner-scoped advisory lock so concurrent creates for one owner cannot
      * both pass the check (the refusal rolls the whole transaction back).
      */
-    concurrencyGuard?: { readonly maxActiveGames: number },
+    concurrencyGuard?: { readonly maxActiveGames: number; readonly maxGamesPerDay?: number },
   ): Promise<{ sessionId: string; revision: number; phaseToken: string }> {
     // Pure domain computation happens OUTSIDE the transaction: transactions
     // contain database statements only.
@@ -358,6 +401,19 @@ export class GameRepository {
             "USER_BUDGET_EXHAUSTED",
             `owner already has ${active} active games (limit ${concurrencyGuard.maxActiveGames})`,
           );
+        }
+        if (concurrencyGuard.maxGamesPerDay !== undefined) {
+          const [dayCountRow] = await tx.execute(
+            sql`select count(*)::int as n from ${schema.gameSessions}
+                where owner_id = ${ownerId} and created_at >= date_trunc('day', now())`,
+          );
+          const today = (dayCountRow as { n: number }).n;
+          if (today >= concurrencyGuard.maxGamesPerDay) {
+            throw new PersistenceError(
+              "DAILY_GAME_LIMIT_EXCEEDED",
+              `owner already created ${today} games today (limit ${concurrencyGuard.maxGamesPerDay})`,
+            );
+          }
         }
       }
       const [session] = await tx
@@ -844,8 +900,8 @@ export class GameRepository {
           started_at = now(),
           attempts = game_ai_runs.attempts + 1,
           completed_at = null,
-          result = null,
-          last_error = null,
+          fallback = false,
+          error_code = null,
           updated_at = now()
         where game_ai_runs.status not in ('claimed', 'running')
            or game_ai_runs.lease_expires_at < now()
@@ -897,19 +953,37 @@ export class GameRepository {
    * Finish a claimed run. Accepted only while the same claim token and
    * generation still hold an unexpired lease (database time): a result
    * delivered under an expired or reclaimed lease is rejected with
-   * STALE_LEASE.
+   * STALE_LEASE. P6.3: only the sanitized metadata whitelist is projected
+   * into the row — every field is written by name, so nothing beyond
+   * {@link AiRunMeta} can ever be persisted.
    */
   async completeAiRun(
     ownerId: string,
     sessionId: string,
     input: CompleteAiRunInput,
   ): Promise<{ attempts: number }> {
+    const meta = input.meta ?? null;
+    const latencyMs =
+      meta?.latencyMs === null || meta?.latencyMs === undefined
+        ? null
+        : Math.trunc(meta.latencyMs);
     const rows = await this.db.execute(
       sql`update game_ai_runs r
           set status = ${input.status},
               completed_at = now(),
-              result = ${input.result === undefined ? null : JSON.stringify(input.result)}::jsonb,
-              last_error = ${input.error ?? null},
+              provider = ${meta?.provider ?? null},
+              requested_model = ${meta?.requestedModel ?? null},
+              response_model = ${meta?.responseModel ?? null},
+              response_id = ${meta?.responseId ?? null},
+              system_fingerprint = ${meta?.systemFingerprint ?? null},
+              prompt_version = ${meta?.promptVersion ?? null},
+              latency_ms = ${latencyMs},
+              input_tokens = ${meta?.inputTokens ?? null},
+              output_tokens = ${meta?.outputTokens ?? null},
+              total_tokens = ${meta?.totalTokens ?? null},
+              cached_input_tokens = ${meta?.cachedInputTokens ?? null},
+              fallback = ${input.fallback === true},
+              error_code = ${input.errorCode ?? null},
               updated_at = now()
           from ${schema.gameSessions} s
           where r.session_id = s.id and s.owner_id = ${ownerId}
@@ -979,7 +1053,11 @@ export class GameRepository {
   ): Promise<AiRunInfo | null> {
     const rows = await this.db.execute(
       sql`select r.id, r.seat, r.phase_token, r.purpose, r.status,
-                 r.claim_generation, r.lease_expires_at, r.attempts, r.result, r.last_error
+                 r.claim_generation, r.lease_expires_at, r.attempts,
+                 r.provider, r.requested_model, r.response_model, r.response_id,
+                 r.system_fingerprint, r.prompt_version, r.latency_ms,
+                 r.input_tokens, r.output_tokens, r.total_tokens,
+                 r.cached_input_tokens, r.fallback, r.error_code
           from ${schema.gameAiRuns} r
           join ${schema.gameSessions} s on s.id = r.session_id
           where r.session_id = ${sessionId} and s.owner_id = ${ownerId}
@@ -998,8 +1076,19 @@ export class GameRepository {
           claim_generation: number;
           lease_expires_at: Date | null;
           attempts: number;
-          result: unknown;
-          last_error: string | null;
+          provider: string | null;
+          requested_model: string | null;
+          response_model: string | null;
+          response_id: string | null;
+          system_fingerprint: string | null;
+          prompt_version: string | null;
+          latency_ms: number | null;
+          input_tokens: number | null;
+          output_tokens: number | null;
+          total_tokens: number | null;
+          cached_input_tokens: number | null;
+          fallback: boolean;
+          error_code: string | null;
         }
       | undefined;
     if (!row) return null;
@@ -1012,8 +1101,19 @@ export class GameRepository {
       claimGeneration: row.claim_generation,
       leaseExpiresAt: row.lease_expires_at,
       attempts: row.attempts,
-      result: row.result,
-      lastError: row.last_error,
+      provider: row.provider,
+      requestedModel: row.requested_model,
+      responseModel: row.response_model,
+      responseId: row.response_id,
+      systemFingerprint: row.system_fingerprint,
+      promptVersion: row.prompt_version,
+      latencyMs: row.latency_ms,
+      inputTokens: row.input_tokens,
+      outputTokens: row.output_tokens,
+      totalTokens: row.total_tokens,
+      cachedInputTokens: row.cached_input_tokens,
+      fallback: row.fallback,
+      errorCode: row.error_code,
     };
   }
 }

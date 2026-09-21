@@ -5,6 +5,7 @@
  */
 import { z } from "zod";
 import { SEAT_COUNT } from "@/lib/games/werewolf";
+import { PLAYER_SPEECH_MAX_CHARS } from "@/lib/games/safety";
 import { PUBLIC_GAME_DEFINITION_ID } from "./protocol";
 
 export const seatSchema = z.number().int().min(0).max(SEAT_COUNT - 1);
@@ -34,11 +35,14 @@ export const SUPPORTED_GAME_DEFINITIONS: readonly string[] = [PUBLIC_GAME_DEFINI
 /**
  * POST /api/games/sessions/[id]/actions — the command vocabulary. Settlement
  * commands are system-only and are NOT part of the public schema.
+ * SUBMIT_SPEECH text is bounded by the P6.3 player-speech cap (240 chars);
+ * the service additionally runs every speech through the safety pipeline
+ * before it is persisted.
  */
 export const actionCommandSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("SUBMIT_WOLF_KILL"), seat: seatSchema, target: seatSchema }),
   z.object({ type: z.literal("SUBMIT_SEER_CHECK"), seat: seatSchema, target: seatSchema }),
-  z.object({ type: z.literal("SUBMIT_SPEECH"), seat: seatSchema, text: z.string().max(500).nullable() }),
+  z.object({ type: z.literal("SUBMIT_SPEECH"), seat: seatSchema, text: z.string().max(PLAYER_SPEECH_MAX_CHARS).nullable() }),
   z.object({ type: z.literal("SUBMIT_DAY_VOTE"), seat: seatSchema, target: seatSchema }),
 ]);
 

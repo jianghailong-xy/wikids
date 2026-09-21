@@ -81,3 +81,8 @@ export function assertIsolatedVerifierUrl(url: string, prefix: string): void {
 export function assertIsolatedOrchestrationDatabaseUrl(url: string): void {
   assertIsolatedVerifierUrl(url, "p4v_");
 }
+
+/** The P6.3 game-safety verifier's throwaway-database guard (`p6s_`). */
+export function assertIsolatedSafetyDatabaseUrl(url: string): void {
+  assertIsolatedVerifierUrl(url, "p6s_");
+}

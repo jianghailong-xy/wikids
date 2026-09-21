@@ -98,7 +98,7 @@ describe("log record dimensions", () => {
     const { logger } = await runWithLogger(async () => {
       throw new TypeError("fetch failed");
     });
-    expect(logger.records).toHaveLength(3);
+    expect(logger.records).toHaveLength(2); // 1 attempt + 1 retry (P6.3 frozen)
     for (const record of logger.records) {
       expect(record.httpStatus).toBeNull();
       expect(record.responseId).toBeNull();
@@ -119,17 +119,20 @@ describe("log hygiene — no key, PII, state, prompts or reasoning", () => {
   it("never leaks PII planted in the public content, nor utterances, into logs", async () => {
     const input = makeInput();
     // Public speech content may carry anything the caller authorized — but
-    // logs must stay dimension-only.
+    // P6.3 scrubs PII on the provider boundary, and logs stay dimension-only.
     (input.view.speeches as { text: string }[])[0].text = "你好 alice@example.com 电话 13800138000";
+    (input.history[3] as { text: string | null }).text = "你好 alice@example.com 电话 13800138000";
     const { logger, mock } = await runWithLogger(
       () =>
         jsonResponse(200, decisionResponseBody({ output: [{ type: "message", role: "assistant", status: "completed", content: [{ type: "output_text", text: JSON.stringify({ choice_id: "wolf-kill@1:0", utterance: "SECRET-UTTERANCE-MARKER" }) }] }] })),
       input,
     );
-    // The PII does reach the provider payload (public facts are the
-    // caller's authorization boundary) …
-    expect(mock.calls[0].rawBody).toContain("alice@example.com");
-    // … but never the log records.
+    // P6.3: the PII is scrubbed BEFORE the provider payload is built …
+    expect(mock.calls[0].rawBody).not.toContain("alice@example.com");
+    expect(mock.calls[0].rawBody).not.toContain("13800138000");
+    expect(mock.calls[0].rawBody).toContain("[EMAIL]");
+    expect(mock.calls[0].rawBody).toContain("[PHONE]");
+    // … and never reaches the log records.
     const text = JSON.stringify(logger.records);
     expect(text).not.toContain("alice@example.com");
     expect(text).not.toContain("13800138000");

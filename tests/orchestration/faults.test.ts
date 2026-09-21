@@ -13,7 +13,7 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 import type { AiTurnInput } from "@/lib/ai/contract";
-import type { OrchestrationConfigInput } from "@/lib/games/orchestration";
+import type { DecisionObserver, OrchestrationConfigInput } from "@/lib/games/orchestration";
 import { AiProviderError } from "@/lib/ai/errors";
 import {
   canonicalEventStreamOf,
@@ -152,10 +152,12 @@ describe("P4.1 orchestration — faults and deterministic fallback (isolated rea
   });
 
   it("the fallback choice derives from (seed, phaseToken, seat, purpose) and ignores completion order", async () => {
-    // Two sessions, same seed: one worker's decisions take longer (a
+    // Two sessions (two owners — the P6.3 frozen per-user budget is one
+    // active game), same seed: one worker's decisions take longer (a
     // different concurrent completion order), but the fallback for each
     // seat stays identical and so does the terminal stream.
-    const ownerId = await makeOwner(ctx.db);
+    const ownerA = await makeOwner(ctx.db);
+    const ownerB = await makeOwner(ctx.db);
     const slowService = makeService(ctx.db, {
       engine: failingEngine("RATE_LIMITED").engine, // fail after a per-seat delay
     });
@@ -166,24 +168,27 @@ describe("P4.1 orchestration — faults and deterministic fallback (isolated rea
         return {
           engine: {
             enabled: true,
-            async decide(input: AiTurnInput, signal?: AbortSignal, reportUsage?: (u: { readonly totalTokens: number }) => void) {
+            async decide(input: AiTurnInput, signal?: AbortSignal, observer?: DecisionObserver) {
               await new Promise((resolve) => setTimeout(resolve, (input.seat % 3) * 25));
-              return inner.decide(input, signal, reportUsage ?? (() => {}));
+              return inner.decide(input, signal, observer ?? {
+                reportUsage: () => {},
+                reportRun: () => {},
+              });
             },
           },
         };
       })().engine,
     });
 
-    const a = await slowService.createGame(ownerId, { seedBytes: seedInt(402), start: fixedRoles(5) });
-    const b = await delayedService.createGame(ownerId, { seedBytes: seedInt(402), start: fixedRoles(5) });
+    const a = await slowService.createGame(ownerA, { seedBytes: seedInt(402), start: fixedRoles(5) });
+    const b = await delayedService.createGame(ownerB, { seedBytes: seedInt(402), start: fixedRoles(5) });
 
     const [ra, rb] = await Promise.all([
-      runToCompletion(slowService, ownerId, a.sessionId, {
+      runToCompletion(slowService, ownerA, a.sessionId, {
         maxAdvances: 400,
         humanMove: simpleHumanMove("VILLAGER"),
       }),
-      runToCompletion(delayedService, ownerId, b.sessionId, {
+      runToCompletion(delayedService, ownerB, b.sessionId, {
         maxAdvances: 400,
         humanMove: simpleHumanMove("VILLAGER"),
       }),
@@ -191,8 +196,8 @@ describe("P4.1 orchestration — faults and deterministic fallback (isolated rea
     expect(ra.final.status).toBe("finished");
     expect(rb.final.status).toBe("finished");
 
-    const streamA = JSON.stringify(await canonicalEventStreamOf(ctx.db, slowService, ownerId, a.sessionId));
-    const streamB = JSON.stringify(await canonicalEventStreamOf(ctx.db, delayedService, ownerId, b.sessionId));
+    const streamA = JSON.stringify(await canonicalEventStreamOf(ctx.db, slowService, ownerA, a.sessionId));
+    const streamB = JSON.stringify(await canonicalEventStreamOf(ctx.db, delayedService, ownerB, b.sessionId));
     expect(streamB).toBe(streamA);
   });
 

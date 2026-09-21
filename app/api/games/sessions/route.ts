@@ -66,6 +66,14 @@ export async function POST(req: Request) {
     if (error instanceof PersistenceError && error.code === "USER_BUDGET_EXHAUSTED") {
       return jsonError(409, PUBLIC_ERRORS.activeSessionExists);
     }
+    if (error instanceof PersistenceError && error.code === "DAILY_GAME_LIMIT_EXCEEDED") {
+      return jsonError(
+        429,
+        PUBLIC_ERRORS.dailyLimitExceeded,
+        { retryAfterMs: 60_000 },
+        { "Retry-After": "60" },
+      );
+    }
     if (error instanceof IllegalActionError) {
       return jsonError(400, PUBLIC_ERRORS.invalidStart);
     }

@@ -122,16 +122,16 @@ describe("P4.1 orchestration — budgets at the N-1/N/N+1 boundaries (isolated r
     }
   });
 
-  it("maxTokens: decisions stop reaching the provider once response tokens hit the cap (N-1/N/N+1)", async () => {
-    // 100 tokens per decision; batch cap 1 → strictly sequential.
+  it("maxOutputTokens: decisions stop reaching the provider once output tokens hit the cap (N-1/N/N+1)", async () => {
+    // 100 tokens per decision (50 in / 50 out); batch cap 1 → sequential.
     for (const [label, cap, expectProviderDecisions] of [
-      ["N-1", 199, 2],
-      ["N", 200, 2],
-      ["N+1", 201, 3],
+      ["N-1", 99, 2],
+      ["N", 100, 2],
+      ["N+1", 101, 3],
     ] as const) {
       const harness = tokenEngine(100);
       const { service, sessionId, ownerId } = await create(503, harness, {
-        game: { maxTokens: cap },
+        game: { maxOutputTokens: cap },
         ...SEQUENTIAL,
       });
       const { final } = await runToCompletion(service, ownerId, sessionId, {
@@ -143,6 +143,8 @@ describe("P4.1 orchestration — budgets at the N-1/N/N+1 boundaries (isolated r
       expect(harness.calls.length, label).toBe(expectProviderDecisions);
       const session = await makeRepo(ctx.db).getSession(ownerId, sessionId);
       expect(session!.aiTokensConsumed, label).toBe(expectProviderDecisions * 100);
+      expect(session!.aiOutputTokensConsumed, label).toBe(expectProviderDecisions * 50);
+      expect(session!.aiInputTokensConsumed, label).toBe(expectProviderDecisions * 50);
     }
   });
 
@@ -224,13 +226,13 @@ describe("P4.1 orchestration — budgets at the N-1/N/N+1 boundaries (isolated r
   });
 
   it("the versioned config refuses unknown versions and invalid thresholds", () => {
-    expect(() => makeService(ctx.db, { engine: null, config: { version: "orchestration-v2" } })).toThrow(
+    expect(() => makeService(ctx.db, { engine: null, config: { version: "orchestration-v99" } })).toThrow(
       OrchestrationConfigError,
     );
     expect(() =>
       makeService(ctx.db, {
         engine: null,
-        config: { advance: { maxConcurrentProviderCalls: 5, maxProviderCallsPerAdvance: 3 } },
+        config: { advance: { maxConcurrentProviderCalls: 6, maxProviderCallsPerAdvance: 5 } },
       }),
     ).toThrow(/maxConcurrentProviderCalls/);
     expect(() =>
@@ -240,6 +242,6 @@ describe("P4.1 orchestration — budgets at the N-1/N/N+1 boundaries (isolated r
       makeService(ctx.db, { engine: null, config: { game: { maxRounds: 0 } } }),
     ).toThrow(OrchestrationConfigError);
     // The default config carries the frozen version.
-    expect(makeService(ctx.db, { engine: null }).config.version).toBe("orchestration-v1");
+    expect(makeService(ctx.db, { engine: null }).config.version).toBe("orchestration-v2");
   });
 });

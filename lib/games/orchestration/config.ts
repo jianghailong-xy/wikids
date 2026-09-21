@@ -1,20 +1,32 @@
 /**
- * Versioned AI-orchestration configuration (P4.1).
+ * Versioned AI-orchestration configuration (P4.1, thresholds frozen by P6.3).
  *
  * Every threshold the orchestration enforces — per-decision retries and
  * timeout, per-advance provider-call and concurrency caps, per-game logical
- * call / HTTP attempt / token / round budgets and the per-user active-game
- * budget — lives here, behind one version stamp. A config carrying an
- * unknown version is refused, so a future config change must be published
- * as a new version instead of silently re-interpreting an old one.
+ * call / HTTP attempt / input-token / output-token / round budgets, the
+ * per-user active-game / daily-game / daily-logical-call budgets, the
+ * global daily provider budget and the retention window — lives here,
+ * behind one version stamp. A config carrying an unknown version is
+ * refused, so a future config change must be published as a new version
+ * instead of silently re-interpreting an old one.
+ *
+ * P6.3 frozen cost/reliability defaults (orchestration-v2):
+ * - 10s per decision, at most 1 transient-only retry;
+ * - per game: 40 logical calls, 60 HTTP attempts, 160k input tokens,
+ *   12k output tokens, at most 5 provider calls in flight;
+ * - per user: 1 active game, 10 games/day, 400 logical calls/day;
+ * - global daily provider-attempt budget with a safe default (the runtime
+ *   reads it from a required env config, see lib/games/orchestration/runtime.ts);
+ * - completed-game retention: 30 days (scripts/cleanup-games.mjs).
  *
  * The config is pure data: the orchestration layer reads it and never
  * consults environment variables (production env wiring lives in
  * lib/games/orchestration/runtime.ts, which is server-only).
  */
+import { PROMPT_POLICY_VERSION } from "@/lib/games/safety";
 
-/** Frozen orchestration config schema version. */
-export const ORCHESTRATION_CONFIG_VERSION = "orchestration-v1";
+/** Frozen orchestration config schema version (P6.3 thresholds). */
+export const ORCHESTRATION_CONFIG_VERSION = "orchestration-v2";
 
 /** Per-decision provider behavior. */
 export interface OrchestrationProviderConfig {
@@ -26,10 +38,12 @@ export interface OrchestrationProviderConfig {
   readonly enabled: boolean;
   /** Transient retries per decision (beyond the first attempt): at most 1. */
   readonly maxRetries: number;
-  /** Single per-attempt provider timeout, ms. Timeouts are never retried. */
+  /** Single per-attempt provider timeout, ms (P6.3: 10s). Timeouts are never retried. */
   readonly timeoutMs: number;
   /** AI claim lease TTL, seconds (expiry decided by database time). */
   readonly leaseTtlSeconds: number;
+  /** Prompt-policy version stamped on every persisted AI run. */
+  readonly promptVersion: string;
 }
 
 /** Per-advance bounds: one advance performs at most one frozen batch. */
@@ -38,10 +52,10 @@ export interface OrchestrationAdvanceConfig {
    * Frozen batch cap: the most external AI decisions one advance may start.
    * DAY_DISCUSSION is always exactly one (speeches are strictly ordered);
    * NIGHT and DAY_VOTE use up to this many (independent, simultaneously
-   * collected submissions).
+   * collected submissions — quick6 has at most 5 AI seats per batch).
    */
   readonly maxProviderCallsPerAdvance: number;
-  /** Most provider calls one advance may run in flight concurrently. */
+  /** Most provider calls one advance may run in flight concurrently (P6.3: 5). */
   readonly maxConcurrentProviderCalls: number;
   /** retryAfterMs returned when work remains after a bounded advance. */
   readonly pendingRetryAfterMs: number;
@@ -58,8 +72,10 @@ export interface OrchestrationGameBudgetConfig {
    * and timed-out ones — is charged by the claim itself.
    */
   readonly maxHttpAttempts: number;
-  /** Provider response tokens per game; further decisions fall back. */
-  readonly maxTokens: number;
+  /** Provider INPUT tokens per game (P6.3: 160k); further decisions fall back. */
+  readonly maxInputTokens: number;
+  /** Provider OUTPUT tokens per game (P6.3: 12k); further decisions fall back. */
+  readonly maxOutputTokens: number;
   /**
    * Rule rounds per game. A game that would play round maxRounds+1 is an
    * abnormal-protection signal (the rules guarantee termination far below):
@@ -68,9 +84,21 @@ export interface OrchestrationGameBudgetConfig {
   readonly maxRounds: number;
 }
 
-/** Per-user budget: concurrent active games. */
+/** Per-user budget: concurrent active games, games/day, logical calls/day. */
 export interface OrchestrationUserConfig {
   readonly maxConcurrentGames: number;
+  readonly maxGamesPerDay: number;
+  readonly maxLogicalCallsPerDay: number;
+}
+
+/** Global budget: process-wide provider attempts per calendar day (P6.3). */
+export interface OrchestrationGlobalConfig {
+  readonly maxProviderAttemptsPerDay: number;
+}
+
+/** Retention: how long finished games and their AI metadata are kept. */
+export interface OrchestrationRetentionConfig {
+  readonly completedGameDays: number;
 }
 
 export interface OrchestrationConfig {
@@ -79,33 +107,46 @@ export interface OrchestrationConfig {
   readonly advance: OrchestrationAdvanceConfig;
   readonly game: OrchestrationGameBudgetConfig;
   readonly user: OrchestrationUserConfig;
+  readonly global: OrchestrationGlobalConfig;
+  readonly retention: OrchestrationRetentionConfig;
 }
 
-/** The production defaults; tests override every threshold via `withConfig`. */
+/** The production defaults (P6.3 frozen); tests override thresholds via `withConfig`. */
 export const DEFAULT_ORCHESTRATION_CONFIG: OrchestrationConfig = {
   version: ORCHESTRATION_CONFIG_VERSION,
   provider: {
     enabled: true,
     maxRetries: 1,
-    timeoutMs: 30_000,
+    timeoutMs: 10_000,
     leaseTtlSeconds: 60,
+    promptVersion: PROMPT_POLICY_VERSION,
   },
   advance: {
-    // quick6 NIGHT has at most 2 wolves + 1 seer = 3 independent AI seats.
-    maxProviderCallsPerAdvance: 3,
-    maxConcurrentProviderCalls: 3,
+    // quick6 has at most 5 AI seats in one batch (DAY_VOTE with the human
+    // at one seat); both caps freeze at 5 so a whole batch may run in
+    // parallel without ever exceeding the concurrency bound.
+    maxProviderCallsPerAdvance: 5,
+    maxConcurrentProviderCalls: 5,
     pendingRetryAfterMs: 250,
   },
   game: {
-    // A full quick6 game makes well under 100 decisions; 200 is generous.
-    maxLogicalCalls: 200,
-    maxHttpAttempts: 100,
-    maxTokens: 300_000,
+    maxLogicalCalls: 40,
+    maxHttpAttempts: 60,
+    maxInputTokens: 160_000,
+    maxOutputTokens: 12_000,
     // quick6-v1 terminates in a handful of rounds; 20 is abnormal protection.
     maxRounds: 20,
   },
   user: {
-    maxConcurrentGames: 4,
+    maxConcurrentGames: 1,
+    maxGamesPerDay: 10,
+    maxLogicalCallsPerDay: 400,
+  },
+  global: {
+    maxProviderAttemptsPerDay: 10_000,
+  },
+  retention: {
+    completedGameDays: 30,
   },
 };
 
@@ -116,6 +157,8 @@ export type OrchestrationConfigInput = {
   readonly advance?: Partial<OrchestrationAdvanceConfig>;
   readonly game?: Partial<OrchestrationGameBudgetConfig>;
   readonly user?: Partial<OrchestrationUserConfig>;
+  readonly global?: Partial<OrchestrationGlobalConfig>;
+  readonly retention?: Partial<OrchestrationRetentionConfig>;
 };
 
 export class OrchestrationConfigError extends Error {
@@ -149,11 +192,16 @@ export function normalizeOrchestrationConfig(input: OrchestrationConfigInput = {
     advance: { ...d.advance, ...(input.advance ?? {}) },
     game: { ...d.game, ...(input.game ?? {}) },
     user: { ...d.user, ...(input.user ?? {}) },
+    global: { ...d.global, ...(input.global ?? {}) },
+    retention: { ...d.retention, ...(input.retention ?? {}) },
   };
 
   assertInteger("provider.maxRetries", config.provider.maxRetries, 0, 5);
   assertInteger("provider.timeoutMs", config.provider.timeoutMs, 1, 600_000);
   assertInteger("provider.leaseTtlSeconds", config.provider.leaseTtlSeconds, 1, 3600);
+  if (typeof config.provider.promptVersion !== "string" || config.provider.promptVersion.length === 0) {
+    throw new OrchestrationConfigError("provider.promptVersion must be a non-empty string");
+  }
   assertInteger(
     "advance.maxProviderCallsPerAdvance",
     config.advance.maxProviderCallsPerAdvance,
@@ -174,9 +222,14 @@ export function normalizeOrchestrationConfig(input: OrchestrationConfigInput = {
   assertInteger("advance.pendingRetryAfterMs", config.advance.pendingRetryAfterMs, 0, 60_000);
   assertInteger("game.maxLogicalCalls", config.game.maxLogicalCalls, 1, 100_000);
   assertInteger("game.maxHttpAttempts", config.game.maxHttpAttempts, 1, 100_000);
-  assertInteger("game.maxTokens", config.game.maxTokens, 1, 100_000_000);
+  assertInteger("game.maxInputTokens", config.game.maxInputTokens, 1, 100_000_000);
+  assertInteger("game.maxOutputTokens", config.game.maxOutputTokens, 1, 100_000_000);
   assertInteger("game.maxRounds", config.game.maxRounds, 1, 10_000);
   assertInteger("user.maxConcurrentGames", config.user.maxConcurrentGames, 1, 1000);
+  assertInteger("user.maxGamesPerDay", config.user.maxGamesPerDay, 1, 100_000);
+  assertInteger("user.maxLogicalCallsPerDay", config.user.maxLogicalCallsPerDay, 1, 1_000_000);
+  assertInteger("global.maxProviderAttemptsPerDay", config.global.maxProviderAttemptsPerDay, 1, 100_000_000);
+  assertInteger("retention.completedGameDays", config.retention.completedGameDays, 1, 3650);
 
   return Object.freeze({
     version: ORCHESTRATION_CONFIG_VERSION,
@@ -184,5 +237,7 @@ export function normalizeOrchestrationConfig(input: OrchestrationConfigInput = {
     advance: Object.freeze(config.advance),
     game: Object.freeze(config.game),
     user: Object.freeze(config.user),
+    global: Object.freeze(config.global),
+    retention: Object.freeze(config.retention),
   });
 }

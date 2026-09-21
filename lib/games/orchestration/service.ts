@@ -62,6 +62,7 @@ import {
   sha256Hex,
 } from "@/lib/games/core";
 import type { GameEvent, PersistedEvent } from "@/lib/games/core";
+import { sanitizeAiUtterance, sanitizePlayerSpeech } from "@/lib/games/safety";
 import {
   QUICK6_DEFINITION_ID,
   QUICK6_GAME_VERSIONS,
@@ -89,9 +90,12 @@ import type {
 import type { PublicProjection, SeatView } from "@/lib/games/werewolf";
 import type { OrchestrationConfig, OrchestrationConfigInput } from "./config";
 import { normalizeOrchestrationConfig } from "./config";
-import type { DecisionEngine } from "./engine";
+import type { DecisionEngine, DecisionObserver, DecisionRunMeta } from "./engine";
 import { decisionEngineOrDisabled } from "./engine";
+import type { GlobalAttemptMeter } from "./global-budget";
 import { OrchestrationStore } from "./store";
+import { withTimeout } from "./timing";
+import type { AiRunMeta } from "@/lib/games/core";
 
 // ---------------------------------------------------------------------------
 // Public result types
@@ -243,6 +247,17 @@ export interface GameApplicationServiceOptions {
   readonly config?: OrchestrationConfigInput;
   /** The decision engine; null/undefined = no provider (pure fallback). */
   readonly engine?: DecisionEngine | null;
+  /**
+   * P6.3 process-wide daily provider budget. When omitted, no global cap
+   * applies (tests of the per-game budgets). The production wiring passes
+   * the shared meter from lib/games/orchestration/runtime.ts.
+   */
+  readonly globalMeter?: GlobalAttemptMeter;
+  /**
+   * P6.3 injectable monotonic ticker (ms) for AI-run latency metering
+   * only — never for game logic. Defaults to performance.now.
+   */
+  readonly now?: () => number;
 }
 
 // ---------------------------------------------------------------------------
@@ -275,8 +290,13 @@ type ExecuteOutcome =
 
 type ProviderOutcome =
   | { readonly kind: "deferred" }
-  | { readonly kind: "decision"; readonly decision: AiDecision; readonly tokens: number }
-  | { readonly kind: "failed"; readonly tokens: number; readonly error: unknown };
+  | {
+      readonly kind: "decision";
+      readonly decision: AiDecision;
+      readonly inputTokens: number;
+      readonly outputTokens: number;
+    }
+  | { readonly kind: "failed"; readonly inputTokens: number; readonly outputTokens: number };
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -392,6 +412,9 @@ export function publicHistoryOf(state: Quick6State): PublicHistoryItem[] {
  * Provider decision → command, re-verified against the rule engine: the
  * choice id must be inside the seat's legal set AND round-trip through the
  * canonical choiceId mapping. Anything else yields null → fallback.
+ * P6.3: the utterance passes the safety pipeline here, so an unsafe or
+ * over-long provider utterance is replaced by the neutral template BEFORE
+ * it can reach the event stream.
  */
 function decisionToCommand(
   decision: AiDecision,
@@ -407,7 +430,7 @@ function decisionToCommand(
     command = {
       type: "SUBMIT_SPEECH",
       seat: parsed.seat,
-      text: id.startsWith("skip@") ? null : decision.utterance,
+      text: id.startsWith("skip@") ? null : sanitizeAiUtterance(decision.utterance),
     };
   }
   if (choiceIdOf(command) !== id) return null;
@@ -423,15 +446,60 @@ function fallbackToCommand(choiceId: string, label: string | null): Quick6Comman
     return {
       type: "SUBMIT_SPEECH",
       seat: parsed.seat,
-      text: choiceId.startsWith("skip@") ? null : (label ?? ""),
+      text: choiceId.startsWith("skip@") ? null : sanitizeAiUtterance(label ?? ""),
     };
   }
   return parsed;
 }
 
+/**
+ * P6.3: run a player speech command through the safety pipeline. The
+ * sanitized (or template-replaced) text is the text that gets hashed,
+ * persisted and later prompted — the raw text never enters the system.
+ */
+function sanitizeCommandSpeech(command: Quick6Command): Quick6Command {
+  if (command.type !== "SUBMIT_SPEECH" || command.text === null) return command;
+  return { type: "SUBMIT_SPEECH", seat: command.seat, text: sanitizePlayerSpeech(command.text).text };
+}
+
 /** Only transient failures (429 / 5xx / network) are ever retried. */
 function isTransient(error: unknown): boolean {
   return error instanceof AiProviderError && RETRYABLE_CODES.has(error.code);
+}
+
+/**
+ * P6.3: merge the engine's sanitized response metadata with the frozen
+ * prompt-policy version and the orchestration-measured latency into the
+ * exact whitelist shape the repository persists.
+ */
+function toRunMeta(
+  meta: DecisionRunMeta | null,
+  promptVersion: string,
+  latencyMs: number,
+): AiRunMeta {
+  return {
+    provider: meta?.provider ?? null,
+    requestedModel: meta?.requestedModel ?? null,
+    responseModel: meta?.responseModel ?? null,
+    responseId: meta?.responseId ?? null,
+    systemFingerprint: meta?.systemFingerprint ?? null,
+    promptVersion,
+    latencyMs,
+    inputTokens: meta?.inputTokens ?? null,
+    outputTokens: meta?.outputTokens ?? null,
+    totalTokens: meta?.totalTokens ?? null,
+    cachedInputTokens: meta?.cachedInputTokens ?? null,
+  };
+}
+
+/**
+ * P6.3: the stable domain error code stored on a failed run — NEVER the
+ * message text (a message may carry upstream hints; the code cannot).
+ */
+function sanitizeErrorCode(error: unknown, timedOut: boolean): string {
+  if (timedOut) return "TIMEOUT";
+  if (error instanceof AiProviderError) return error.code;
+  return "ENGINE_ERROR";
 }
 
 // ---------------------------------------------------------------------------
@@ -444,6 +512,8 @@ export class GameApplicationService {
   private readonly repo: GameRepository;
   private readonly store: OrchestrationStore;
   private readonly engine: DecisionEngine;
+  private readonly globalMeter: GlobalAttemptMeter | undefined;
+  private readonly now: () => number;
 
   constructor(options: GameApplicationServiceOptions) {
     this.definition = options.definition ?? new Quick6Definition();
@@ -451,6 +521,8 @@ export class GameApplicationService {
     this.repo = new GameRepository(options.db);
     this.store = new OrchestrationStore(options.db);
     this.engine = decisionEngineOrDisabled(options.engine);
+    this.globalMeter = options.globalMeter;
+    this.now = options.now ?? (() => performance.now());
   }
 
   // -------------------------------------------------------------------------
@@ -476,7 +548,10 @@ export class GameApplicationService {
       seedBytes,
       start,
       { limit: this.config.game.maxHttpAttempts },
-      { maxActiveGames: this.config.user.maxConcurrentGames },
+      {
+        maxActiveGames: this.config.user.maxConcurrentGames,
+        maxGamesPerDay: this.config.user.maxGamesPerDay,
+      },
     );
     const state = this.definition.initialState(seedBytes, start);
     return {
@@ -642,7 +717,12 @@ export class GameApplicationService {
       return { ok: false, error: "NOT_ACTIVE", detail: "the session is not playable" };
     }
 
-    const requestHash = sha256Hex(JSON.stringify(input.command));
+    // P6.3: every player speech passes the safety pipeline BEFORE anything
+    // is hashed, persisted or replayed — the sanitized text is the only
+    // text that ever enters the event stream or a provider prompt.
+    const command = sanitizeCommandSpeech(input.command);
+
+    const requestHash = sha256Hex(JSON.stringify(command));
     const existing = await this.repo.getActionReceipt(ownerId, sessionId, input.key);
     if (existing && existing.requestHash === requestHash) {
       const response = existing.responseJson as
@@ -668,7 +748,7 @@ export class GameApplicationService {
       ownerId,
       sessionId,
       input.key,
-      input.command,
+      command,
       input.actorSeat ?? null,
       input.asOwner === true,
     );
@@ -1018,17 +1098,24 @@ export class GameApplicationService {
     // - logical calls: an atomic guarded reservation charged up front (a
     //   provider attempt that later fails still counts — failed attempts
     //   are charged), refunded only when the decision defers to a live
-    //   worker that already holds the lease;
-    // - tokens: pre-checked per decision start; the response usage is added
-    //   afterwards.
-    const providerConfigured = this.config.provider.enabled && this.engine.enabled;
+    //   worker that already holds the lease; the owner's DAILY cap is
+    //   enforced in the same guarded statement;
+    // - tokens: input/output pre-checked per decision start; the response
+    //   usage is added afterwards (P6.3 split);
+    // - global: the process-wide daily provider budget (P6.3) — an
+    //   exhausted meter degrades to the fallback like every other budget.
+    const globalAllowed = this.globalMeter === undefined || this.globalMeter.allow();
+    const providerConfigured = this.config.provider.enabled && this.engine.enabled && globalAllowed;
     const budget = providerConfigured
       ? await this.store.getBudgetState(ownerId, sessionId)
       : null;
     const attemptsLeft =
       budget !== null &&
       budget.aiBudgetConsumed < Math.min(budget.aiBudgetLimit, this.config.game.maxHttpAttempts);
-    const tokensLeft = budget !== null && budget.aiTokensConsumed < this.config.game.maxTokens;
+    const tokensLeft =
+      budget !== null &&
+      budget.aiInputTokensConsumed < this.config.game.maxInputTokens &&
+      budget.aiOutputTokensConsumed < this.config.game.maxOutputTokens;
 
     let command: Quick6Command | null = null;
     let source: "provider" | "fallback" = "fallback";
@@ -1038,6 +1125,7 @@ export class GameApplicationService {
         ownerId,
         sessionId,
         this.config.game.maxLogicalCalls,
+        this.config.user.maxLogicalCallsPerDay,
       );
       if (reserved) {
         const turn = this.buildTurnInput(sessionId, snapshot, target);
@@ -1046,7 +1134,10 @@ export class GameApplicationService {
           await this.store.refundLogicalCall(ownerId, sessionId);
           return { kind: "deferred" };
         }
-        await this.store.addTokens(ownerId, sessionId, outcome.tokens);
+        await this.store.addTokenUsage(ownerId, sessionId, {
+          inputTokens: outcome.inputTokens,
+          outputTokens: outcome.outputTokens,
+        });
         if (outcome.kind === "decision") {
           const candidate = decisionToCommand(outcome.decision, target.seat, choiceIds);
           if (candidate !== null) {
@@ -1106,7 +1197,10 @@ export class GameApplicationService {
    * Provider attempts for one decision: claim (database-time lease) →
    * engine call strictly outside any transaction → complete under
    * (claimToken, generation). At most maxRetries transient retries; every
-   * attempt (success, failure, timeout) is charged by the claim.
+   * attempt (success, failure, timeout) is charged by the claim. P6.3: the
+   * completed run persists ONLY the sanitized metadata whitelist plus a
+   * stable error code — never message text, the key, PII, reasoning or any
+   * prompt content.
    */
   private async tryProviderDecision(
     ownerId: string,
@@ -1115,7 +1209,7 @@ export class GameApplicationService {
     phase: string,
     turn: AiTurnInput,
   ): Promise<ProviderOutcome> {
-    const { maxRetries, timeoutMs, leaseTtlSeconds } = this.config.provider;
+    const { maxRetries, leaseTtlSeconds, promptVersion } = this.config.provider;
 
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
       let lease;
@@ -1128,7 +1222,7 @@ export class GameApplicationService {
         });
       } catch (error) {
         if (error instanceof PersistenceError && error.code === "BUDGET_EXHAUSTED") {
-          return { kind: "failed", tokens: 0, error };
+          return { kind: "failed", inputTokens: 0, outputTokens: 0 };
         }
         throw error;
       }
@@ -1139,11 +1233,22 @@ export class GameApplicationService {
         return { kind: "deferred" };
       }
 
-      let tokens = 0;
+      let inputTokens = 0;
+      let outputTokens = 0;
+      let lastMeta: DecisionRunMeta | null = null;
+      const started = this.now();
       try {
-        const decision = await this.invokeWithTimeout(turn, (usage) => {
-          tokens += usage.totalTokens;
-        });
+        const observer: DecisionObserver = {
+          reportUsage: (usage) => {
+            inputTokens += usage.inputTokens;
+            outputTokens += usage.outputTokens;
+          },
+          reportRun: (meta) => {
+            lastMeta = meta;
+          },
+        };
+        const decision = await this.invokeWithTimeout(turn, observer);
+        const latencyMs = this.now() - started;
         await this.repo.completeAiRun(ownerId, sessionId, {
           seat: target.seat,
           phaseToken: phase,
@@ -1151,12 +1256,14 @@ export class GameApplicationService {
           claimToken: lease.claimToken,
           generation: lease.generation,
           status: "succeeded",
-          result: { output: decision },
+          meta: toRunMeta(lastMeta, promptVersion, latencyMs),
+          errorCode: null,
+          fallback: false,
         });
-        return { kind: "decision", decision, tokens };
+        return { kind: "decision", decision, inputTokens, outputTokens };
       } catch (error) {
         const timedOut = isTimeoutError(error);
-        const message = error instanceof Error ? error.message : String(error);
+        const latencyMs = this.now() - started;
         try {
           await this.repo.completeAiRun(ownerId, sessionId, {
             seat: target.seat,
@@ -1165,7 +1272,11 @@ export class GameApplicationService {
             claimToken: lease.claimToken,
             generation: lease.generation,
             status: timedOut ? "timeout" : "failed",
-            error: message,
+            meta: toRunMeta(lastMeta, promptVersion, latencyMs),
+            errorCode: sanitizeErrorCode(error, timedOut),
+            // A failed provider attempt ALWAYS ends in the deterministic
+            // fallback — that is the only path out of a failed decision.
+            fallback: true,
           });
         } catch (stale) {
           if (!(stale instanceof PersistenceError && stale.code === "STALE_LEASE")) {
@@ -1180,31 +1291,23 @@ export class GameApplicationService {
         if (isTransient(error) && attempt < maxRetries) {
           continue;
         }
-        return { kind: "failed", tokens, error };
+        return { kind: "failed", inputTokens, outputTokens };
       }
     }
-    return { kind: "failed", tokens: 0, error: new AiProviderError("NETWORK", "provider gave up") };
+    return { kind: "failed", inputTokens: 0, outputTokens: 0 };
   }
 
   /** The engine call with the single per-attempt timeout, outside any tx. */
   private async invokeWithTimeout(
     turn: AiTurnInput,
-    onUsage: (usage: { readonly totalTokens: number }) => void,
+    observer: DecisionObserver,
   ): Promise<AiDecision> {
     assertNoOpenTransaction("decision engine call");
     const timeoutMs = this.config.provider.timeoutMs;
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    const timeout = new Promise<never>((_, reject) => {
-      timer = setTimeout(() => reject(new ProviderTimeoutError(timeoutMs)), timeoutMs);
-    });
-    try {
-      return await Promise.race([
-        this.engine.decide(turn, AbortSignal.timeout(timeoutMs), onUsage),
-        timeout,
-      ]);
-    } finally {
-      clearTimeout(timer);
-    }
+    return withTimeout(
+      this.engine.decide(turn, AbortSignal.timeout(timeoutMs), observer),
+      timeoutMs,
+    );
   }
 
   /**

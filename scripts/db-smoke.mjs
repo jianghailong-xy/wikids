@@ -34,7 +34,7 @@ const EXPECTED_TABLES = {
   drizzle: ["__drizzle_migrations"],
 };
 
-const EXPECTED_MIGRATIONS = 5; // 0000_init .. 0004_p4_orchestration_budgets
+const EXPECTED_MIGRATIONS = 6; // 0000_init .. 0005_p6_game_safety_metadata
 
 const sql = postgres(connectionString, { max: 1 });
 
@@ -102,6 +102,57 @@ try {
     process.exitCode = 1;
   } else {
     console.log("game_sessions budget columns present.");
+  }
+
+  // P6.3: separate input/output token counters + sanitized run metadata.
+  const tokenColumns = await sql`
+    select column_name from information_schema.columns
+    where table_schema = 'public' and table_name = 'game_sessions'
+      and column_name in ('ai_input_tokens_consumed', 'ai_output_tokens_consumed')
+  `;
+  const haveTokens = new Set(tokenColumns.map((r) => r.column_name));
+  const missingTokens = ["ai_input_tokens_consumed", "ai_output_tokens_consumed"].filter(
+    (c) => !haveTokens.has(c),
+  );
+  if (missingTokens.length > 0) {
+    console.error(`Missing game_sessions token columns: ${missingTokens.join(", ")}`);
+    process.exitCode = 1;
+  } else {
+    console.log("game_sessions token columns present.");
+  }
+
+  const runColumns = await sql`
+    select column_name from information_schema.columns
+    where table_schema = 'public' and table_name = 'game_ai_runs'
+      and column_name in ('provider', 'requested_model', 'response_model', 'response_id',
+                          'system_fingerprint', 'prompt_version', 'latency_ms',
+                          'input_tokens', 'output_tokens', 'total_tokens',
+                          'cached_input_tokens', 'fallback', 'error_code')
+  `;
+  const haveRun = new Set(runColumns.map((r) => r.column_name));
+  const missingRun = [
+    "provider", "requested_model", "response_model", "response_id",
+    "system_fingerprint", "prompt_version", "latency_ms",
+    "input_tokens", "output_tokens", "total_tokens",
+    "cached_input_tokens", "fallback", "error_code",
+  ].filter((c) => !haveRun.has(c));
+  if (missingRun.length > 0) {
+    console.error(`Missing game_ai_runs metadata columns: ${missingRun.join(", ")}`);
+    process.exitCode = 1;
+  } else {
+    console.log("game_ai_runs sanitized metadata columns present.");
+  }
+
+  const dropped = await sql`
+    select column_name from information_schema.columns
+    where table_schema = 'public' and table_name = 'game_ai_runs'
+      and column_name in ('result', 'last_error')
+  `;
+  if (dropped.length > 0) {
+    console.error("game_ai_runs still carries result/last_error columns");
+    process.exitCode = 1;
+  } else {
+    console.log("game_ai_runs raw result/error columns absent.");
   }
 } catch (err) {
   console.error("DB smoke failed:", err);

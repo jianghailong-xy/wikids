@@ -18,6 +18,7 @@ import {
   GameApplicationService,
   type AdvanceResult,
   type DecisionEngine,
+  type DecisionRunMeta,
   type GameApplicationServiceOptions,
   type OrchestrationConfigInput,
   type SubmitCommandInput,
@@ -129,14 +130,18 @@ export interface EngineHarness {
 
 function wrapEngine(
   inner: (input: AiTurnInput) => AiDecision | Promise<AiDecision>,
-  opts: { tokensPerCall?: number } = {},
+  opts: {
+    tokensPerCall?: number;
+    /** P6.3 sanitized run metadata reported per successful decision. */
+    runMeta?: (input: AiTurnInput) => DecisionRunMeta | null;
+  } = {},
 ): EngineHarness {
   const calls: EngineCall[] = [];
   let inFlight = 0;
   let maxInFlight = 0;
   const engine: DecisionEngine = {
     enabled: true,
-    async decide(input, _signal, reportUsage) {
+    async decide(input, _signal, observer) {
       inFlight += 1;
       maxInFlight = Math.max(maxInFlight, inFlight);
       try {
@@ -149,8 +154,16 @@ function wrapEngine(
           decision,
         });
         if ((opts.tokensPerCall ?? 0) > 0) {
-          reportUsage({ totalTokens: opts.tokensPerCall ?? 0 });
+          const half = Math.floor((opts.tokensPerCall ?? 0) / 2);
+          observer.reportUsage({
+            totalTokens: opts.tokensPerCall ?? 0,
+            inputTokens: half,
+            outputTokens: (opts.tokensPerCall ?? 0) - half,
+            cachedInputTokens: 0,
+          });
         }
+        const meta = opts.runMeta?.(input);
+        if (meta) observer.reportRun(meta);
         return decision;
       } finally {
         inFlight -= 1;

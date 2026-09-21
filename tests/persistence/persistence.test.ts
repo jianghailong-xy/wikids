@@ -73,6 +73,21 @@ const FIXED_ROLES: Quick6StartOptions = {
   humanSeat: 0,
 };
 
+/** P6.3 sanitized run metadata shape for direct repository calls. */
+const TEST_RUN_META = {
+  provider: "test-provider",
+  requestedModel: "test-model",
+  responseModel: "test-model",
+  responseId: "resp-test",
+  systemFingerprint: null,
+  promptVersion: "prompt-v1",
+  latencyMs: 12,
+  inputTokens: 40,
+  outputTokens: 20,
+  totalTokens: 60,
+  cachedInputTokens: null,
+} as const;
+
 function makeReplay() {
   return (seedBytes: Uint8Array, options: unknown, events: readonly { seq: number; revision: number; payload: unknown }[]) =>
     replayQuick6(
@@ -252,7 +267,7 @@ describe("P3 persistence (isolated real Postgres)", () => {
       expect(names.has(t), `missing table ${t}`).toBe(true);
     }
     const [m] = await client`select count(*)::int as n from drizzle.__drizzle_migrations`;
-    expect(m.n).toBe(5); // 0000..0004
+    expect(m.n).toBe(6); // 0000..0005 (P6.3 game-safety metadata)
   });
 
   it("createSession writes session, initial events and a valid snapshot atomically", async () => {
@@ -863,7 +878,9 @@ describe("P3 persistence (isolated real Postgres)", () => {
         claimToken: first!.claimToken,
         generation: first!.generation,
         status: "succeeded",
-        result: { output: "stale" },
+        meta: TEST_RUN_META,
+        errorCode: null,
+        fallback: false,
       }),
     ).rejects.toMatchObject({ code: "STALE_LEASE" });
 
@@ -874,7 +891,9 @@ describe("P3 persistence (isolated real Postgres)", () => {
       claimToken: second!.claimToken,
       generation: second!.generation,
       status: "succeeded",
-      result: { output: "ok" },
+      meta: { ...TEST_RUN_META, responseId: "resp-ok" },
+      errorCode: null,
+      fallback: false,
     });
     expect(done.attempts).toBe(2);
 
@@ -884,7 +903,11 @@ describe("P3 persistence (isolated real Postgres)", () => {
       purpose: "wolf-kill",
     });
     expect(run!.status).toBe("succeeded");
-    expect(run!.result).toEqual({ output: "ok" });
+    expect(run!.provider).toBe("test-provider");
+    expect(run!.responseId).toBe("resp-ok");
+    expect(run!.promptVersion).toBe("prompt-v1");
+    expect(run!.fallback).toBe(false);
+    expect(run!.errorCode).toBeNull();
 
     // A terminal status releases the lease: claiming again succeeds.
     const third = await repo.claimAiLease(ownerA, sessionId, {
@@ -914,7 +937,9 @@ describe("P3 persistence (isolated real Postgres)", () => {
         claimToken: lease!.claimToken,
         generation: lease!.generation,
         status: "succeeded",
-        result: { output: "late" },
+        meta: TEST_RUN_META,
+        errorCode: null,
+        fallback: false,
       }),
     ).rejects.toMatchObject({ code: "STALE_LEASE" });
   });

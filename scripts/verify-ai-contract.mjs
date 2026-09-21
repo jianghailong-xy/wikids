@@ -111,10 +111,42 @@ for (const dir of CLIENT_DIRS) {
 }
 
 // Domain purity: lib/games must never import the concrete AI boundary.
+// The P4.1-approved exceptions (tests/games/werewolf/domain-boundary.test.ts
+// P4_AI_CONTRACT_FILES / P4_SERVER_ONLY_FILES):
+// - orchestration/{engine,service}.ts may import the PURE contract modules
+//   (@/lib/ai/contract, @/lib/ai/errors — no server-only, no provider);
+// - orchestration/runtime.ts is the single SERVER-ONLY wiring file: it may
+//   additionally import the concrete provider.
+const P4_CONTRACT_FILES = new Set([
+  join(ROOT, "lib", "games", "orchestration", "engine.ts"),
+  join(ROOT, "lib", "games", "orchestration", "service.ts"),
+]);
+const P4_SERVER_ONLY_FILES = new Set([
+  join(ROOT, "lib", "games", "orchestration", "runtime.ts"),
+]);
 for (const file of walk(join(ROOT, "lib", "games"))) {
   const source = readSource(file);
+  const rel = relative(join(ROOT, "lib", "games"), file);
+  if (P4_CONTRACT_FILES.has(file)) {
+    const beyondContract =
+      source.includes("@/lib/ai/providers") ||
+      source.includes("@/lib/ai/index") ||
+      source.includes("../ai");
+    if (beyondContract) {
+      fail(`lib/games/${rel} imports beyond the pure AI contract (contract/errors only)`);
+    }
+    continue;
+  }
+  if (P4_SERVER_ONLY_FILES.has(file)) {
+    const beyondServer =
+      source.includes("@/lib/ai/index") || source.includes("../ai");
+    if (beyondServer) {
+      fail(`lib/games/${rel} imports beyond the server-only wiring allowlist`);
+    }
+    continue;
+  }
   if (source.includes("@/lib/ai") || source.includes("../ai")) {
-    fail(`lib/games/${relative(join(ROOT, "lib", "games"), file)} imports lib/ai`);
+    fail(`lib/games/${rel} imports lib/ai`);
   }
 }
 

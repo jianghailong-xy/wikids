@@ -62,7 +62,7 @@ describe("request contract — endpoint, auth, model, body shape", () => {
 
     const body = mock.calls[0].body;
     expect(body.reasoning).toEqual({ effort: "none" });
-    expect(body.max_output_tokens).toBe(1024); // DEEPSEEK_MAX_OUTPUT_TOKENS default
+    expect(body.max_output_tokens).toBe(256); // DEEPSEEK_MAX_OUTPUT_TOKENS default (P6.3 frozen)
     expect(body).not.toHaveProperty("tools");
     expect(body.tool_choice).toBe("none");
     expect(body.stream).toBe(false);

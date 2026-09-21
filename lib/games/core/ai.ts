@@ -67,6 +67,15 @@ export interface RunAiTurnInput {
   readonly fallbackRng: RngStreamFactory;
   /** Legal choice ids in stable order, for the fallback pick. */
   readonly choiceIds: readonly string[];
+  /** Prompt-policy version stamped on the persisted run (P6.3). */
+  readonly promptVersion?: string;
+  /**
+   * P6.3 injectable monotonic ticker (ms) for latency metering only —
+   * never for game logic. Defaults to performance.now (the only monotonic
+   * clock use the domain boundary permits, see tests/games/werewolf/
+   * domain-boundary.test.ts).
+   */
+  readonly now?: () => number;
 }
 
 async function invokeProviderWithTimeout(
@@ -85,6 +94,24 @@ async function invokeProviderWithTimeout(
   }
 }
 
+/** P6.3: the sanitized run metadata this low-level path can report (the
+ * string provider port has no response envelope — everything is null). */
+function runMeta(promptVersion: string, latencyMs: number): import("./repository").AiRunMeta {
+  return {
+    provider: null,
+    requestedModel: null,
+    responseModel: null,
+    responseId: null,
+    systemFingerprint: null,
+    promptVersion,
+    latencyMs,
+    inputTokens: null,
+    outputTokens: null,
+    totalTokens: null,
+    cachedInputTokens: null,
+  };
+}
+
 /**
  * Run one AI turn with retries and a deterministic fallback.
  *
@@ -94,6 +121,8 @@ async function invokeProviderWithTimeout(
 export async function runAiTurn(input: RunAiTurnInput): Promise<AiTurnOutcome> {
   let attempts = 0;
   let lastError: string | null = null;
+  const promptVersion = input.promptVersion ?? "prompt-legacy";
+  const now = input.now ?? (() => performance.now());
 
   for (let attempt = 0; attempt <= input.maxRetries; attempt++) {
     const lease = await input.repo.claimAiLease(input.ownerId, input.sessionId, {
@@ -111,6 +140,7 @@ export async function runAiTurn(input: RunAiTurnInput): Promise<AiTurnOutcome> {
     }
     attempts += 1;
 
+    const started = now();
     try {
       const output = await invokeProviderWithTimeout(input.provider, input.requestTimeoutMs);
       await input.repo.completeAiRun(input.ownerId, input.sessionId, {
@@ -120,7 +150,9 @@ export async function runAiTurn(input: RunAiTurnInput): Promise<AiTurnOutcome> {
         claimToken: lease.claimToken,
         generation: lease.generation,
         status: "succeeded",
-        result: { output },
+        meta: runMeta(promptVersion, now() - started),
+        errorCode: null,
+        fallback: false,
       });
       return { source: "provider", output, attempts };
     } catch (err) {
@@ -135,7 +167,9 @@ export async function runAiTurn(input: RunAiTurnInput): Promise<AiTurnOutcome> {
           claimToken: lease.claimToken,
           generation: lease.generation,
           status,
-          error: lastError,
+          meta: runMeta(promptVersion, now() - started),
+          errorCode: timedOut ? "TIMEOUT" : "PROVIDER_ERROR",
+          fallback: true,
         });
       } catch (stale) {
         if (stale instanceof PersistenceError && stale.code === "STALE_LEASE") {

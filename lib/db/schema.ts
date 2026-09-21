@@ -229,6 +229,10 @@ export const gameSessions = pgTable(
     // decision goes to the provider; exhaustion forces the fallback.
     aiLogicalCalls: integer("ai_logical_calls").notNull().default(0),
     aiTokensConsumed: integer("ai_tokens_consumed").notNull().default(0),
+    // P6.3: input/output token budgets are tracked separately (160k in /
+    // 12k out); ai_tokens_consumed stays as the P4.1 total for compatibility.
+    aiInputTokensConsumed: integer("ai_input_tokens_consumed").notNull().default(0),
+    aiOutputTokensConsumed: integer("ai_output_tokens_consumed").notNull().default(0),
     createdAt: timestamp("created_at", { mode: "date", withTimezone: true }).defaultNow().notNull(),
     updatedAt: timestamp("updated_at", { mode: "date", withTimezone: true }).defaultNow().notNull(),
   },
@@ -317,8 +321,24 @@ export const gameAiRuns = pgTable(
     claimGeneration: integer("claim_generation").notNull().default(0),
     leaseExpiresAt: timestamp("lease_expires_at", { mode: "date", withTimezone: true }),
     attempts: integer("attempts").notNull().default(0),
-    result: jsonb("result"),
-    lastError: text("last_error"),
+    // P6.3: ONLY sanitized response metadata is persisted — never the key,
+    // PII, reasoning content or any private prompt text (no result/error
+    // text columns exist; the schema itself makes the leak impossible).
+    provider: text("provider"),
+    requestedModel: text("requested_model"),
+    responseModel: text("response_model"),
+    responseId: text("response_id"),
+    systemFingerprint: text("system_fingerprint"),
+    promptVersion: text("prompt_version"),
+    latencyMs: integer("latency_ms"),
+    inputTokens: integer("input_tokens"),
+    outputTokens: integer("output_tokens"),
+    totalTokens: integer("total_tokens"),
+    cachedInputTokens: integer("cached_input_tokens"),
+    /** True when the decision was made by the deterministic fallback. */
+    fallback: boolean("fallback").notNull().default(false),
+    /** Stable sanitized error code (AiProviderError.code), never message text. */
+    errorCode: text("error_code"),
     startedAt: timestamp("started_at", { mode: "date", withTimezone: true }),
     completedAt: timestamp("completed_at", { mode: "date", withTimezone: true }),
     createdAt: timestamp("created_at", { mode: "date", withTimezone: true }).defaultNow().notNull(),

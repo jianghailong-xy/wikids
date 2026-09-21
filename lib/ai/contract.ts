@@ -16,16 +16,19 @@
 import { AiProviderError } from "./errors";
 
 // ---------------------------------------------------------------------------
-// Frozen constants
+// Frozen constants (P6.3: the cost/reliability defaults are frozen — any
+// change ships as a new policy version, never as a silent edit)
 // ---------------------------------------------------------------------------
 
-/** Upper bound for a returned utterance, in characters (§4). */
-export const MAX_UTTERANCE_CHARS = 500;
+/** Upper bound for a returned utterance, in characters (§4, P6.3: 180). */
+export const MAX_UTTERANCE_CHARS = 180;
 /** Hard ceiling for max_output_tokens; every config value is clamped to it. */
-export const MAX_OUTPUT_TOKENS_CAP = 2048;
-export const DEFAULT_MAX_OUTPUT_TOKENS = 1024;
-export const DEFAULT_TIMEOUT_MS = 30_000;
-export const DEFAULT_MAX_RETRIES = 2;
+export const MAX_OUTPUT_TOKENS_CAP = 256;
+export const DEFAULT_MAX_OUTPUT_TOKENS = 256;
+/** Frozen per-decision timeout (P6.3): 10 seconds per attempt. */
+export const DEFAULT_TIMEOUT_MS = 10_000;
+/** Frozen retry budget (P6.3): at most 1 transient-only retry per decision. */
+export const DEFAULT_MAX_RETRIES = 1;
 /** Response bodies larger than this are rejected unread (BAD_RESPONSE). */
 export const MAX_RESPONSE_BYTES = 1_048_576;
 /** Input bounds: game id length, seats, history/choice counts. */

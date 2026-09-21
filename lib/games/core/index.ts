@@ -56,6 +56,7 @@ export { GameRepository } from "./repository";
 export type {
   AiLease,
   AiRunInfo,
+  AiRunMeta,
   AiRunStatus,
   AppendInput,
   AppendResult,

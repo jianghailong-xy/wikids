@@ -42,7 +42,7 @@ P3 持久化边界：`core/repository.ts` 以**注入**的 drizzle 数据库为�
   （STALE_LEASE），断连后可回收；超时/429/5xx/格式错误/非法目标/
   内容过滤/预算耗尽/开关关闭/无 Key 一律清 pending 走确定性 fallback
   完成整局；`runtime.ts`（server-only）为 Next 路由接线 DeepSeek 引擎
-  与 `GAME_AI_ENABLED` 开关。首版运行于现有 Docker 持久 Node runtime，
+  与 `AI_PROVIDER_ENABLED` 开关（P6.3 紧急开关，仍接受 P4.1 的 `GAME_AI_ENABLED` 别名）。首版运行于现有 Docker 持久 Node runtime，
   不宣称支持无后台设施的短生命周期 serverless。
 - `api/`（P5.1）— 玩家视图协议层（server-only，仅
   `app/api/games/sessions/**` 引用）：`protocol.ts` 会话信封（只含

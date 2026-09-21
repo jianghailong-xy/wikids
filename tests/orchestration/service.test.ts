@@ -66,7 +66,7 @@ describe("P4.1 orchestration — service surface (isolated real Postgres)", () =
 
     // The session carries the config's maxHttpAttempts as ai_budget_limit.
     const session = await makeRepo(ctx.db).getSession(testOwner, created.sessionId);
-    expect(session!.aiBudgetLimit).toBe(100); // DEFAULT config maxHttpAttempts
+    expect(session!.aiBudgetLimit).toBe(60); // DEFAULT config maxHttpAttempts (P6.3 frozen)
     expect(session!.versions).toEqual(QUICK6_GAME_VERSIONS);
   });
 

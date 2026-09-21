@@ -232,7 +232,21 @@ describe("P4.1 orchestration — retries and leases (isolated real Postgres)", (
         claimToken: lease!.claimToken,
         generation: lease!.generation,
         status: "succeeded",
-        result: { output: "zombie" },
+        meta: {
+          provider: "test",
+          requestedModel: "test-model",
+          responseModel: "test-model",
+          responseId: "resp-zombie",
+          systemFingerprint: null,
+          promptVersion: "prompt-v1",
+          latencyMs: 1,
+          inputTokens: 1,
+          outputTokens: 1,
+          totalTokens: 2,
+          cachedInputTokens: null,
+        },
+        errorCode: null,
+        fallback: false,
       }),
     ).rejects.toMatchObject({ code: "STALE_LEASE" });
   });

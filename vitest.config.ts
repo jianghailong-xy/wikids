@@ -18,8 +18,9 @@ export default defineConfig({
     // The persistence suite needs a real Postgres and its own config
     // (vitest.persistence.config.ts, run by `npm run verify:persistence`).
     // Same for the P4.1 orchestration suite (vitest.orchestration.config.ts,
-    // run by `npm run verify:ai-orchestration`).
-    exclude: ["tests/persistence/**", "tests/orchestration/**"],
+    // run by `npm run verify:ai-orchestration`) and the P6.3 game-safety
+    // suite (vitest.safety.config.ts, run by `npm run verify:game-safety`).
+    exclude: ["tests/persistence/**", "tests/orchestration/**", "tests/safety/**"],
     clearMocks: true,
     restoreMocks: true,
     testTimeout: 30_000,

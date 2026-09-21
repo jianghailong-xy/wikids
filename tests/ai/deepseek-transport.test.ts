@@ -61,8 +61,8 @@ describe("network failures", () => {
       throw new TypeError("fetch failed");
     });
     expect(outcome.code).toBe("NETWORK");
-    expect(outcome.attempts).toBe(3); // 1 + default maxRetries (2)
-    expect(outcome.delays).toEqual([200, 400]);
+    expect(outcome.attempts).toBe(2); // 1 + default maxRetries (1, P6.3 frozen)
+    expect(outcome.delays).toEqual([200]);
   });
 
   it("recovers when a later attempt succeeds", async () => {
@@ -120,8 +120,8 @@ describe("429 / 5xx — limited retries", () => {
     const outcome = await run(() => jsonResponse(429, { error: { message: "slow down" } }));
     expect(outcome.code).toBe("RATE_LIMITED");
     expect(outcome.httpStatus).toBe(429);
-    expect(outcome.attempts).toBe(3);
-    expect(outcome.delays).toEqual([200, 400]);
+    expect(outcome.attempts).toBe(2);
+    expect(outcome.delays).toEqual([200]);
   });
 
   it("honors Retry-After (seconds) on 429", async () => {
@@ -129,8 +129,8 @@ describe("429 / 5xx — limited retries", () => {
       jsonResponse(429, { error: { message: "slow down" } }, { "retry-after": "3" }),
     );
     expect(outcome.code).toBe("RATE_LIMITED");
-    expect(outcome.attempts).toBe(3);
-    expect(outcome.delays).toEqual([3000, 3000]);
+    expect(outcome.attempts).toBe(2);
+    expect(outcome.delays).toEqual([3000]);
   });
 
   it("recovers when a 429 is followed by success", async () => {
@@ -149,7 +149,7 @@ describe("429 / 5xx — limited retries", () => {
       const outcome = await run(() => jsonResponse(status, { error: { message: "down" } }));
       expect(outcome.code).toBe("UPSTREAM_UNAVAILABLE");
       expect(outcome.httpStatus).toBe(status);
-      expect(outcome.attempts).toBe(3);
+      expect(outcome.attempts).toBe(2);
     }
   });
 

@@ -27,7 +27,9 @@ export type {
   OrchestrationConfig,
   OrchestrationConfigInput,
   OrchestrationGameBudgetConfig,
+  OrchestrationGlobalConfig,
   OrchestrationProviderConfig,
+  OrchestrationRetentionConfig,
   OrchestrationUserConfig,
 } from "./config";
 export {
@@ -36,8 +38,16 @@ export {
   OrchestrationConfigError,
   normalizeOrchestrationConfig,
 } from "./config";
-export type { DecisionEngine, DecisionUsage } from "./engine";
+export type { DecisionEngine, DecisionObserver, DecisionRunMeta, DecisionUsage } from "./engine";
 export { decisionEngineOrDisabled, disabledDecisionEngine } from "./engine";
+export type { GlobalAttemptMeter } from "./global-budget";
+export {
+  GLOBAL_DAILY_CAP_DEFAULT,
+  GLOBAL_DAILY_CAP_ENV_KEY,
+  createDailyAttemptMeter,
+  readGlobalDailyCap,
+  utcDayKey,
+} from "./global-budget";
 export type {
   AdvanceResult,
   CreateGameOptions,

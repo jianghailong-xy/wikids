@@ -244,22 +244,15 @@ it("DAY_VOTE: the batch advances bounded voters concurrently, then pending/retry
       await service.advance(ownerId, sessionId);
     }
 
-    // Vote phase: 5 AI voters, batch cap 3 → 3 decisions now, pending with
-    // the configured retryAfter, 2 more on the next advance.
+    // Vote phase: 5 AI voters, frozen batch cap 5 (P6.3) → all 5 decisions
+    // in one advance, the settlement follows and the round turns to night.
     const before = harness.calls.length;
     const vote1 = await service.advance(ownerId, sessionId);
-    expect(harness.calls.length - before).toBe(3);
+    expect(harness.calls.length - before).toBe(5);
     expect(vote1.status).toBe("pending");
     if (vote1.status === "pending") {
-      expect(vote1.phase).toBe("DAY_VOTE");
-    }
-
-    const vote2 = await service.advance(ownerId, sessionId);
-    expect(harness.calls.length - before - 3).toBe(2);
-    expect(vote2.status).toBe("pending");
-    if (vote2.status === "pending") {
-      expect(vote2.phase).toBe("NIGHT");
-      expect(vote2.round).toBe(2);
+      expect(vote1.phase).toBe("NIGHT");
+      expect(vote1.round).toBe(2);
     }
   });
 

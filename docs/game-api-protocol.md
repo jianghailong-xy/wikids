@@ -49,7 +49,7 @@
   "command": {
     "type": "SUBMIT_WOLF_KILL | SUBMIT_SEER_CHECK | SUBMIT_SPEECH | SUBMIT_DAY_VOTE",
     "seat": 0,                    // 必须等于本人座位（服务端解析，不可冒充）
-    "target": 3                   // SPEECH 用 "text": string|null（≤500）
+    "target": 3                   // SPEECH 用 "text": string|null（≤240，P6.3）
   }
 }
 ```
@@ -77,6 +77,7 @@
 | 415 | `unsupported_media_type` | Content-Type 非 JSON |
 | 429 | `rate_limited` | **仅**用户级创建/动作频率限流（滑窗，可 Retry-After） |
 | 429 | `advance_in_progress` | **仅**同 session 并发 advance 限流（至多 1 个在飞） |
+| 429 | `daily_limit_exceeded` | P6.3：用户当日创建对局数达上限（10，可 Retry-After） |
 | 500 | `internal_error` | 未预期错误（正文泛化；细节只进服务端日志） |
 | 502 | `service_unavailable` | **仅**真正不可恢复的基础设施故障（数据库连通性） |
 

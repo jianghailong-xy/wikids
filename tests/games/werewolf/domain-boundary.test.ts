@@ -115,6 +115,7 @@ const FORBIDDEN_TOKENS = [
   "process.env",
   "Math.random(",
   "Date.now(",
+  "performance.now(",
   "globalThis.fetch",
   "XMLHttpRequest",
   "localStorage",
@@ -122,6 +123,16 @@ const FORBIDDEN_TOKENS = [
   "document.",
   "window.",
 ];
+
+/**
+ * P6.3 单调时钟端口：performance.now 只允许用于 AI 延迟计量（core/ai.ts 与
+ * orchestration/service.ts，均为可注入端口，默认 performance.now）；
+ * 其余文件一律禁止。游戏时间仍由注入端口提供（§10 注入约定）。
+ */
+const MONOTONIC_CLOCK_FILES = new Set([
+  join(LIB_GAMES, "core", "ai.ts"),
+  join(LIB_GAMES, "orchestration", "service.ts"),
+]);
 
 /** P3 持久化边界文件：可以导入 drizzle-orm 与表结构定义（其余禁令照旧）。 */
 const P3_DB_BOUNDARY = new Set([join(LIB_GAMES, "core", "repository.ts")]);
@@ -247,8 +258,11 @@ describe("领域边界：lib/games 纯净性（静态守卫）", () => {
         const envExempt =
           token === "process.env" &&
           (P4_SERVER_ONLY_FILES.has(file) || P5_ENV_FILES.has(file));
+        // P6.3：单调时钟（延迟计量）仅限注入端口文件。
+        const clockExempt =
+          token === "performance.now(" && MONOTONIC_CLOCK_FILES.has(file);
         expect(
-          envExempt || !code.includes(token),
+          envExempt || clockExempt || !code.includes(token),
           `${file.replace(LIB_GAMES, "lib/games")} 出现被禁止的调用: ${token}`,
         ).toBe(true);
       }
