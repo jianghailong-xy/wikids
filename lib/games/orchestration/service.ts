@@ -138,10 +138,25 @@ export interface SubmitCommandInput {
    * AI-internal submissions (from advance) omit it.
    */
   readonly actorSeat?: number;
+  /**
+   * P5.1 owner requests: true when the caller is the session owner acting
+   * for their OWN seat. The seat is resolved server-side from the session's
+   * human seat (never from the request) so an owner can never act for an AI
+   * seat, and settlement stays system-only.
+   */
+  readonly asOwner?: boolean;
+  /**
+   * Client-side CAS (P5.1): the revision / phase token the client last saw.
+   * When set and stale, the command is refused WITHOUT executing and the
+   * idempotency receipt is not consulted — a fresh envelope first.
+   */
+  readonly expectedRevision?: number;
+  readonly expectedPhaseToken?: string;
 }
 
 export type SubmitCommandErrorCode =
   | "NOT_FOUND"
+  | "NOT_ACTIVE"
   | "STALE"
   | "ILLEGAL"
   | "FORBIDDEN"
@@ -193,6 +208,33 @@ export type AdvanceResult =
       readonly round: number;
       readonly publicView: PublicProjection;
     };
+
+/**
+ * P5.1: everything a route handler needs to build the player envelope —
+ * the owner's own-seat projection through the single forward projector, the
+ * own-seat legal choice set, the session's generalized status and the
+ * visible event stream (already filtered to `sinceRevision`). Never the
+ * server state, never other seats' private or pending information.
+ */
+export interface PlayerViewResult {
+  readonly sessionId: string;
+  readonly gameDefinitionId: string;
+  readonly status: "active" | "finished" | "aborted" | "abandoned";
+  readonly revision: number;
+  readonly phaseToken: string;
+  readonly phase: ExternalPhase;
+  readonly round: number;
+  /** Own seat view; the post-game reveal (PUBLIC scope) once finished. */
+  readonly view: SeatView | PublicProjection;
+  /** Own-seat legal choices only; empty for non-active sessions. */
+  readonly legalActions: readonly { readonly id: string; readonly label: string }[];
+  /** Public event payloads with revision > sinceRevision (never private). */
+  readonly events: readonly Quick6EventPayload[];
+}
+
+export type AbandonResult =
+  | { readonly ok: true; readonly status: "abandoned" }
+  | { readonly ok: false; readonly error: "NOT_FOUND" | "NOT_ACTIVE" };
 
 export interface GameApplicationServiceOptions {
   readonly db: PostgresJsDatabase<typeof schema>;
@@ -446,9 +488,12 @@ export class GameApplicationService {
     };
   }
 
-  /** Owner-scoped session list (newest first). */
-  async listGames(ownerId: string) {
-    return this.repo.listSessions(ownerId);
+  /** Owner-scoped session list (newest first), optionally filtered (P5.1 lobby). */
+  async listGames(
+    ownerId: string,
+    filters?: { readonly definitionId?: string; readonly status?: string },
+  ) {
+    return this.repo.listSessions(ownerId, 50, filters);
   }
 
   // -------------------------------------------------------------------------
@@ -485,16 +530,104 @@ export class GameApplicationService {
   }
 
   // -------------------------------------------------------------------------
+  // Player view (P5.1): the owner's own-seat projection + legal set + events
+  // -------------------------------------------------------------------------
+
+  /**
+   * The single read a route handler needs to build the player envelope.
+   * Everything is derived from the ONE forward projector and the public
+   * event stream: the owner's own seat view (the post-game reveal once
+   * finished), the own-seat legal choice set (other seats' choices — and
+   * therefore which seats are still pending — are never exposed), and the
+   * visible events after `sinceRevision`.
+   */
+  async getPlayerView(
+    ownerId: string,
+    sessionId: string,
+    input: { readonly sinceRevision?: number } = {},
+  ): Promise<PlayerViewResult> {
+    const session = await this.repo.getSession(ownerId, sessionId);
+    if (!session) {
+      throw new PersistenceError("NOT_FOUND", `session ${sessionId}`);
+    }
+    const { state } = await this.repo.loadState(ownerId, sessionId, this.definition, this.replay);
+    const quick6 = state as Quick6State;
+    const terminal = this.definition.isTerminal(quick6);
+    const status: PlayerViewResult["status"] =
+      session.status === "finished"
+        ? "finished"
+        : session.status === "aborted"
+          ? "aborted"
+          : session.status === "abandoned"
+            ? "abandoned"
+            : "active";
+    const view: SeatView | PublicProjection = terminal
+      ? (projectView(quick6, { scope: "POST_GAME" }) as PublicProjection)
+      : this.definition.viewFor(quick6, quick6.humanSeat);
+    const legalActions =
+      status === "active" && !terminal
+        ? legalChoices(quick6)
+            .filter((choice) => choice.seat === quick6.humanSeat)
+            .map((choice) => ({ id: choice.id, label: choice.label }))
+        : [];
+    const since = input.sinceRevision ?? -1;
+    return {
+      sessionId,
+      gameDefinitionId: session.definitionId,
+      status,
+      revision: quick6.revision,
+      phaseToken: phaseToken(quick6),
+      phase: quick6.phase,
+      round: quick6.round,
+      view,
+      legalActions,
+      events: quick6.events.filter((event) => event.revision > since).map((event) => event.payload),
+    };
+  }
+
+  /**
+   * The owner explicitly abandons their active game (P5.1): it leaves the
+   * per-user active-games budget and can no longer be advanced. Idempotent
+   * for an already-abandoned session; a finished/aborted session is refused
+   * (its status is already terminal, not abandonable).
+   */
+  async abandon(ownerId: string, sessionId: string): Promise<AbandonResult> {
+    const session = await this.repo.getSession(ownerId, sessionId);
+    if (!session) {
+      throw new PersistenceError("NOT_FOUND", `session ${sessionId}`);
+    }
+    if (session.status === "abandoned") {
+      return { ok: true, status: "abandoned" };
+    }
+    if (session.status !== "active") {
+      return { ok: false, error: "NOT_ACTIVE" };
+    }
+    const updated = await this.store.markAbandoned(ownerId, sessionId);
+    if (!updated) {
+      // Finished/aborted between the check and the write.
+      return { ok: false, error: "NOT_ACTIVE" };
+    }
+    return { ok: true, status: "abandoned" };
+  }
+
+  // -------------------------------------------------------------------------
   // Submit command — the single path for human AND AI submissions
   // -------------------------------------------------------------------------
 
   /**
-   * Submit one command. Human requests pass an actor seat and a client
-   * idempotency key; the advance passes AI-decision keys through the exact
-   * same code path. The command is validated by the rule engine
+   * Submit one command. Human requests pass `asOwner` (the seat is resolved
+   * server-side from the session's human seat) plus a client idempotency
+   * key; the advance passes AI-decision keys through the exact same code
+   * path. The command is validated by the rule engine
    * (definition.transition) inside the idempotent executeAction: applied
    * exactly once under revision/phase-token CAS, or replayed from the
    * stored stable response.
+   *
+   * Ordering (P5.1): NOT_FOUND / NOT_ACTIVE guards first; then the receipt
+   * fast path — a retried request whose key was already applied replays
+   * the stored stable response even when the client's CAS tokens are now
+   * stale (a retry must be stable, not refused); then the client-side
+   * expectedRevision / expectedPhaseToken CAS, refused without doing work.
    */
   async submitCommand(
     ownerId: string,
@@ -505,31 +638,76 @@ export class GameApplicationService {
     if (!session) {
       return { ok: false, error: "NOT_FOUND" };
     }
+    if (session.status === "abandoned" || session.status === "aborted") {
+      return { ok: false, error: "NOT_ACTIVE", detail: "the session is not playable" };
+    }
+
+    const requestHash = sha256Hex(JSON.stringify(input.command));
+    const existing = await this.repo.getActionReceipt(ownerId, sessionId, input.key);
+    if (existing && existing.requestHash === requestHash) {
+      const response = existing.responseJson as
+        | { readonly revision?: number; readonly events?: Quick6EventPayload[] }
+        | null;
+      return this.buildOkResult(
+        ownerId,
+        sessionId,
+        false,
+        response?.revision ?? existing.revision,
+        response?.events ?? [],
+      );
+    }
+
+    if (input.expectedRevision !== undefined && session.revision !== input.expectedRevision) {
+      return { ok: false, error: "STALE", detail: "expected_revision" };
+    }
+    if (input.expectedPhaseToken !== undefined && session.phaseToken !== input.expectedPhaseToken) {
+      return { ok: false, error: "STALE", detail: "expected_phase_token" };
+    }
+
     const outcome = await this.executeCommand(
       ownerId,
       sessionId,
       input.key,
       input.command,
       input.actorSeat ?? null,
+      input.asOwner === true,
     );
     switch (outcome.kind) {
       case "applied":
       case "replayed": {
-        const { state } = await this.repo.loadState(ownerId, sessionId, this.definition, this.replay);
         const response = outcome.response as { events?: Quick6EventPayload[] } | null;
-        return {
-          ok: true,
-          applied: outcome.kind === "applied",
-          revision: outcome.revision,
-          events: response?.events ?? [],
-          publicView: this.definition.publicView(state as Quick6State),
-        };
+        return this.buildOkResult(
+          ownerId,
+          sessionId,
+          outcome.kind === "applied",
+          outcome.revision,
+          response?.events ?? [],
+        );
       }
       case "stale":
         return { ok: false, error: "STALE", detail: "the session advanced past this command" };
       case "rejected":
         return this.mapRejection(outcome);
     }
+  }
+
+  /** The ok result: revision/events from the application (or replay), the
+   * public view from the CURRENT state (the P4.1 shape, unchanged). */
+  private async buildOkResult(
+    ownerId: string,
+    sessionId: string,
+    applied: boolean,
+    revision: number,
+    events: readonly Quick6EventPayload[],
+  ): Promise<Extract<SubmitCommandResult, { ok: true }>> {
+    const { state } = await this.repo.loadState(ownerId, sessionId, this.definition, this.replay);
+    return {
+      ok: true,
+      applied,
+      revision,
+      events,
+      publicView: this.definition.publicView(state as Quick6State),
+    };
   }
 
   private mapRejection(outcome: Extract<ExecuteOutcome, { kind: "rejected" }>): SubmitCommandResult {
@@ -548,6 +726,8 @@ export class GameApplicationService {
   /**
    * The shared executor: receipt fast path → fresh load → actor
    * authorization → rule-engine dispatch → idempotent append under CAS.
+   * With `asOwner`, the acting seat is the session's own human seat,
+   * resolved server-side — never a client-supplied value.
    */
   private async executeCommand(
     ownerId: string,
@@ -555,11 +735,22 @@ export class GameApplicationService {
     key: string,
     command: Quick6Command,
     actorSeat: number | null,
+    asOwner = false,
   ): Promise<ExecuteOutcome> {
     const requestHash = sha256Hex(JSON.stringify(command));
     const existing = await this.repo.getActionReceipt(ownerId, sessionId, key);
     if (existing && existing.requestHash === requestHash) {
       return { kind: "replayed", revision: existing.revision, response: existing.responseJson };
+    }
+    // The same key with a different payload is a client protocol error and
+    // is refused BEFORE any rule dispatch: the command must not be judged
+    // (or worse, applied) on its own merits when its key was already spent.
+    if (existing) {
+      return {
+        kind: "rejected",
+        code: "IDEMPOTENCY_CONFLICT",
+        message: "the idempotency key was already used with a different payload",
+      };
     }
 
     const { state, dispatchable } = await this.repo.loadState(ownerId, sessionId, this.definition, this.replay);
@@ -580,10 +771,12 @@ export class GameApplicationService {
     }
 
     // Actor authorization: requests naming a seat may only act for that seat
-    // and may never settle a phase (settlement is the system's alone).
-    if (actorSeat !== null) {
+    // and may never settle a phase (settlement is the system's alone). Owner
+    // requests (asOwner) are pinned to the session's human seat server-side.
+    const effectiveActorSeat = asOwner ? (state as Quick6State).humanSeat : actorSeat;
+    if (effectiveActorSeat !== null) {
       const seat = commandSeat(command);
-      if (seat === null || seat !== actorSeat) {
+      if (seat === null || seat !== effectiveActorSeat) {
         return {
           kind: "rejected",
           code: "FORBIDDEN",
@@ -666,6 +859,12 @@ export class GameApplicationService {
     const session = await this.repo.getSession(ownerId, sessionId);
     if (!session) {
       throw new PersistenceError("NOT_FOUND", `session ${sessionId}`);
+    }
+    // Abandoned sessions refuse further advances (P5.1); aborted sessions
+    // keep returning the durable aborted result below (P4.1: the refusal is
+    // idempotent, never a fabricated outcome).
+    if (session.status === "abandoned") {
+      throw new PersistenceError("NOT_ACTIVE", `session ${sessionId} is not playable`);
     }
 
     const { state, dispatchable } = await this.repo.loadState(ownerId, sessionId, this.definition, this.replay);

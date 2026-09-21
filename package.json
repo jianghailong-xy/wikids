@@ -29,7 +29,8 @@
     "verify:domain-security": "node scripts/verify-domain-security.mjs",
     "verify:persistence": "node scripts/verify-persistence.mjs",
     "verify:ai-contract": "node scripts/verify-ai-contract.mjs",
-    "verify:ai-orchestration": "node scripts/verify-ai-orchestration.mjs"
+    "verify:ai-orchestration": "node scripts/verify-ai-orchestration.mjs",
+    "verify:api": "node scripts/verify-api.mjs"
   },
   "overrides": {
     "postcss": "^8.5.23"

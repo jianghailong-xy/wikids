@@ -58,6 +58,12 @@ export type PersistenceErrorCode =
   | "BUDGET_EXHAUSTED"
   /** The owner's concurrent active-game budget is exhausted (P4.1 create guard). */
   | "USER_BUDGET_EXHAUSTED"
+  /**
+   * The session exists for the owner but is not playable: abandoned by the
+   * owner or aborted by the round budget (P5.1). Mutating calls refuse it;
+   * reads still serve the frozen projection.
+   */
+  | "NOT_ACTIVE"
   /** The lease was reclaimed or expired: this result is not accepted. */
   | "STALE_LEASE"
   /** Malformed input (bad checksum format, empty event batch, ...). */
@@ -417,12 +423,27 @@ export class GameRepository {
     return rows[0] ? toSessionInfo(rows[0]) : null;
   }
 
-  /** Owner-scoped session list, newest first. */
-  async listSessions(ownerId: string, limit = 50): Promise<SessionInfo[]> {
+  /**
+   * Owner-scoped session list, newest first, with optional definition /
+   * status filters (P5.1 lobby queries). The owner filter is always part of
+   * the SQL condition itself.
+   */
+  async listSessions(
+    ownerId: string,
+    limit = 50,
+    filter?: { readonly definitionId?: string; readonly status?: string },
+  ): Promise<SessionInfo[]> {
+    const conditions = [eq(schema.gameSessions.ownerId, ownerId)];
+    if (filter?.definitionId !== undefined) {
+      conditions.push(eq(schema.gameSessions.definitionId, filter.definitionId));
+    }
+    if (filter?.status !== undefined) {
+      conditions.push(eq(schema.gameSessions.status, filter.status));
+    }
     const rows = await this.db
       .select()
       .from(schema.gameSessions)
-      .where(eq(schema.gameSessions.ownerId, ownerId))
+      .where(and(...conditions))
       .orderBy(desc(schema.gameSessions.createdAt))
       .limit(limit);
     return rows.map(toSessionInfo);

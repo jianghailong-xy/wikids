@@ -44,6 +44,19 @@ P3 持久化边界：`core/repository.ts` 以**注入**的 drizzle 数据库为�
   完成整局；`runtime.ts`（server-only）为 Next 路由接线 DeepSeek 引擎
   与 `GAME_AI_ENABLED` 开关。首版运行于现有 Docker 持久 Node runtime，
   不宣称支持无后台设施的短生命周期 serverless。
+- `api/`（P5.1）— 玩家视图协议层（server-only，仅
+  `app/api/games/sessions/**` 引用）：`protocol.ts` 会话信封（只含
+  projectView/legalActions/revision/phaseToken/泛化 status/可见
+  increments/pending/retryAfter）与公开错误词汇表；`schemas.ts`
+  Zod 请求面（`.strict()`，动作带 idempotencyKey/expectedRevision/
+  phaseToken）；`handlers.ts` Auth.js 会话检查、cookie 写请求的
+  same-origin Origin/Sec-Fetch-Site 守卫、Content-Type/大小受限的
+  JSON 体读取、用户级滑窗速率（429 仅用于创建/动作频率与同 session
+  并发 advance；502 仅保留数据库连通性等基础设施故障）；`limits.ts`
+  进程内滑窗限流与并发守卫（对应持久 Node runtime）；`service.ts`
+  复用 runtime 引擎、每用户 active 对局上限收紧为 1。不存在与非
+  owner 统一 404；错误正文只含公开词汇，内部代码/Provider 细节只进
+  服务端日志。
 - `werewolf/` — quick6-v1 生产实现（冻结规格 `docs/quick6-v1-rules.md`）：
   显式阶段状态机、命令/事件/legal choice_id、唯一正向投影器
   `projectView(state, viewer)`（PUBLIC / PLAYER / TEAM_WOLVES / SYSTEM /
@@ -85,3 +98,14 @@ pending/retryAfter）、数据库时间 lease 与过期结果丢弃、断连回�
 并发重复 advance 只推进一次、瞬态重试与每局/每用户预算的 N-1/N/N+1
 边界、各故障/开关关闭/无 Key 的确定性 fallback 整局完成与跨故障
 终局一致性、网络调用期间无事务。
+
+`npm run verify:api`（P5.1）= 隔离空 Postgres（`p5v_` 前缀）上从零迁移，
+`next build` standalone 真实 Next server + 真实 Auth cookie 黑盒覆盖
+`app/api/games/sessions/**`（协议见 `docs/game-api-protocol.md`）：
+双用户越权（非 owner ≡ 不存在，字节级同 404）、未登录 401、跨站
+POST 403、Content-Type/大小/Zod 校验、active 对局冲突、大厅列表
+过滤、恢复/刷新、整局 actions + advance（202 pending/retryAfter 续推、
+重复请求重放、旧版本 CAS、同键异载荷、并发 advance 恰一个 429）、
+放弃与重开、用户级创建/动作速率边界 429、Provider 关闭与坏配置下
+fallback 整局完成（无 5xx）、DB 断连 502 泛化正文、响应/HTML/RSC/
+错误体 canary 泄漏 = 0，成功失败均 finally 清理临时 compose 项目。

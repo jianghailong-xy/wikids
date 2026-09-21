@@ -20,6 +20,14 @@
  * orchestration/runtime.ts 是唯一 SERVER-ONLY 接线文件（`import
  * "server-only"`）：它读取环境允许列表、构造 DeepSeek Provider 并为 Next
  * 路由组装服务 —— 具体 Provider 与 process.env 只允许出现在这里。
+ *
+ * P5.1 API 协议层边界：lib/games/api/** 是 SERVER-ONLY 的 HTTP 接线层
+ * （协议/校验/限流/Handler 管道，`import "server-only"`），不是纯领域：
+ * handlers.ts 组装 Next Response 并调用 Auth.js（next/server + @/lib/auth，
+ * 不直接导入具体 Provider）；service.ts 只经注入的 drizzle 端口组装
+ * orchestration 服务；schemas.ts 用 zod 定义请求面；config.ts 读取环境
+ * 允许列表（GAME_RATE_* 与 GAME_API_MAX_BODY_BYTES，与 runtime.ts 同级）。
+ * 领域纯净性仍由 core/werewolf/orchestration 的其余文件承担。
  */
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
@@ -139,6 +147,30 @@ const P4_AI_CONTRACT_ALLOWED = ["@/lib/ai/contract", "@/lib/ai/errors"];
 const P4_SERVER_ONLY_FILES = new Set([join(LIB_GAMES, "orchestration", "runtime.ts")]);
 const P4_SERVER_ONLY_ALLOWED = ["@/lib/ai/providers/deepseek", "server-only"];
 
+/** P5.1 SERVER-ONLY API 协议层：HTTP 接线、Auth.js、zod 请求面与环境允许列表。 */
+const P5_API_BOUNDARY = new Set([
+  join(LIB_GAMES, "api", "config.ts"),
+  join(LIB_GAMES, "api", "handlers.ts"),
+  join(LIB_GAMES, "api", "index.ts"),
+  join(LIB_GAMES, "api", "limits.ts"),
+  join(LIB_GAMES, "api", "protocol.ts"),
+  join(LIB_GAMES, "api", "schemas.ts"),
+  join(LIB_GAMES, "api", "service.ts"),
+]);
+const P5_API_ALLOWED = [
+  "next/server",
+  "@/lib/auth",
+  "drizzle-orm",
+  "@/lib/db/schema",
+  "zod",
+  "server-only",
+];
+/** process.env 只允许出现在 server-only 接线文件（runtime.ts、api/config.ts 与 api/service.ts 的环境默认参数）。 */
+const P5_ENV_FILES = new Set([
+  join(LIB_GAMES, "api", "config.ts"),
+  join(LIB_GAMES, "api", "service.ts"),
+]);
+
 function importSpecifiers(source: string): string[] {
   const specifiers: string[] = [];
   const re =
@@ -173,7 +205,9 @@ describe("领域边界：lib/games 纯净性（静态守卫）", () => {
           (P4_AI_CONTRACT_FILES.has(file) &&
             P4_AI_CONTRACT_ALLOWED.some((p) => specifier.startsWith(p))) ||
           (P4_SERVER_ONLY_FILES.has(file) &&
-            P4_SERVER_ONLY_ALLOWED.some((p) => specifier.startsWith(p)));
+            P4_SERVER_ONLY_ALLOWED.some((p) => specifier.startsWith(p))) ||
+          (P5_API_BOUNDARY.has(file) &&
+            P5_API_ALLOWED.some((p) => specifier.startsWith(p)));
         expect(
           ok,
           `${file.replace(LIB_GAMES, "lib/games")} 导入了领域外模块: ${specifier}`,
@@ -190,7 +224,9 @@ describe("领域边界：lib/games 纯净性（静态守卫）", () => {
           (P4_DB_BOUNDARY.has(file) &&
             P3_DB_ALLOWED.some((p) => specifier.startsWith(p))) ||
           (P4_SERVER_ONLY_FILES.has(file) &&
-            P4_SERVER_ONLY_ALLOWED.some((p) => specifier.startsWith(p)));
+            P4_SERVER_ONLY_ALLOWED.some((p) => specifier.startsWith(p))) ||
+          (P5_API_BOUNDARY.has(file) &&
+            P5_API_ALLOWED.some((p) => specifier.startsWith(p)));
         for (const prefix of FORBIDDEN_SPECIFIER_PREFIXES) {
           expect(
             p3Exempt || !specifier.startsWith(prefix),
@@ -205,9 +241,12 @@ describe("领域边界：lib/games 纯净性（静态守卫）", () => {
     for (const file of files) {
       const code = stripComments(readFileSync(file, "utf8"));
       for (const token of FORBIDDEN_TOKENS) {
-        // process.env 只允许出现在 server-only 接线文件 runtime.ts 里
-        // （环境允许列表）；其余文件一律禁止。
-        const envExempt = token === "process.env" && P4_SERVER_ONLY_FILES.has(file);
+        // process.env 只允许出现在 server-only 接线文件里（runtime.ts 的
+        // Provider 环境允许列表、api/config.ts 的速率/体积允许列表）；
+        // 其余文件一律禁止。
+        const envExempt =
+          token === "process.env" &&
+          (P4_SERVER_ONLY_FILES.has(file) || P5_ENV_FILES.has(file));
         expect(
           envExempt || !code.includes(token),
           `${file.replace(LIB_GAMES, "lib/games")} 出现被禁止的调用: ${token}`,

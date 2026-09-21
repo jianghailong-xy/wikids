@@ -122,6 +122,22 @@ export class OrchestrationStore {
     );
   }
 
+  /**
+   * Mark an active game abandoned by its owner (P5.1): it stops counting
+   * against the per-user active-games budget and can no longer be advanced.
+   * Returns true when a row transitioned, false when the session was no
+   * longer active (e.g. it finished between the check and this write).
+   */
+  async markAbandoned(ownerId: string, sessionId: string): Promise<boolean> {
+    const rows = await this.db.execute(
+      sql`update ${schema.gameSessions}
+          set status = 'abandoned', updated_at = now()
+          where id = ${sessionId} and owner_id = ${ownerId} and status = 'active'
+          returning id`,
+    );
+    return rows.length > 0;
+  }
+
   /** Truncate every game row for this owner (test helper scope). */
   async deleteOwnerGames(ownerId: string): Promise<void> {
     await this.db.execute(sql`delete from ${schema.gameSessions} where owner_id = ${ownerId}`);
