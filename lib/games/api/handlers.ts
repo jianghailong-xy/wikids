@@ -163,29 +163,50 @@ export function assertSameOrigin(req: Request): NextResponse | null {
     // Sandboxed/opaque origin: never a normal same-origin request.
     return jsonError(403, PUBLIC_ERRORS.crossOriginForbidden);
   }
-  return origin === requestOrigin(req)
+  const target = requestOrigin(req);
+  if (target === "") return null; // no Host header: not a browser request
+  return originMatchesHost(origin, target)
     ? null
     : jsonError(403, PUBLIC_ERRORS.crossOriginForbidden);
 }
 
+/**
+ * The request target for same-origin purposes, derived from the headers
+ * ONLY. The route handler's `req.url` is synthesized by the server and its
+ * authority is not the real request target (the standalone production
+ * server builds it around "localhost" regardless of the Host the client
+ * used — observed: req.url = http://localhost:PORT while the client
+ * connected to http://127.0.0.1:PORT). The Host header (or
+ * x-forwarded-host behind a proxy) is the authority the browser actually
+ * sent, so that is what the Origin must match.
+ */
 function requestOrigin(req: Request): string {
-  // The route-handler Request normally carries the absolute URL. The
-  // standalone production server, however, constructs it against a dummy
-  // base ("http://n/...") because no initURL metadata is attached — the
-  // Host header is the true request target there, so fall back to it when
-  // the URL's authority is not a real host.
-  try {
-    const url = new URL(req.url);
-    if (url.host !== "n" && url.host !== "") {
-      return `${url.protocol}//${url.host}`;
-    }
-  } catch {
-    // Relative URL: no authority to compare — use the Host header.
-  }
-  const host = req.headers.get("host");
+  const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host");
   if (host === null || host === "") return "";
   const protocol = req.headers.get("x-forwarded-proto") === "https" ? "https" : "http";
   return `${protocol}://${host}`;
+}
+
+/**
+ * True when the Origin is the same scheme+host+port as the request target.
+ * Origin serialization drops the default port for the scheme (https://x
+ * means :443), so ports are normalized instead of compared as strings.
+ */
+function originMatchesHost(origin: string, target: string): boolean {
+  let o: URL;
+  let t: URL;
+  try {
+    o = new URL(origin);
+    t = new URL(target);
+  } catch {
+    return false;
+  }
+  if (o.protocol !== "http:" && o.protocol !== "https:") return false;
+  if (o.protocol !== t.protocol) return false;
+  if (o.hostname.toLowerCase() !== t.hostname.toLowerCase()) return false;
+  const oPort = o.port === "" ? (o.protocol === "https:" ? "443" : "80") : o.port;
+  const tPort = t.port === "" ? (t.protocol === "https:" ? "443" : "80") : t.port;
+  return oPort === tPort;
 }
 
 // ---------------------------------------------------------------------------
