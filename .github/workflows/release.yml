@@ -1,0 +1,42 @@
+name: release-gate
+
+# P7.2: the single release gate. CI runs exactly the same command a release
+# runs locally: `npm run verify:release`. Node 20 is locked here AND enforced
+# by the script itself (it re-execs under Node 20 through nvm when invoked
+# from another version, so a local run can never silently test the wrong
+# runtime). The gate passes with NO DeepSeek key — real-provider traffic is
+# the explicit opt-in `npm run verify:deepseek-smoke` and never runs here.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: release-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install the locked browser for the Chromium E2E step
+        run: npx playwright install --with-deps chromium
+
+      - name: Run the release gate (the same command a release runs)
+        # Steps inside: npm ci, prod audit (0 high/critical), typecheck,
+        # rules/property/1000-seed tests, visibility/replay, AI contract +
+        # fallback, budgets/safety, isolated-DB/API suites (throwaway
+        # Postgres on tmpfs, torn down on success AND failure), Chromium
+        # E2E, production build, .next/static + log + database canary scans.
+        run: npm run verify:release

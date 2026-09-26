@@ -2,6 +2,9 @@
   "name": "wikids",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -18,12 +21,15 @@
     "docker:up": "docker compose up -d --build",
     "docker:down": "docker compose down",
     "docker:logs": "docker compose logs -f web",
+    "docker:cleanup": "docker compose --profile maintenance up cleanup",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "user:create": "node scripts/create-user.mjs",
     "user:create:docker": "docker compose run --rm --no-deps --entrypoint node -v \"$PWD:/repo\" -w /repo web scripts/create-user.mjs",
+    "verify:release": "node scripts/verify-release.mjs",
+    "verify:deepseek-smoke": "node scripts/verify-deepseek-smoke.mjs",
     "verify:security-baseline": "node scripts/verify-security-baseline.mjs",
     "verify:engine": "node scripts/verify-engine.mjs",
     "verify:domain-security": "node scripts/verify-domain-security.mjs",

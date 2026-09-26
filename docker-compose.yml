@@ -36,14 +36,46 @@ services:
       AUTH_TRUST_HOST: "true"
       # Server-only AI provider config (P3.3): passed through from .env only
       # when set; the provider fails closed (CONFIG) when any required piece
-      # is missing — no other credential is ever reused.
+      # is missing — no other credential is ever reused (never the Orbit
+      # task-runner's, never any other provider's). Without a key the app
+      # still starts and every AI decision falls back deterministically.
       DEEPSEEK_API_KEY: "${DEEPSEEK_API_KEY:-}"
       DEEPSEEK_BASE_URL: "${DEEPSEEK_BASE_URL:-https://api.deepseek.com}"
       DEEPSEEK_MODEL: "${DEEPSEEK_MODEL:-}"
-      DEEPSEEK_TIMEOUT_MS: "${DEEPSEEK_TIMEOUT_MS:-30000}"
-      DEEPSEEK_MAX_OUTPUT_TOKENS: "${DEEPSEEK_MAX_OUTPUT_TOKENS:-1024}"
+      # P6.3 frozen defaults: 10s per decision (timeouts are never retried)
+      # and max_output_tokens 256 (hard cap, clamped).
+      DEEPSEEK_TIMEOUT_MS: "${DEEPSEEK_TIMEOUT_MS:-10000}"
+      DEEPSEEK_MAX_OUTPUT_TOKENS: "${DEEPSEEK_MAX_OUTPUT_TOKENS:-256}"
       GAME_SEAT_HMAC_SECRET: "${GAME_SEAT_HMAC_SECRET:-}"
+      # P6.3 emergency switch: "0"/"false" turns the provider off entirely
+      # (every AI decision falls back deterministically and games still run
+      # to completion). Unset = enabled iff DEEPSEEK_API_KEY is configured.
+      AI_PROVIDER_ENABLED: "${AI_PROVIDER_ENABLED:-}"
+      # REQUIRED global daily provider-attempt budget (process-wide,
+      # calendar day UTC). Safe default 10000 when unset; an INVALID value
+      # disables the provider (fail-safe degrade to the fallback).
+      GAME_AI_GLOBAL_DAILY_CAP: "${GAME_AI_GLOBAL_DAILY_CAP:-10000}"
+      # User-level game API rate limits (60s sliding windows, in-process).
+      GAME_RATE_CREATE_PER_MINUTE: "${GAME_RATE_CREATE_PER_MINUTE:-10}"
+      GAME_RATE_ACTION_PER_MINUTE: "${GAME_RATE_ACTION_PER_MINUTE:-120}"
+      GAME_API_MAX_BODY_BYTES: "${GAME_API_MAX_BODY_BYTES:-16384}"
       NODE_ENV: production
     ports:
       - "8880:3000"
 
+  # P6.3 retention maintenance: delete finished games and their AI metadata
+  # older than GAME_RETENTION_DAYS (frozen default 30). Opt-in profile — it
+  # runs once and exits; schedule it with cron/systemd:
+  #   docker compose --profile maintenance up cleanup
+  # Active games are NEVER deleted, whatever their age.
+  cleanup:
+    image: wikids-web:local
+    container_name: wikids-cleanup
+    profiles: ["maintenance"]
+    restart: "no"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/wikids
+    command: node scripts/cleanup-games.mjs --days=${GAME_RETENTION_DAYS:-30} --apply

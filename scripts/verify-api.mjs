@@ -944,6 +944,64 @@ services:
   ok("real Auth.js session cookies issued for alice and bob");
 
   await blackBoxSuite(baseA, aliceCookie, bobCookie);
+
+  step("9.15 database canary scan (keys/PII/reasoning/private state never persisted)");
+  // Values, not column names: a key, a bearer credential, planted P6.3
+  // canaries, reasoning content, internal state key names, internal error
+  // class names, email/phone PII and the smoke's own AUTH_SECRET must never
+  // appear inside any game-table value. game_snapshots is the ONE server-
+  // only cache that legitimately holds the full state (night buffers and
+  // seed bytes) — those keys are excluded there, everything else is not.
+  const DB_PUBLIC_RE = "(sk-[A-Za-z0-9]{8,}|Bearer [A-Za-z0-9._\\-]{8,}|DEEPSEEK_API_KEY|GAME_SEAT_HMAC_SECRET|p6s-canary-[a-z0-9\\-]+|reasoning_content|\"serverState\"|\"pendingAiSeat\"|\"pendingSeats\"|\"NIGHT_SEER\"|\"NIGHT_WOLF\"|\"seedBytes\"|\"seedHex\"|\"systemPrivate\"|\"systemPrompt\"|\"promptText\"|AiProviderError|PersistenceError|IllegalActionError|OrchestrationConfigError|[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}|1[3-9][0-9]{9}|verify-api-0123456789abcdef0123456789abcdef-extra)";
+  const DB_SNAPSHOT_RE = "(sk-[A-Za-z0-9]{8,}|Bearer [A-Za-z0-9._\\-]{8,}|DEEPSEEK_API_KEY|GAME_SEAT_HMAC_SECRET|p6s-canary-[a-z0-9\\-]+|reasoning_content|\"serverState\"|\"pendingAiSeat\"|\"pendingSeats\"|\"NIGHT_SEER\"|\"NIGHT_WOLF\"|\"seedHex\"|\"systemPrivate\"|\"systemPrompt\"|\"promptText\"|AiProviderError|PersistenceError|IllegalActionError|OrchestrationConfigError|[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}|1[3-9][0-9]{9}|verify-api-0123456789abcdef0123456789abcdef-extra)";
+  const EMAIL_RE = "[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}";
+
+  function psql(query) {
+    const result = spawnSync(
+      "docker",
+      ["compose", "-p", projectName, "-f", composeFile, "exec", "-T", "pg", "psql", "-U", dbUser, "-d", dbName, "-t", "-A", "-c", query],
+      { cwd: ROOT, encoding: "utf8", timeout: 60_000 },
+    );
+    if (result.status !== 0) {
+      throw new Error(`psql failed: ${result.stderr ?? result.stdout}`);
+    }
+    return (result.stdout ?? "").trim();
+  }
+
+  // Positive control FIRST: the scanner must find what it is looking for —
+  // the fixture users' emails sit in the auth table by design, so the email
+  // pattern has to hit them. A scanner that sees nothing is untrusted.
+  const control = psql(`select count(*)::int from users where email ~ '${EMAIL_RE}'`);
+  check(control === "2", `positive control: scanner finds the 2 fixture emails in users (${control})`);
+
+  const scans = [
+    [
+      "game_ai_runs sanitized metadata",
+      DB_PUBLIC_RE,
+      `select 'ai_runs:' || id from game_ai_runs where concat(coalesce(provider,''),coalesce(requested_model,''),coalesce(response_model,''),coalesce(response_id,''),coalesce(system_fingerprint,''),coalesce(prompt_version,''),coalesce(error_code,'')) ~ '${DB_PUBLIC_RE}'`,
+    ],
+    [
+      "game_events payloads (public event stream)",
+      DB_PUBLIC_RE,
+      `select 'event:' || session_id || ':' || seq from game_events where payload::text ~ '${DB_PUBLIC_RE}'`,
+    ],
+    [
+      "game_action_receipts responses (public)",
+      DB_PUBLIC_RE,
+      `select 'receipt:' || id from game_action_receipts where response_json::text ~ '${DB_PUBLIC_RE}'`,
+    ],
+    [
+      "game_snapshots (server-only cache: night buffers/seed excluded as legitimate)",
+      DB_SNAPSHOT_RE,
+      `select 'snapshot:' || session_id from game_snapshots where state_json ~ '${DB_SNAPSHOT_RE}'`,
+    ],
+  ];
+  for (const [label, , query] of scans) {
+    const hits = psql(query);
+    check(hits === "", `${label}: zero canary values${hits ? ` — HITS: ${tail(hits)}` : ""}`);
+  }
+  ok("database values carry no keys, PII, reasoning, private prompts or internal state");
+
   await stopServer(serverA);
 
   step("10 server B (provider enabled, config invalid → fallback absorbed)");

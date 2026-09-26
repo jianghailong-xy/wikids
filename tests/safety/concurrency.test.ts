@@ -32,13 +32,29 @@ import {
 
 function trackingEngine(maxInFlight: { value: number }) {
   let inFlight = 0;
+  let arrivals = 0;
+  // Gather barrier instead of a fixed hold: each decision does DB work
+  // (receipt read, budget reserve, lease claim) BEFORE decide() runs, and
+  // that work is serialized by row locks — on a busy host the last member
+  // of a concurrently launched batch can arrive later than a fixed hold,
+  // which made the exact in-flight maximum flaky (observed: a 4-member
+  // batch peaking at 3). Every member waits until no new arrival has been
+  // seen for QUIET_MS, so a batch that really was launched concurrently
+  // overlaps in full; a serialized launch shows up as peak 1 instead of a
+  // lucky overlap. Groups are awaited sequentially by the service, so no
+  // member of the NEXT group can arrive while this one gathers.
+  const QUIET_MS = 300;
   return {
     enabled: true,
     async decide(input: AiTurnInput): Promise<AiDecision> {
       inFlight += 1;
+      arrivals += 1;
       maxInFlight.value = Math.max(maxInFlight.value, inFlight);
-      // Hold briefly so the batch overlaps in flight.
-      await new Promise((resolve) => setTimeout(resolve, 25));
+      for (;;) {
+        const seen = arrivals;
+        await new Promise((resolve) => setTimeout(resolve, QUIET_MS));
+        if (arrivals === seen) break;
+      }
       try {
         const own = input.legalChoices.filter((choice) => choice.seat === input.seat);
         return { choiceId: own[0].id, utterance: "" };

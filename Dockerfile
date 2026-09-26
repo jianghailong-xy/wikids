@@ -51,5 +51,17 @@ COPY --from=builder --chown=nextjs:nodejs /app/node_modules/postgres ./node_modu
 USER nextjs
 EXPOSE 3000
 
-# Apply migrations, then start the Next.js standalone server.
+# Production runtime env defaults (docker-compose / the orchestrator may
+# override every one of them; unset = the app's own fail-safe behavior):
+# - AI_PROVIDER_ENABLED unset → provider enabled iff DEEPSEEK_API_KEY is set;
+#   "0"/"false" turns it off entirely (deterministic fallback, games still
+#   run to completion). No key is NOT an error.
+# - GAME_AI_GLOBAL_DAILY_CAP: the P6.3 frozen safe default (10000); an
+#   invalid value disables the provider rather than risking an overspend.
+ENV AI_PROVIDER_ENABLED=""
+ENV GAME_AI_GLOBAL_DAILY_CAP="10000"
+ENV GAME_RETENTION_DAYS="30"
+
+# Production migration runs automatically on every container start (migrate
+# is idempotent), then the Next.js standalone server takes over.
 CMD ["sh", "-c", "node scripts/migrate.mjs && node server.js"]

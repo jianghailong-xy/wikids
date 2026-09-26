@@ -171,6 +171,8 @@ The lesson page also pings `/api/progress` on load and exposes a
 | `npm run build`        | Build the production bundle on the host                           |
 | `npm run typecheck`    | `tsc --noEmit`                                                    |
 | `npm run verify:security-baseline` | Security baseline: clean install, prod audit, typecheck, build, auth smoke, migration smoke against a throwaway Postgres (see [docs/security-baseline.md](docs/security-baseline.md)) |
+| `npm run verify:release` | **The one-click release gate** (Node 20, clean install, isolated Postgres, no key): prod audit 0 high/critical, typecheck, rules/property/1000-seed tests, visibility/replay, AI contract + fallback, budgets/safety, isolated DB + API, Chromium E2E, production build, .next/static + log + database canary scans — CI runs this same command (see [docs/games/werewolf-validation.md](docs/games/werewolf-validation.md)) |
+| `npm run verify:deepseek-smoke` | OPT-IN real DeepSeek smoke: requires `REAL_DEEPSEEK_SMOKE=1` and a product key; never part of the release gate |
 | `npm run test`          | Run the full Vitest suite (foundation + quick6-v1 spec)          |
 | `npm run test:watch`    | Vitest in watch mode                                           |
 | `npm run test:foundation` | Foundation smoke only (alias, fixed seeds, jsdom, fast-check, hermetic env) |
