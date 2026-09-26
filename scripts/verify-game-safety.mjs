@@ -38,7 +38,7 @@
 // Uses only Node built-ins so it can orchestrate `npm ci` from a bare tree.
 
 import { spawnSync } from "node:child_process";
-import { randomBytes } from "node:crypto";
+import { createHash, randomBytes } from "node:crypto";
 import { existsSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import net from "node:net";
 import os from "node:os";
@@ -243,7 +243,10 @@ for (const canary of CANARIES) {
   if (allOutput.includes(canary)) {
     fail(`canary leaked into test output: ${canary}`);
   }
-  console.log(`  canary absent: ${canary}`);
+  // Report the canary by digest, never the raw string: the release gate
+  // scans this script's own output (log canary step) and would flag a
+  // plaintext canary as a leak even though it only appears in this report.
+  console.log(`  canary absent: ${createHash("sha256").update(canary).digest("hex").slice(0, 16)}`);
 }
 
 // --- step 9: typecheck --------------------------------------------------------

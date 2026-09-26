@@ -248,10 +248,16 @@ const EMAIL_PATTERN = /[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}/g;
 /** Email PII, excluding the fixture domain (only used to sign in). */
 function scanEmails(label, text) {
   let hits = 0;
-  for (const match of text.matchAll(EMAIL_PATTERN)) {
-    if (match[0].toLowerCase().endsWith(`@${FIXTURE_EMAIL_HOST}`)) continue;
-    hits += 1;
-    console.error(`  ✗ ${label}: leaked non-fixture email PII: ${match[0]}`);
+  for (const line of String(text).split("\n")) {
+    // npm's own deprecation notices carry maintainer contact emails by
+    // design (e.g. "contacting i@izs.me") — toolchain chatter, never an
+    // application leak.
+    if (line.startsWith("npm warn")) continue;
+    for (const match of line.matchAll(EMAIL_PATTERN)) {
+      if (match[0].toLowerCase().endsWith(`@${FIXTURE_EMAIL_HOST}`)) continue;
+      hits += 1;
+      console.error(`  ✗ ${label}: leaked non-fixture email PII: ${match[0]}`);
+    }
   }
   return hits;
 }
