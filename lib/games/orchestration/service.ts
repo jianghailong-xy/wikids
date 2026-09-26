@@ -909,7 +909,18 @@ export class GameApplicationService {
       if (result.applied && engine.isTerminal()) {
         await this.store.markFinished(ownerId, sessionId);
       }
-      return { kind: "applied", revision: result.revision, response: result.response };
+      // `applied: false` means the transaction found this key's receipt
+      // already committed — a concurrent duplicate of the SAME intent (a
+      // second tab, a replayed click) that returned the stored response
+      // instead of applying again. The envelope must report that replay, not
+      // a second application (docs/game-api-protocol.md: applied false =
+      // 幂等 receipt 重放，只生效一次), so a client can never be told its
+      // intent landed twice.
+      return {
+        kind: result.applied ? "applied" : "replayed",
+        revision: result.revision,
+        response: result.response,
+      };
     } catch (error) {
       if (error instanceof PersistenceError) {
         if (error.code === "STALE_REVISION" || error.code === "STALE_PHASE_TOKEN") {

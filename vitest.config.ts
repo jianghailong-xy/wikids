@@ -2,6 +2,9 @@ import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
+  // tsconfig keeps `jsx: preserve` for Next.js; the test transform needs a
+  // real runtime, and the automatic one matches how the app is compiled.
+  esbuild: { jsx: "automatic" },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./", import.meta.url)),

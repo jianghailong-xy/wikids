@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 :root {
+  /* The game workspace renders Simplified Chinese, so the CJK faces are part
+     of the fallback chain (docs/design/werewolf/visual-spec.md §5). Latin
+     text never reaches them: the system sans-serif resolves first. */
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+    "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans SC",
+    sans-serif;
 }
 
 html,
@@ -14,4 +18,21 @@ body {
 
 body {
   @apply bg-slate-50 text-slate-900 antialiased;
+}
+
+/*
+ * docs/design/werewolf/visual-spec.md §7: with a reduced-motion preference the
+ * game shows state changes statically — no fades, no avatar pops, no flashing.
+ * The transition/animation properties are neutralised rather than the whole
+ * stylesheet being duplicated per component.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
